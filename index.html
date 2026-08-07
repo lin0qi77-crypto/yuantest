@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="generator" content="BWIKI">
     <meta name="author" content="BWIKI">
-    <title>代号鸢 · 操作记录器</title>
+    <title>代号鸢 · 操作记录器 v0.27</title>
     <style>
         /* ===== 全局变量 · BWIKI 出品 ===== */
         :root {
@@ -292,9 +292,9 @@
             border: 1px solid var(--wiki-border);
             border-radius: 30px;
             color: var(--wiki-highlight);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            padding: 6px 10px;
+            padding: 5px 7px;
             cursor: pointer;
             transition: 0.15s;
             touch-action: manipulation;
@@ -306,6 +306,32 @@
         .del-round-btn:active {
             background: #f5d6d0;
             transform: scale(0.88);
+        }
+        /* 重写本回合：绿色底 ↺（清空该回合操作，重新记录） */
+        .rewrite-round-btn {
+            background: #d5e5d0;
+            border: 1px solid #a8c8a0;
+            border-radius: 30px;
+            color: #3d6b3a;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 7px;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+        }
+        .rewrite-round-btn:hover {
+            background: #c4dcbe;
+            transform: scale(1.05);
+        }
+        .rewrite-round-btn:active {
+            transform: scale(0.88);
+        }
+        .round-actions {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            white-space: nowrap;
         }
 
         /* ===== 备注单元格 ===== */
@@ -428,6 +454,41 @@
         .drawer-option:has(.rename-input) {
             border-color: var(--wiki-highlight);
             box-shadow: 0 0 0 2px rgba(168, 101, 94, 0.25);
+        }
+        /* 改名模式：5 列横排，每列 = 输入框（上行）+ 还原按钮（下行） */
+        .right-panel.renaming {
+            flex-direction: row;
+            align-items: stretch;
+        }
+        .right-panel.renaming .drawer-option {
+            flex: 1 1 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+            padding: 6px 4px;
+        }
+        .right-panel.renaming .drawer-option .rename-input {
+            width: 100%;
+            flex: none;
+        }
+        .rename-reset-btn {
+            flex: 1 1 auto;
+            border: 1px solid var(--wiki-border-strong);
+            border-radius: 30px;
+            background: var(--wiki-card);
+            color: var(--wiki-primary-soft);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 4px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+        .rename-reset-btn:hover {
+            color: var(--wiki-highlight);
+            background: var(--wiki-card3);
         }
         .right-panel .drawer-option {
             flex: 1 1 0;
@@ -1139,7 +1200,7 @@
                 <span class="title-sep">·</span>
                 <input class="title-input" type="text" placeholder="输入关卡名称..." value="操作记录" id="levelTitle">
             </div>
-            <span class="sub">点击「代号鸢」切换游戏 · 点击「操作记录」填关卡名 · 生成竖版 3:4 图适合小红书</span>
+            <span class="sub">点击「代号鸢」切换游戏 · 点击「操作记录」填关卡名</span>
         </div>
 
         <!-- 表格 -->
@@ -1154,7 +1215,7 @@
                         <th>密探4</th>
                         <th>密探5</th>
                         <th style="min-width:70px;">备注说明</th>
-                        <th style="width:70px;">删除回合</th>
+                        <th style="width:84px;">删除/重写</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -1179,11 +1240,11 @@
                         </label>
                         <button id="startRoundBtn">回合开始</button>
                     </div>
-                    <div class="drawer-option" data-enemy="3号怪">切3号</div>
-                    <div class="drawer-option" data-enemy="4号怪">切4号</div>
-                    <div class="drawer-option" data-enemy="BOSS">切BOSS</div>
-                    <div class="drawer-option" data-enemy="1号怪">切1号</div>
-                    <div class="drawer-option" data-enemy="2号怪">切2号</div>
+                    <div class="drawer-option" data-enemy="3号怪">右2</div>
+                    <div class="drawer-option" data-enemy="4号怪">右1</div>
+                    <div class="drawer-option" data-enemy="BOSS">BOSS</div>
+                    <div class="drawer-option" data-enemy="1号怪">左1</div>
+                    <div class="drawer-option" data-enemy="2号怪">左2</div>
                 </div>
             </div>
 
@@ -1210,7 +1271,7 @@
 
         <!-- ===== 底部署名 ===== -->
         <div style="text-align:center; font-size:11px; color:var(--wiki-primary-soft); opacity:0.6; margin-top:8px; user-select:none;">
-            本工具由DeepSeek辅助生成。
+            操作记录小工具 v0.27 · 本工具由DeepSeek辅助生成。
         </div>
 
     </div>
@@ -1237,7 +1298,7 @@
     <div class="modal-overlay" id="previewModal">
         <div class="modal-box" style="max-width: 480px;">
             <div class="modal-title">图片预览</div>
-            <div class="modal-sub">所见即所得 · 竖版 3:4 · 适合小红书发布</div>
+            <div class="modal-sub">确认无误后保存图片</div>
             <img id="previewImg" class="preview-img" alt="预览图">
             <div class="preview-tag" id="previewTag"></div>
             <div class="modal-actions">
@@ -1301,10 +1362,10 @@
         };
         const enemyDisplayMap = {
             'BOSS': 'BOSS',
-            '1号怪': '1号怪',
-            '2号怪': '2号怪',
-            '3号怪': '3号怪',
-            '4号怪': '4号怪'
+            '1号怪': '左1',
+            '2号怪': '左2',
+            '3号怪': '右2',
+            '4号怪': '右1'
         };
 
         // —— 目标自定义名称（本地存储，只改显示名，内部键不变）——
@@ -1395,10 +1456,10 @@
             });
         }
 
-        // 更新目标按钮文字（切 + 显示名）
+        // 更新目标按钮文字（直接显示目标名，不带「切」字）
         function updateEnemyButtons() {
             drawerOptions.forEach(opt => {
-                opt.textContent = '切' + getEnemyDisplay(opt.dataset.enemy);
+                opt.textContent = getEnemyDisplay(opt.dataset.enemy);
             });
         }
 
@@ -1476,6 +1537,19 @@
             showToast(`<span class="dot ${enemyClassMap[currentEnemy]}"></span>密探${cardIndex + 1} ${actionType}（${getEnemyDisplay(currentEnemy)}）`);
         }
 
+        // 切人备注措辞：xx色打xx（颜色按目标位置，名字用自定义名）
+        // 1号怪红 / 2号怪黄 / 3号怪绿 / 4号怪蓝 / BOSS无色
+        function getSwitchRemarkText(target) {
+            const colorMap = {
+                '1号怪': '红色',
+                '2号怪': '黄色',
+                '3号怪': '绿色',
+                '4号怪': '蓝色',
+                'BOSS': '无色'
+            };
+            return `${colorMap[target] || '无色'}打${getEnemyDisplay(target)}`;
+        }
+
         function switchEnemy(enemy) {
             if (currentRoundIndex === -1) {
                 alert('请先点击「回合开始」再切换敌人');
@@ -1494,6 +1568,13 @@
                 target: enemy,
                 seq: seq
             });
+
+            // 前置写入回合备注（数据落盘，用户可在备注栏修改/删除）；同目标只记一次
+            const rText = getSwitchRemarkText(enemy);
+            const remark = round.remark || '';
+            if (!remark.split('\n').includes(rText)) {
+                round.remark = remark ? remark + '\n' + rText : rText;
+            }
 
             renderTable();
             updateTargetDots();
@@ -1527,7 +1608,20 @@
                 return;
             }
 
+            // 撤回前记录被删操作信息（若是切人，需同步移除备注行）
+            const removedOp = round.operations[maxCard][maxIdx];
             round.operations[maxCard].splice(maxIdx, 1);
+
+            // 撤回切人时，同步移除备注里对应的「xx色打xx」行（用户改过则保留）
+            if (removedOp.type === 'switch') {
+                const rText = getSwitchRemarkText(removedOp.target);
+                const lines = (round.remark || '').split('\n');
+                const li = lines.indexOf(rText);
+                if (li >= 0) {
+                    lines.splice(li, 1);
+                    round.remark = lines.join('\n');
+                }
+            }
 
             let allRecords = [];
             for (let i = 0; i < CARD_COUNT; i++) {
@@ -1675,37 +1769,25 @@
             return result;
         }
 
-        // 构建备注（切换目标信息）
-        function buildNotes() {
-            const notes = [];
-            rounds.forEach((round) => {
-                for (let c = 0; c < CARD_COUNT; c++) {
-                    (round.operations[c] || []).forEach(op => {
-                        if (op.type === 'switch') {
-                            notes.push(`第${round.round}回合 密探${c + 1} 切${getEnemyDisplay(op.target)}`);
-                        }
-                    });
-                }
-            });
-            return notes;
-        }
-
         // ============================
         //  目标改名（就地编辑，无弹窗）
         // ============================
         const renameEntryBtn = document.getElementById('renameEntryBtn');
+        const rightPanelEl = document.querySelector('.right-panel');
         let renaming = false;
         let renameFocusKey = null;
 
-        // 进入改名模式：5 个目标按钮就地变成输入框
+        // 进入改名模式：5 个目标按钮就地变成「输入框 + 还原」行
         function enterRenameMode(focusKey) {
             if (renaming) return;
             renaming = true;
             renameFocusKey = focusKey || null;
             renameEntryBtn.textContent = '完成';
             renameEntryBtn.classList.add('active');
+            rightPanelEl.classList.add('renaming');
             drawerOptions.forEach(opt => {
                 const key = opt.dataset.enemy;
+                const defName = enemyDisplayMap[key] || key;
                 opt.innerHTML = '';
                 const input = document.createElement('input');
                 input.className = 'rename-input';
@@ -1719,13 +1801,23 @@
                         exitRenameMode();
                     }
                 });
+                const resetBtn = document.createElement('button');
+                resetBtn.type = 'button';
+                resetBtn.className = 'rename-reset-btn';
+                resetBtn.textContent = '还原';
+                resetBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    input.value = defName;
+                    showToast(`已还原为「${defName}」，点「完成」保存`);
+                });
                 opt.appendChild(input);
+                opt.appendChild(resetBtn);
                 if (key === renameFocusKey) {
                     input.focus();
                     input.select();
                 }
             });
-            showToast('直接修改名称，点「完成」或点别处保存');
+            showToast('直接修改名称，可单独还原，点「完成」或点别处保存');
         }
 
         // 退出改名模式：收集输入并保存
@@ -1743,6 +1835,7 @@
             saveEnemyNames(o);
             renameEntryBtn.textContent = '✎ 改名';
             renameEntryBtn.classList.remove('active');
+            rightPanelEl.classList.remove('renaming');
             updateEnemyButtons();
             updateEnemyList();
             showToast('✅ 已保存目标名称');
@@ -1801,53 +1894,39 @@
             round.seqCounter = seq;
         }
 
-        // 提交编辑：替换该密探非 switch 操作，target 按位置对齐旧序列
+        // 精确修改：只替换符号类型，数量/顺序/序号/目标全部不变
         function commitCellEdit(roundIdx, cardIdx, inputValue) {
             const symbols = parseSymbolsText(inputValue);
             if (symbols === null) {
                 renderTable();
-                showToast('格式不对：用空格分隔 ↑ A ↓ 圈，可连写如 ↑↑');
+                showToast('格式不对：只用 ↑ A ↓ 圈，空格分隔');
                 return;
             }
             const round = rounds[roundIdx];
-            const oldOps = round.operations[cardIdx] || [];
-            const switchOps = oldOps.filter(op => op.type === 'switch');
-            const oldTargets = [];
-            oldOps.forEach(op => {
-                if (op.type !== 'switch') oldTargets.push(op.target || 'BOSS');
+            const oldOps = (round.operations[cardIdx] || []).filter(op => op.type !== 'switch');
+            if (symbols.length !== oldOps.length) {
+                renderTable();
+                showToast(`精确修改不能增删：保持 ${oldOps.length} 个操作（当前 ${symbols.length} 个）`);
+                return;
+            }
+            oldOps.forEach((op, i) => {
+                op.type = symbols[i]; // 保留 seq / order / target
             });
-            const newOps = symbols.map((sym, i) => ({
-                type: sym,
-                target: oldTargets[i] !== undefined ? oldTargets[i] : (oldTargets[oldTargets.length - 1] || 'BOSS')
-            }));
-            round.operations[cardIdx] = [...switchOps, ...newOps];
-            rebuildRoundSeq(round);
             renderTable();
-            showToast(`已更新 第${round.round}回合 密探${cardIdx + 1}`);
+            showToast(`已修改 第${round.round}回合 密探${cardIdx + 1}（数量/顺序不变）`);
         }
 
-        // 进入单元格编辑态
+        // 进入单元格编辑态（精确修改：显示每个操作，只允许改符号）
         function startCellEdit(tdEl, roundIdx, cardIdx) {
             if (tdEl.querySelector('input')) return;
             const round = rounds[roundIdx];
             const oldOps = round.operations[cardIdx] || [];
-            // 显示合并格式的符号序列（如 "↑ ↑ A" → "↑↑ A"）
-            const display = [];
-            let cur = null;
-            oldOps.forEach(op => {
-                if (op.type === 'switch') return;
-                if (cur && cur.type === op.type) {
-                    cur.sym += op.type;
-                } else {
-                    cur = { type: op.type, sym: op.type };
-                    display.push(cur);
-                }
-            });
+            const symbols = oldOps.filter(op => op.type !== 'switch').map(op => op.type);
             const input = document.createElement('input');
             input.className = 'cell-edit-input';
             input.type = 'text';
-            input.value = display.map(d => d.sym).join(' ');
-            input.placeholder = '↑ A ↓ 圈，空格分隔';
+            input.value = symbols.join(' ');
+            input.placeholder = `精确修改：${symbols.length} 个操作，只改符号`;
             input.maxLength = 40;
             tdEl.innerHTML = '';
             tdEl.appendChild(input);
@@ -1926,10 +2005,10 @@
         const previewCancelBtn = document.getElementById('previewCancel');
         let pendingImage = null;
 
-        function showPreview(dataURL, fileName, tag) {
-            previewImg.src = dataURL;
-            previewTag.textContent = tag;
-            pendingImage = { href: dataURL, fileName };
+        function showPreview(data) {
+            previewImg.src = data.dataURL;
+            previewTag.textContent = data.tag;
+            pendingImage = data;
             previewOverlay.classList.add('active');
         }
 
@@ -1942,7 +2021,7 @@
             if (!pendingImage) return;
             const link = document.createElement('a');
             link.download = pendingImage.fileName;
-            link.href = pendingImage.href;
+            link.href = pendingImage.dataURL;
             link.click();
             hidePreview();
             showToast('✅ 图片已保存，可分享到小红书');
@@ -2007,9 +2086,29 @@
             return true;
         }
 
+        // 旧存档迁移：把该回合的 switch 操作补齐为「xx色打xx」备注行（幂等，重复调用无副作用）
+        function migrateSwitchRemarks(round) {
+            const lines = (round.remark || '').split('\n').filter(l => l !== '');
+            const existing = new Set(lines);
+            for (let c = 0; c < CARD_COUNT; c++) {
+                (round.operations[c] || []).forEach(op => {
+                    if (op.type === 'switch') {
+                        const rText = getSwitchRemarkText(op.target);
+                        if (!existing.has(rText)) {
+                            lines.push(rText);
+                            existing.add(rText);
+                        }
+                    }
+                });
+            }
+            round.remark = lines.join('\n');
+        }
+
         function loadRecord(rec) {
             if (rounds.length > 0 && !confirm('加载将覆盖当前记录，确定继续吗？')) return;
             rounds = JSON.parse(JSON.stringify(rec.rounds || []));
+            // 旧存档（0.26 及以前）切人不落盘，加载时补齐到备注
+            rounds.forEach(r => migrateSwitchRemarks(r));
             currentRoundIndex = -1;
             currentEnemy = 'BOSS';
             if (rec.gameName) gameNameBtn.textContent = rec.gameName;
@@ -2190,11 +2289,16 @@
         // ============================
         //  生成图片（小红书竖版 3:4 · 所见即所得）
         // ============================
+        // 备注文本：原备注 + 该回合切换记录（仅图片使用，不改数据）
+        // 切人已前置写入回合备注（xx色打xx），出图直接渲染备注数据，无需额外生成
+
         async function generateImageWithAuthor() {
             if (rounds.length === 0) {
                 alert('还没有回合记录，先生成回合再出图吧');
                 return;
             }
+            // 兜底：确保切人备注齐全（幂等）
+            rounds.forEach(r => migrateSwitchRemarks(r));
 
             const author = await showModal();
             if (author === null) return;
@@ -2202,9 +2306,13 @@
             const gameName = (document.getElementById('gameNameBtn').textContent || '').trim() || '代号鸢';
             const levelName = (document.getElementById('levelTitle').value || '').trim();
             const title = levelName ? `${gameName} · ${levelName}` : `${gameName} · 操作记录`;
+            showPreview(buildImageCanvas(title, author));
+        }
+
+        // 生成图片画布（切人记录始终并入各回合备注、黄色标注；底部不再显示切人）
+        function buildImageCanvas(title, author) {
             // 使用全局合并逻辑
             const rowData = rounds.map(round => buildGlobalLabelsForRound(round));
-            const notes = buildNotes();
 
             // —— 小红书竖版 3:4：设计宽度 1080，2 倍输出保证清晰 ——
             const S = 2;
@@ -2263,24 +2371,25 @@
                 ];
             }));
 
-            // 备注列换行
+            // 备注列换行（直接渲染备注数据：手写备注 + 切人「xx色打xx」行）
             const remarkLayouts = rounds.map((round) => {
                 const text = round.remark || '';
                 if (!text) return [''];
                 const avail = COL_W[6] - 24;
-                const words = text.split('');
                 const lines = [];
-                let curLine = '';
-                for (const ch of words) {
-                    const test = curLine + ch;
-                    if (m.measureText(test).width > avail && curLine.length > 0) {
-                        lines.push(curLine);
-                        curLine = ch;
-                    } else {
-                        curLine = test;
+                text.split('\n').forEach(seg => {
+                    let curLine = '';
+                    for (const ch of seg) {
+                        const test = curLine + ch;
+                        if (m.measureText(test).width > avail && curLine.length > 0) {
+                            lines.push(curLine);
+                            curLine = ch;
+                        } else {
+                            curLine = test;
+                        }
                     }
-                }
-                if (curLine) lines.push(curLine);
+                    if (curLine) lines.push(curLine);
+                });
                 return lines.length ? lines : [''];
             });
 
@@ -2295,11 +2404,7 @@
             const headerH = 44 + (author ? 32 : 0) + 30 + 32;
             const tableTop = padTop + headerH;
 
-            // 底部备注卡
-            const notesCount = Math.max(notes.length, 1);
-            const notesH = 110 + (notesCount - 1) * 34;
-
-            const totalH = padTop + headerH + rowHeights.reduce((a, b) => a + b, 0) + 20 + notesH + 34;
+            const totalH = padTop + headerH + rowHeights.reduce((a, b) => a + b, 0) + 34;
 
             const DH = Math.max(1440, totalH + cardX * 2);
             const cardY = (DH - totalH) / 2;
@@ -2470,25 +2575,15 @@
                 y = baseY;
             });
 
-            // 底部备注卡（切换目标记录）
-            const notesY = y + 20;
-            ctx.fillStyle = C.card2;
-            roundRect(ctx, tableX, notesY, tableW, notesH, 12);
-            ctx.fill();
-            ctx.fillStyle = C.primary;
-            ctx.font = `bold 26px ${FONT}`;
-            ctx.fillText('备注（切换目标）', tableX + 22, notesY + 44);
-            ctx.font = `24px ${FONT}`;
-            ctx.fillStyle = C.soft;
-            if (notes.length === 0) {
-                ctx.fillText('本局未切换目标', tableX + 22, notesY + 76);
-            } else {
-                notes.forEach((n, i) => ctx.fillText(n, tableX + 22, notesY + 76 + i * 34));
-            }
-
             const dataURL = canvas.toDataURL('image/png');
             const fileName = `${title.replace(/[\\/:*?"<>|]/g, '_')}${author ? '_' + author.replace(/[\\/:*?"<>|]/g, '_') : ''}.png`;
-            showPreview(dataURL, fileName, `竖版 3:4 · ${canvas.width} × ${canvas.height} px · 适合小红书`);
+            return {
+                dataURL: dataURL,
+                fileName: fileName,
+                tag: `竖版 3:4 · ${canvas.width} × ${canvas.height} px`,
+                title: title,
+                author: author
+            };
         }
 
         // ============================
@@ -2522,7 +2617,7 @@
                 }
                 const remarkText = round.remark || '';
                 row += `<td class="remark-cell" contenteditable="true" data-round="${idx}">${remarkText}</td>`;
-                row += `<td><button class="del-round-btn" data-index="${idx}">✕</button></td>`;
+                row += `<td><div class="round-actions"><button class="rewrite-round-btn" data-index="${idx}" title="重写本回合（清空操作）">↺</button><button class="del-round-btn" data-index="${idx}" title="删除本回合">✕</button></div></td>`;
                 html += `<tr class="${idx === currentRoundIndex ? 'current-row' : ''}">${row}</tr>`;
             });
             tableBody.innerHTML = html;
@@ -2531,6 +2626,32 @@
                 btn.addEventListener('click', function(e) {
                     const idx = parseInt(this.dataset.index);
                     deleteRound(idx);
+                });
+            });
+
+            // 重写本回合：清空该回合所有操作（保留备注），并定位到该回合继续记录
+            document.querySelectorAll('.rewrite-round-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const idx = parseInt(this.dataset.index);
+                    if (isNaN(idx) || idx < 0 || idx >= rounds.length) return;
+                    const r = rounds[idx];
+                    if (!confirm(`确定重写第 ${r.round} 回合吗？将清空该回合所有操作（备注保留），之后记录将写入本回合`)) return;
+                    r.operations = {};
+                    for (let i = 0; i < CARD_COUNT; i++) r.operations[i] = [];
+                    r.counter = 0;
+                    r.seqCounter = 0;
+                    // 只移除备注里的「xx色打xx」切人行，手写备注保留
+                    const rLines = (r.remark || '').split('\n').filter(l => !/^(红|黄|绿|蓝|无)色打/.test(l));
+                    r.remark = rLines.join('\n');
+                    // 定位到被重写的回合，后续记录直接写入这里
+                    currentRoundIndex = idx;
+                    if (!keepTargetChk.checked) currentEnemy = 'BOSS';
+                    renderTable();
+                    updateCurrentRoundDisplay();
+                    updateStartBtnText();
+                    updateTargetDots();
+                    updateEnemyList();
+                    showToast(`第 ${r.round} 回合已清空，现在记录将写入本回合`);
                 });
             });
 
