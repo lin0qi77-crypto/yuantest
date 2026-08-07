@@ -1,0 +1,2616 @@
+<!DOCTYPE html>
+<!-- 代号鸢 · 操作记录器 | 开发者：BWIKI -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="generator" content="BWIKI">
+    <meta name="author" content="BWIKI">
+    <title>代号鸢 · 操作记录器</title>
+    <style>
+        /* ===== 全局变量 · BWIKI 出品 ===== */
+        :root {
+            --wiki-bg: #F2E8DF;
+            --wiki-card: #FFFCF8;
+            --wiki-card2: #FAF4EC;
+            --wiki-card3: #F5EBDC;
+            --wiki-primary: #4A3C35;
+            --wiki-primary-soft: #7A6860;
+            --wiki-highlight: #A8655E;
+            --wiki-highlight-light: #fdf0ef;
+            --wiki-border: #E2D5C8;
+            --wiki-border-strong: #C8BAA8;
+            --wiki-button-bg: #EFE0CC;
+            --wiki-shadow-lg: 0 8px 30px rgba(80, 50, 30, 0.13);
+            --wiki-r: 12px;
+            --wiki-r-lg: 14px;
+        }
+
+        /* ===== 敌人颜色（柔和） ===== */
+        .enemy-none {
+            background-color: transparent;
+        }
+        .enemy-boss {
+            background-color: #f5d6d0;
+        }
+        .enemy-1 {
+            background-color: #f5d6d0;
+        }
+        .enemy-2 {
+            background-color: #f5e5c0;
+        }
+        .enemy-3 {
+            background-color: #d5e5d0;
+        }
+        .enemy-4 {
+            background-color: #d0d5f0;
+        }
+
+        /* ===== 重置 & 全局 ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, system-ui, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: var(--wiki-bg);
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            max-width: 480px;
+            width: 100%;
+            background: var(--wiki-card);
+            border-radius: var(--wiki-r-lg);
+            padding: 14px 12px 20px;
+            box-shadow: var(--wiki-shadow-lg);
+            border: 1px solid var(--wiki-border);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 0 auto;
+        }
+
+        /* ===== 标题输入 ===== */
+        input,
+        textarea {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-bottom: 2px solid var(--wiki-border);
+            padding-bottom: 12px;
+            text-align: center;
+        }
+        .header .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+        }
+        .header .title-game {
+            border: 1px solid var(--wiki-border-strong);
+            background: var(--wiki-card3);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            outline: none;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex: 0 0 auto;
+            transition: background 0.15s, color 0.15s;
+        }
+        .header .title-game:hover {
+            background: #e8d5be;
+            color: var(--wiki-highlight);
+        }
+        .header .title-game:active {
+            transform: scale(0.94);
+        }
+        .header .title-sep {
+            color: var(--wiki-primary-soft);
+            font-size: 18px;
+            font-weight: 600;
+            flex: 0 0 auto;
+            letter-spacing: 1px;
+        }
+        .header .title-input {
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            outline: none;
+            padding: 4px 0;
+            flex: 1 1 auto;
+            min-width: 0;
+            width: auto;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+        .header .title-input:focus {
+            background: #fffcf5;
+            box-shadow: inset 0 0 0 2px var(--wiki-highlight);
+            border-radius: 6px;
+        }
+        .header .title-input::placeholder {
+            color: var(--wiki-primary-soft);
+            font-weight: 400;
+        }
+        .header .sub {
+            font-size: 12px;
+            color: var(--wiki-primary-soft);
+            text-align: center;
+        }
+
+        /* ===== 表格 ===== */
+        .table-wrapper {
+            width: 100%;
+            background: var(--wiki-card2);
+            border-radius: var(--wiki-r);
+            padding: 4px;
+            overflow-x: auto;
+            max-height: 42vh;
+            overflow-y: auto;
+            border: 1px solid var(--wiki-border);
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: var(--wiki-border-strong) transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-wrapper::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--wiki-border-strong);
+            border-radius: 4px;
+        }
+        .table-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 0;
+        }
+        thead th {
+            background: var(--wiki-card3);
+            color: var(--wiki-primary);
+            font-weight: 600;
+            padding: 8px 2px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border-bottom: 2px solid var(--wiki-border-strong);
+            text-align: center;
+            white-space: nowrap;
+            border-left: 1px solid var(--wiki-border);
+            border-right: 1px solid var(--wiki-border);
+            font-size: 12px;
+        }
+        thead th:first-child {
+            border-left: none;
+        }
+        thead th:last-child {
+            border-right: none;
+        }
+        tbody td {
+            padding: 6px 2px;
+            border-bottom: 1px solid var(--wiki-border);
+            border-left: 1px solid var(--wiki-border);
+            border-right: 1px solid var(--wiki-border);
+            color: var(--wiki-primary);
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12px;
+            background: transparent;
+        }
+        tbody tr:nth-child(odd) {
+            background: var(--wiki-card);
+        }
+        tbody tr:nth-child(even) {
+            background: var(--wiki-card2);
+        }
+        tbody td:first-child {
+            border-left: none;
+        }
+        tbody td:last-child {
+            border-right: none;
+        }
+        tbody tr:hover td {
+            background: var(--wiki-card3);
+        }
+        tbody tr.current-row td {
+            background: var(--wiki-highlight-light);
+        }
+        tbody tr.current-row td:first-child strong {
+            color: var(--wiki-highlight);
+        }
+        tbody td:first-child {
+            font-weight: 600;
+            color: var(--wiki-highlight);
+        }
+
+        .op-item {
+            display: inline-block;
+            padding: 0px;
+            margin: 0 1px;
+            border-radius: 4px;
+            white-space: normal;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .op-item.switch-text {
+            font-weight: 500;
+            color: var(--wiki-primary);
+        }
+        .op-item strong {
+            font-weight: 700;
+        }
+
+        /* ===== 单元格编辑 ===== */
+        .op-cell {
+            cursor: pointer;
+        }
+        .op-cell:hover {
+            box-shadow: inset 0 0 0 2px rgba(168, 101, 94, 0.35);
+        }
+        .cell-edit-input {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            border: 2px solid var(--wiki-highlight);
+            border-radius: 6px;
+            padding: 3px 4px;
+            font-size: 12px;
+            color: var(--wiki-primary);
+            background: #fffcf5;
+            outline: none;
+            text-align: center;
+        }
+
+        .del-round-btn {
+            background: var(--wiki-highlight-light);
+            border: 1px solid var(--wiki-border);
+            border-radius: 30px;
+            color: var(--wiki-highlight);
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 10px;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+        }
+        .del-round-btn:hover {
+            background: #f5d6d0;
+            transform: scale(1.05);
+        }
+        .del-round-btn:active {
+            background: #f5d6d0;
+            transform: scale(0.88);
+        }
+
+        /* ===== 备注单元格 ===== */
+        .remark-cell {
+            min-width: 50px;
+            max-width: 80px;
+            cursor: text;
+            text-align: left;
+            padding: 4px 4px !important;
+            background: transparent !important;
+            color: var(--wiki-primary);
+            word-break: break-word;
+            white-space: pre-wrap;
+            outline: none;
+            border-radius: 0;
+            font-size: 12px;
+            line-height: 1.5;
+            transition: background 0.15s;
+        }
+        .remark-cell:focus {
+            background: #fffcf5 !important;
+            box-shadow: inset 0 0 0 2px var(--wiki-highlight);
+            border-radius: 4px;
+        }
+        .remark-cell .remark-placeholder {
+            color: var(--wiki-primary-soft);
+            font-style: italic;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .remark-cell:hover {
+            background: var(--wiki-card3) !important;
+        }
+        .remark-cell:empty::before {
+            content: "备注";
+            font-size: 11px;
+            color: var(--wiki-primary-soft);
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* ===== 交互区域 ===== */
+        .interact-area {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* ---- 切换目标行 ---- */
+        .target-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            width: 100%;
+        }
+        .target-row .right-panel {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            width: 100%;
+        }
+        .right-panel .drawer-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            border-bottom: 1px dashed var(--wiki-border-strong);
+            padding-bottom: 4px;
+            margin-bottom: 2px;
+        }
+        .right-panel .drawer-title {
+            font-weight: 600;
+            color: var(--wiki-primary);
+            font-size: 13px;
+            text-align: center;
+        }
+        .rename-entry {
+            flex: 0 0 auto;
+            background: var(--wiki-card3);
+            border: 1px solid var(--wiki-border-strong);
+            border-radius: 30px;
+            padding: 2px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+        .rename-entry:hover {
+            background: #e8d5be;
+            color: var(--wiki-highlight);
+        }
+        .rename-entry.active {
+            background: var(--wiki-primary);
+            color: #FFF8F0;
+            border-color: var(--wiki-primary);
+        }
+        /* 改名模式：按钮内的就地输入框 */
+        .drawer-option .rename-input {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            border: 2px solid var(--wiki-highlight);
+            border-radius: 6px;
+            padding: 2px 4px;
+            font-size: 12px;
+            color: var(--wiki-primary);
+            background: #fffcf5;
+            outline: none;
+            text-align: center;
+        }
+        .drawer-option:has(.rename-input) {
+            border-color: var(--wiki-highlight);
+            box-shadow: 0 0 0 2px rgba(168, 101, 94, 0.25);
+        }
+        .right-panel .drawer-option {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 10px 2px;
+            font-size: 13px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid var(--wiki-border);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--wiki-primary);
+            transition: 0.1s;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+        .right-panel .drawer-option:hover {
+            background: var(--wiki-card3);
+        }
+        .right-panel .drawer-option:active {
+            transform: scale(0.96);
+        }
+        .right-panel .drawer-option[data-enemy="BOSS"] {
+            background: transparent;
+        }
+        .right-panel .drawer-option[data-enemy="1号怪"] {
+            background: #f5d6d0;
+        }
+        .right-panel .drawer-option[data-enemy="2号怪"] {
+            background: #f5e5c0;
+        }
+        .right-panel .drawer-option[data-enemy="3号怪"] {
+            background: #d5e5d0;
+        }
+        .right-panel .drawer-option[data-enemy="4号怪"] {
+            background: #d0d5f0;
+        }
+        .right-panel .drawer-option.selected {
+            border-color: var(--wiki-highlight);
+            box-shadow: 0 0 0 2px var(--wiki-highlight);
+            font-weight: 600;
+        }
+
+        .mobile-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 0 0 100%;
+            justify-content: center;
+        }
+        .right-panel .keep-target {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--wiki-primary-soft);
+            background: var(--wiki-card2);
+            padding: 6px 12px;
+            border-radius: 40px;
+            border: 1px solid var(--wiki-border);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            flex: 0 0 auto;
+        }
+        .right-panel .keep-target input {
+            accent-color: var(--wiki-highlight);
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+        .right-panel button#startRoundBtn {
+            background: var(--wiki-button-bg);
+            border: 1px solid var(--wiki-border-strong);
+            border-radius: 40px;
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 3px 0 var(--wiki-border-strong);
+            touch-action: manipulation;
+            white-space: nowrap;
+            flex: 0 0 auto;
+        }
+        .right-panel button#startRoundBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 var(--wiki-border-strong);
+            background: #e8d5be;
+        }
+        .right-panel button#startRoundBtn:active {
+            transform: translateY(4px) scale(0.96);
+            box-shadow: 0 0px 0 var(--wiki-border-strong);
+        }
+
+        /* ---- 密探卡牌 ---- */
+        .cards-container {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: nowrap;
+            width: 100%;
+        }
+        .card {
+            flex: 0 0 calc((100% - 24px) / 5);
+            background: var(--wiki-card2);
+            border-radius: var(--wiki-r);
+            overflow: hidden;
+            box-shadow: 0 4px 0 var(--wiki-border-strong);
+            display: flex;
+            flex-direction: column;
+            transition: 0.15s;
+            border: 1px solid var(--wiki-border);
+            min-height: 0;
+        }
+        .card:hover {
+            transform: scale(1.02);
+            border-color: var(--wiki-highlight);
+        }
+        .card .zone {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--wiki-primary);
+            transition: transform 0.08s ease, background 0.1s, color 0.1s;
+            border-bottom: 1px solid var(--wiki-border);
+            min-height: 46px;
+            background: var(--wiki-card);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .card .zone:last-child {
+            border-bottom: none;
+        }
+        .card .zone:hover {
+            background: var(--wiki-card3);
+            color: var(--wiki-primary);
+        }
+        .card .zone:active {
+            background: #f5d6d0;
+            color: var(--wiki-highlight);
+            transform: scale(0.85);
+        }
+        .card .zone[data-action="↑"] {
+            border-left: 6px solid #c9a87c;
+        }
+        .card .zone[data-action="A"] {
+            border-left: 6px solid #7a9bb5;
+        }
+        .card .zone[data-action="↓"] {
+            border-left: 6px solid #7fb08c;
+        }
+        .card .zone[data-action="圈"] {
+            border-left: 6px solid #b58bb0;
+        }
+
+        .card-label {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--wiki-primary-soft);
+            padding: 5px 0;
+            background: var(--wiki-card3);
+            border-bottom: 1px solid var(--wiki-border);
+        }
+        .card-label .target-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: -1px;
+            border: 1px solid var(--wiki-border-strong);
+        }
+
+        /* ---- 功能按钮行 ---- */
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            width: 100%;
+        }
+        .button-row .left-panel {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+        }
+        .left-panel button {
+            background: var(--wiki-button-bg);
+            border: 1px solid var(--wiki-border-strong);
+            border-radius: 40px;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 3px 0 var(--wiki-border-strong);
+            letter-spacing: 0.5px;
+            touch-action: manipulation;
+            white-space: nowrap;
+            flex: 1 1 100px;
+        }
+        .left-panel button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 0 var(--wiki-border-strong);
+            background: #e8d5be;
+        }
+        .left-panel button:active {
+            transform: translateY(4px) scale(0.96);
+            box-shadow: 0 0px 0 var(--wiki-border-strong);
+        }
+        .left-panel .info {
+            background: var(--wiki-card2);
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--wiki-border);
+            font-size: 13px;
+            color: var(--wiki-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .left-panel .info span {
+            color: var(--wiki-highlight);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .left-panel .clear-btn {
+            background: var(--wiki-highlight-light);
+            color: var(--wiki-highlight);
+            border-color: var(--wiki-border);
+            box-shadow: 0 3px 0 var(--wiki-border);
+        }
+        .left-panel .clear-btn:hover {
+            background: #f5d6d0;
+        }
+        .left-panel .undo-btn {
+            background: var(--wiki-card3);
+            color: var(--wiki-primary);
+            border-color: var(--wiki-border-strong);
+            box-shadow: 0 3px 0 var(--wiki-border-strong);
+        }
+        .left-panel .undo-btn:hover {
+            background: #e8d5be;
+        }
+        .left-panel .gen-img-btn {
+            background: var(--wiki-primary);
+            color: #FFF8F0;
+            border-color: var(--wiki-primary);
+            box-shadow: 0 3px 0 #332a24;
+        }
+        .left-panel .gen-img-btn:hover {
+            background: #5d4d45;
+            box-shadow: 0 5px 0 #332a24;
+        }
+
+        /* ===== 底部操作提示（toast） ===== */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            transform: translate(-50%, 16px);
+            background: rgba(74, 60, 53, 0.93);
+            color: #FFF8F0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s, transform 0.18s;
+            box-shadow: 0 6px 20px rgba(80, 50, 30, 0.3);
+            z-index: 2000;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        .toast .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 7px;
+            vertical-align: -1px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        /* ===== 模态框样式 ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 60, 53, 0.55);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+            animation: modalFadeIn 0.2s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .modal-box {
+            background: var(--wiki-card);
+            border-radius: var(--wiki-r-lg);
+            padding: 28px 32px 32px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(74, 60, 53, 0.25);
+            border: 1px solid var(--wiki-border);
+            text-align: center;
+        }
+        .modal-box .modal-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .modal-box .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            margin-bottom: 4px;
+        }
+        .modal-box .modal-sub {
+            font-size: 14px;
+            color: var(--wiki-primary-soft);
+            margin-bottom: 18px;
+        }
+        .modal-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--wiki-border);
+            border-radius: var(--wiki-r);
+            font-size: 16px;
+            color: var(--wiki-primary);
+            background: var(--wiki-card2);
+            outline: none;
+            transition: border-color 0.2s;
+            text-align: center;
+        }
+        .modal-box input:focus {
+            border-color: var(--wiki-highlight);
+            box-shadow: 0 0 0 3px rgba(168, 101, 94, 0.15);
+        }
+        .modal-box input::placeholder {
+            color: var(--wiki-primary-soft);
+            opacity: 0.6;
+        }
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            justify-content: center;
+        }
+        .modal-box .modal-actions button {
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 1px solid var(--wiki-border-strong);
+            cursor: pointer;
+            transition: 0.2s;
+            touch-action: manipulation;
+            flex: 1;
+            max-width: 140px;
+        }
+        .modal-box .modal-actions .btn-cancel {
+            background: var(--wiki-card2);
+            color: var(--wiki-primary-soft);
+            border-color: var(--wiki-border);
+        }
+        .modal-box .modal-actions .btn-cancel:hover {
+            background: var(--wiki-card3);
+        }
+        .modal-box .modal-actions .btn-confirm {
+            background: var(--wiki-primary);
+            color: #FFF8F0;
+            border-color: var(--wiki-primary);
+            box-shadow: 0 3px 0 #332a24;
+        }
+        .modal-box .modal-actions .btn-confirm:hover {
+            background: #5d4d45;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 #332a24;
+        }
+        .modal-box .modal-actions .btn-confirm:active {
+            transform: translateY(4px) scale(0.96);
+            box-shadow: 0 0px 0 #332a24;
+        }
+
+        /* ===== 图片预览 ===== */
+        .preview-img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 56vh;
+            border-radius: 10px;
+            border: 1px solid var(--wiki-border);
+            background: var(--wiki-bg);
+        }
+        .preview-tag {
+            font-size: 12px;
+            color: var(--wiki-highlight);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ===== 本地记录管理 ===== */
+        .record-save-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .record-save-row input {
+            flex: 1;
+            min-width: 0;
+        }
+        .record-save-row button {
+            flex: 0 0 auto;
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--wiki-primary);
+            background: var(--wiki-primary);
+            color: #FFF8F0;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+        .record-save-row button:hover {
+            background: #5d4d45;
+        }
+        .record-list {
+            max-height: 38vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+            margin-bottom: 4px;
+        }
+        .record-empty {
+            color: var(--wiki-primary-soft);
+            font-size: 13px;
+            padding: 18px 0;
+            text-align: center;
+        }
+        .record-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--wiki-card2);
+            border: 1px solid var(--wiki-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        .record-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .record-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--wiki-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .record-meta {
+            font-size: 11px;
+            color: var(--wiki-primary-soft);
+            margin-top: 2px;
+        }
+        .record-item button {
+            flex: 0 0 auto;
+            border-radius: 30px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid var(--wiki-border-strong);
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+        .record-item button:hover {
+            transform: translateY(-1px);
+        }
+        .record-load-btn {
+            background: var(--wiki-primary);
+            color: #FFF8F0;
+            border-color: var(--wiki-primary);
+        }
+        .record-del-btn {
+            background: var(--wiki-highlight-light);
+            color: var(--wiki-highlight);
+            border-color: var(--wiki-border);
+        }
+
+        /* ===== 常用署名 ===== */
+        .author-quick-row {
+            display: flex;
+            margin-top: 10px;
+        }
+        .author-quick-row button {
+            flex: 1;
+            padding: 9px 14px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid var(--wiki-border);
+            background: var(--wiki-card2);
+            color: var(--wiki-primary);
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+        .author-quick-row button:hover {
+            background: var(--wiki-card3);
+        }
+        .author-saved {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 10px;
+            max-height: 96px;
+            overflow-y: auto;
+        }
+        .author-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--wiki-card2);
+            border: 1px solid var(--wiki-border);
+            border-radius: 30px;
+            padding: 4px 6px 4px 12px;
+            font-size: 13px;
+            color: var(--wiki-primary);
+            cursor: pointer;
+            transition: background 0.15s;
+            touch-action: manipulation;
+        }
+        .author-chip:hover {
+            background: var(--wiki-card3);
+        }
+        .author-chip-del {
+            border: none;
+            background: transparent;
+            color: var(--wiki-primary-soft);
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 50%;
+            touch-action: manipulation;
+        }
+        .author-chip-del:hover {
+            color: var(--wiki-highlight);
+            background: var(--wiki-highlight-light);
+        }
+
+        /* ===== 大屏幕适配 ===== */
+        @media (min-width: 600px) {
+            body {
+                padding: 24px 20px;
+            }
+            .app {
+                max-width: 480px;
+                padding: 20px 16px;
+                border-radius: var(--wiki-r-lg);
+            }
+            .modal-box {
+                padding: 32px 36px 36px;
+            }
+        }
+
+        /* ===== 超小屏适配 ===== */
+        @media (max-width: 480px) {
+            .app {
+                padding: 12px 8px 16px;
+                gap: 12px;
+            }
+            .header .title-input,
+            .header .title-game,
+            .header .title-sep {
+                font-size: 16px;
+            }
+            .right-panel .drawer-option {
+                font-size: 12px;
+                padding: 8px 2px;
+            }
+            .card .zone {
+                font-size: 16px;
+                min-height: 40px;
+            }
+            .left-panel button {
+                font-size: 12px;
+                padding: 8px 8px;
+                flex: 1 1 70px;
+            }
+            .left-panel .info {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+            .remark-cell:empty::before {
+                content: "备";
+                font-size: 10px;
+            }
+            .remark-cell {
+                min-width: 40px;
+                max-width: 60px;
+                font-size: 11px;
+                padding: 4px 2px !important;
+            }
+            thead th {
+                font-size: 11px;
+                padding: 6px 1px;
+            }
+            tbody td {
+                font-size: 11px;
+                padding: 4px 1px;
+            }
+            .del-round-btn {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+            .op-item {
+                font-size: 11px;
+            }
+            .modal-box {
+                padding: 20px 18px 24px;
+            }
+            .modal-box .modal-title {
+                font-size: 16px;
+            }
+            .modal-box input {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+            .modal-box .modal-actions button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        /* ===== 交互优化 ===== */
+        button,
+        .zone,
+        .del-round-btn,
+        .drawer-option {
+            touch-action: manipulation;
+        }
+        .card:hover,
+        .left-panel button:hover,
+        .del-round-btn:hover,
+        .right-panel .drawer-option:hover,
+        .right-panel .keep-target:hover {
+            transform: none;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        .left-panel button:hover {
+            transform: translateY(-2px);
+        }
+        .right-panel .drawer-option:hover {
+            background: var(--wiki-card3);
+        }
+        .right-panel .keep-target:hover {
+            background: var(--wiki-card3);
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+
+        <!-- 标题输入 -->
+        <div class="header">
+            <div class="title-row">
+                <span class="title-game" id="gameNameBtn" title="点击切换">代号鸢</span>
+                <span class="title-sep">·</span>
+                <input class="title-input" type="text" placeholder="输入关卡名称..." value="操作记录" id="levelTitle">
+            </div>
+            <span class="sub">点击「代号鸢」切换游戏 · 点击「操作记录」填关卡名 · 生成竖版 3:4 图适合小红书</span>
+        </div>
+
+        <!-- 表格 -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>回合数</th>
+                        <th>密探1</th>
+                        <th>密探2</th>
+                        <th>密探3</th>
+                        <th>密探4</th>
+                        <th>密探5</th>
+                        <th style="min-width:70px;">备注说明</th>
+                        <th style="width:70px;">删除回合</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- 动态生成 -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 交互区域 -->
+        <div class="interact-area">
+
+            <!-- 切换目标行 -->
+            <div class="target-row">
+                <div class="right-panel">
+                    <div class="drawer-title-row">
+                        <span class="drawer-title" id="drawerTitle">当前目标：BOSS</span>
+                        <button class="rename-entry" id="renameEntryBtn">✎ 改名</button>
+                    </div>
+                    <div class="mobile-row">
+                        <label class="keep-target" for="keepTargetChk">
+                            <input type="checkbox" id="keepTargetChk"> 保持目标
+                        </label>
+                        <button id="startRoundBtn">回合开始</button>
+                    </div>
+                    <div class="drawer-option" data-enemy="3号怪">切3号</div>
+                    <div class="drawer-option" data-enemy="4号怪">切4号</div>
+                    <div class="drawer-option" data-enemy="BOSS">切BOSS</div>
+                    <div class="drawer-option" data-enemy="1号怪">切1号</div>
+                    <div class="drawer-option" data-enemy="2号怪">切2号</div>
+                </div>
+            </div>
+
+            <!-- 密探卡牌 -->
+            <div class="cards-container" id="cardsContainer">
+                <!-- 由JS生成 -->
+            </div>
+
+            <!-- 功能按钮行 -->
+            <div class="button-row">
+                <div class="left-panel">
+                    <button id="recordsBtn" class="records-btn">我的记录</button>
+                    <button id="clearAllBtn" class="clear-btn">清空所有</button>
+                    <div class="info">当前回合 <span id="currentRoundDisplay">0</span></div>
+                    <button id="undoBtn" class="undo-btn">撤回</button>
+                    <button id="genImgBtn" class="gen-img-btn">生成图片</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 底部操作提示 -->
+        <div class="toast" id="toast"></div>
+
+        <!-- ===== 底部署名 ===== -->
+        <div style="text-align:center; font-size:11px; color:var(--wiki-primary-soft); opacity:0.6; margin-top:8px; user-select:none;">
+            本工具由DeepSeek辅助生成。
+        </div>
+
+    </div>
+
+    <!-- ===== 署名弹窗 ===== -->
+    <div class="modal-overlay" id="authorModal">
+        <div class="modal-box">
+            <span class="modal-icon">✏️</span>
+            <div class="modal-title">输入署名</div>
+            <div class="modal-sub">您的署名将显示在图片标题下方</div>
+            <input type="text" id="authorInput" placeholder="请输入您的署名或笔名" maxlength="30" autofocus>
+            <div class="author-quick-row">
+                <button type="button" id="authorSaveBtn">记住此署名</button>
+            </div>
+            <div class="author-saved" id="authorSavedList"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="modalCancel">取消</button>
+                <button class="btn-confirm" id="modalConfirm">确认生成</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 图片预览弹窗 ===== -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-box" style="max-width: 480px;">
+            <div class="modal-title">图片预览</div>
+            <div class="modal-sub">所见即所得 · 竖版 3:4 · 适合小红书发布</div>
+            <img id="previewImg" class="preview-img" alt="预览图">
+            <div class="preview-tag" id="previewTag"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="previewCancel">取消</button>
+                <button class="btn-confirm" id="previewSave">保存图片</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 本地记录管理弹窗 ===== -->
+    <div class="modal-overlay" id="recordsModal">
+        <div class="modal-box" style="max-width: 440px;">
+            <div class="modal-title">我的记录</div>
+            <div class="modal-sub">保存在本机浏览器，可随时调用或删除</div>
+            <div class="record-save-row">
+                <input type="text" id="recordNameInput" placeholder="记录名称（默认用当前标题）" maxlength="30">
+                <button id="recordSaveBtn">保存当前</button>
+            </div>
+            <div class="record-list" id="recordList"></div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="recordsCloseBtn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================
+        //  数据层 · BWIKI
+        // ============================
+        let rounds = [];
+        let currentRoundIndex = -1;
+        let currentEnemy = 'BOSS';
+
+        const tableBody = document.getElementById('tableBody');
+        const currentRoundSpan = document.getElementById('currentRoundDisplay');
+        const startBtn = document.getElementById('startRoundBtn');
+        const undoBtn = document.getElementById('undoBtn');
+        const clearBtn = document.getElementById('clearAllBtn');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const drawerOptions = document.querySelectorAll('.drawer-option');
+        const drawerTitle = document.getElementById('drawerTitle');
+        const toastEl = document.getElementById('toast');
+        const keepTargetChk = document.getElementById('keepTargetChk');
+        const genImgBtn = document.getElementById('genImgBtn');
+
+        // 模态框元素
+        const modalOverlay = document.getElementById('authorModal');
+        const authorInput = document.getElementById('authorInput');
+        const modalConfirm = document.getElementById('modalConfirm');
+        const modalCancel = document.getElementById('modalCancel');
+
+        const CARD_COUNT = 5;
+        const ACTION_TYPES = ['↑', 'A', '↓', '圈'];
+
+        const enemyClassMap = {
+            'BOSS': 'enemy-none',
+            '1号怪': 'enemy-1',
+            '2号怪': 'enemy-2',
+            '3号怪': 'enemy-3',
+            '4号怪': 'enemy-4'
+        };
+        const enemyDisplayMap = {
+            'BOSS': 'BOSS',
+            '1号怪': '1号怪',
+            '2号怪': '2号怪',
+            '3号怪': '3号怪',
+            '4号怪': '4号怪'
+        };
+
+        // —— 目标自定义名称（本地存储，只改显示名，内部键不变）——
+        // 安全存储：localStorage 不可用（file:// 或隐私模式）时降级为内存，保证功能可用
+        const _memStore = {};
+        function safeGet(key) {
+            try {
+                const v = localStorage.getItem(key);
+                return v === null ? undefined : v;
+            } catch (e) {
+                return _memStore[key];
+            }
+        }
+        function safeSet(key, val) {
+            try {
+                localStorage.setItem(key, val);
+            } catch (e) {
+                _memStore[key] = val;
+            }
+        }
+        const ENEMY_NAMES_KEY = 'dxdy_enemy_names_v1';
+        function loadEnemyNames() {
+            try {
+                const o = JSON.parse(safeGet(ENEMY_NAMES_KEY) || '{}');
+                return o && typeof o === 'object' ? o : {};
+            } catch (e) {
+                return {};
+            }
+        }
+        function saveEnemyNames(o) {
+            safeSet(ENEMY_NAMES_KEY, JSON.stringify(o));
+        }
+        function getEnemyDisplay(key) {
+            const o = loadEnemyNames();
+            const custom = o[key];
+            if (custom && String(custom).trim()) return String(custom).trim();
+            return enemyDisplayMap[key] || key;
+        }
+
+        let lastActiveCardIndex = 0;
+        let pendingAuthor = '';
+
+        // ============================
+        //  生成卡牌
+        // ============================
+        function buildCards() {
+            cardsContainer.querySelectorAll('.card').forEach(c => c.remove());
+            for (let i = 0; i < CARD_COUNT; i++) {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+
+                const label = document.createElement('div');
+                label.className = 'card-label';
+                label.innerHTML = `<span class="target-dot enemy-none"></span>密探${i + 1}`;
+                cardDiv.appendChild(label);
+
+                ACTION_TYPES.forEach((action) => {
+                    const zone = document.createElement('div');
+                    zone.className = 'zone';
+                    zone.dataset.action = action;
+                    zone.dataset.index = i;
+                    zone.textContent = action;
+                    zone.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const index = parseInt(zone.dataset.index);
+                        const type = zone.dataset.action;
+                        recordAction(index, type);
+                    });
+                    cardDiv.appendChild(zone);
+                });
+
+                cardsContainer.appendChild(cardDiv);
+            }
+        }
+        buildCards();
+
+        function updateTargetDots() {
+            document.querySelectorAll('.target-dot').forEach(dot => {
+                dot.className = `target-dot ${enemyClassMap[currentEnemy] || 'enemy-none'}`;
+            });
+        }
+        updateTargetDots();
+
+        function updateEnemyList() {
+            drawerTitle.textContent = `当前目标：${getEnemyDisplay(currentEnemy)}`;
+            drawerOptions.forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.enemy === currentEnemy);
+            });
+        }
+
+        // 更新目标按钮文字（切 + 显示名）
+        function updateEnemyButtons() {
+            drawerOptions.forEach(opt => {
+                opt.textContent = '切' + getEnemyDisplay(opt.dataset.enemy);
+            });
+        }
+
+        let toastTimer = null;
+
+        function showToast(html) {
+            toastEl.innerHTML = html;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1500);
+        }
+
+        // 目标按钮：单击切换 · PC右键重命名 · 手机长按(600ms)重命名
+        drawerOptions.forEach(opt => {
+            const key = opt.dataset.enemy;
+            let pressTimer = null;
+            let longPressed = false;
+
+            opt.addEventListener('click', () => {
+                if (longPressed) {
+                    longPressed = false; // 长按结束后的 click 吞掉，避免误切目标
+                    return;
+                }
+                if (renaming) return; // 改名模式下点击不切目标
+                switchEnemy(key);
+            });
+
+            opt.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                enterRenameMode(key);
+            });
+
+            const clearPress = () => clearTimeout(pressTimer);
+            opt.addEventListener('touchstart', () => {
+                longPressed = false;
+                clearPress();
+                pressTimer = setTimeout(() => {
+                    longPressed = true;
+                    enterRenameMode(key);
+                    if (navigator.vibrate) navigator.vibrate(30);
+                }, 600);
+            }, { passive: true });
+            opt.addEventListener('touchend', clearPress);
+            opt.addEventListener('touchmove', clearPress);
+            opt.addEventListener('touchcancel', clearPress);
+        });
+
+        // ============================
+        //  核心功能
+        // ============================
+        function recordAction(cardIndex, actionType) {
+            if (currentRoundIndex === -1) {
+                alert('请先点击「回合开始」再记录操作');
+                return;
+            }
+            lastActiveCardIndex = cardIndex;
+            const round = rounds[currentRoundIndex];
+            const order = (round.counter || 0) + 1;
+            round.counter = order;
+
+            const seq = (round.seqCounter || 0) + 1;
+            round.seqCounter = seq;
+
+            if (!round.operations[cardIndex]) {
+                round.operations[cardIndex] = [];
+            }
+            round.operations[cardIndex].push({
+                type: actionType,
+                order: order,
+                seq: seq,
+                target: currentEnemy
+            });
+
+            renderTable();
+            showToast(`<span class="dot ${enemyClassMap[currentEnemy]}"></span>密探${cardIndex + 1} ${actionType}（${getEnemyDisplay(currentEnemy)}）`);
+        }
+
+        function switchEnemy(enemy) {
+            if (currentRoundIndex === -1) {
+                alert('请先点击「回合开始」再切换敌人');
+                return;
+            }
+            currentEnemy = enemy;
+            const round = rounds[currentRoundIndex];
+            const seq = (round.seqCounter || 0) + 1;
+            round.seqCounter = seq;
+
+            if (!round.operations[lastActiveCardIndex]) {
+                round.operations[lastActiveCardIndex] = [];
+            }
+            round.operations[lastActiveCardIndex].push({
+                type: 'switch',
+                target: enemy,
+                seq: seq
+            });
+
+            renderTable();
+            updateTargetDots();
+            updateEnemyList();
+            showToast(`<span class="dot ${enemyClassMap[enemy]}"></span>全队切换至 ${getEnemyDisplay(enemy)}`);
+        }
+
+        function undoAction() {
+            if (currentRoundIndex === -1) {
+                alert('当前没有正在记录的回合');
+                return;
+            }
+            const round = rounds[currentRoundIndex];
+
+            let maxSeq = -1;
+            let maxCard = -1;
+            let maxIdx = -1;
+            for (let i = 0; i < CARD_COUNT; i++) {
+                const ops = round.operations[i] || [];
+                for (let j = 0; j < ops.length; j++) {
+                    if (ops[j].seq > maxSeq) {
+                        maxSeq = ops[j].seq;
+                        maxCard = i;
+                        maxIdx = j;
+                    }
+                }
+            }
+
+            if (maxSeq === -1) {
+                alert('当前回合没有可撤回的操作');
+                return;
+            }
+
+            round.operations[maxCard].splice(maxIdx, 1);
+
+            let allRecords = [];
+            for (let i = 0; i < CARD_COUNT; i++) {
+                const ops = round.operations[i] || [];
+                ops.forEach(op => {
+                    allRecords.push({ card: i, op: op });
+                });
+            }
+            allRecords.sort((a, b) => a.op.seq - b.op.seq);
+            let counter = 0;
+            allRecords.forEach(item => {
+                if (item.op.type !== 'switch') {
+                    counter++;
+                    item.op.order = counter;
+                }
+            });
+            round.counter = counter;
+
+            renderTable();
+            showToast('已撤回上一步');
+        }
+
+        function startNewRound() {
+            const newRound = {
+                round: rounds.length + 1,
+                operations: {},
+                counter: 0,
+                seqCounter: 0,
+                remark: ''
+            };
+            for (let i = 0; i < CARD_COUNT; i++) {
+                newRound.operations[i] = [];
+            }
+            rounds.push(newRound);
+            currentRoundIndex = rounds.length - 1;
+            if (!keepTargetChk.checked) currentEnemy = 'BOSS';
+            renderTable();
+            updateCurrentRoundDisplay();
+            updateStartBtnText();
+            updateTargetDots();
+            updateEnemyList();
+            showToast(`第 ${newRound.round} 回合开始`);
+        }
+
+        function deleteRound(index) {
+            if (index < 0 || index >= rounds.length) return;
+            if (!confirm(`确定要删除第 ${rounds[index].round} 回合吗？`)) return;
+
+            rounds.splice(index, 1);
+            rounds.forEach((r, idx) => { r.round = idx + 1; });
+
+            if (currentRoundIndex === index) {
+                currentRoundIndex = -1;
+            } else if (currentRoundIndex > index) {
+                currentRoundIndex--;
+            }
+            if (rounds.length === 0) currentRoundIndex = -1;
+
+            renderTable();
+            updateCurrentRoundDisplay();
+            updateStartBtnText();
+        }
+
+        function clearAll() {
+            if (!confirm('确定要清空所有记录吗？')) return;
+            rounds = [];
+            currentRoundIndex = -1;
+            renderTable();
+            updateCurrentRoundDisplay();
+            updateStartBtnText();
+        }
+
+        // ============================
+        //  核心渲染：全局合并 & 分配标签
+        // ============================
+        // 对单个回合，生成每个密探的标签数组（序号全局连续）
+        function buildGlobalLabelsForRound(round) {
+            // 收集所有非 switch 操作，附带密探索引
+            const allOps = [];
+            for (let c = 0; c < CARD_COUNT; c++) {
+                const ops = round.operations[c] || [];
+                ops.forEach(op => {
+                    if (op.type !== 'switch') {
+                        allOps.push({
+                            cardIndex: c,
+                            type: op.type,
+                            target: op.target || 'BOSS',
+                            seq: op.seq,
+                            order: op.order
+                        });
+                    }
+                });
+            }
+            // 按 seq 排序
+            allOps.sort((a, b) => a.seq - b.seq);
+
+            // 合并连续相同密探、类型、目标
+            const groups = [];
+            let current = null;
+            for (const op of allOps) {
+                if (!current) {
+                    current = {
+                        cardIndex: op.cardIndex,
+                        type: op.type,
+                        target: op.target,
+                        count: 1,
+                        lastSeq: op.seq
+                    };
+                } else if (
+                    op.cardIndex === current.cardIndex &&
+                    op.type === current.type &&
+                    (op.target || 'BOSS') === (current.target || 'BOSS') &&
+                    op.seq === current.lastSeq + 1
+                ) {
+                    current.count++;
+                    current.lastSeq = op.seq;
+                } else {
+                    groups.push(current);
+                    current = {
+                        cardIndex: op.cardIndex,
+                        type: op.type,
+                        target: op.target,
+                        count: 1,
+                        lastSeq: op.seq
+                    };
+                }
+            }
+            if (current) groups.push(current);
+
+            // 给每个组分配全局序号（从1开始递增）
+            groups.forEach((g, idx) => {
+                g.orderIdx = idx + 1;
+            });
+
+            // 按密探索引分配标签
+            const result = Array.from({ length: CARD_COUNT }, () => []);
+            groups.forEach(g => {
+                const cls = enemyClassMap[g.target] || 'enemy-none';
+                result[g.cardIndex].push({
+                    num: String(g.orderIdx),
+                    sym: g.type.repeat(g.count),
+                    cls: cls
+                });
+            });
+            return result;
+        }
+
+        // 构建备注（切换目标信息）
+        function buildNotes() {
+            const notes = [];
+            rounds.forEach((round) => {
+                for (let c = 0; c < CARD_COUNT; c++) {
+                    (round.operations[c] || []).forEach(op => {
+                        if (op.type === 'switch') {
+                            notes.push(`第${round.round}回合 密探${c + 1} 切${getEnemyDisplay(op.target)}`);
+                        }
+                    });
+                }
+            });
+            return notes;
+        }
+
+        // ============================
+        //  目标改名（就地编辑，无弹窗）
+        // ============================
+        const renameEntryBtn = document.getElementById('renameEntryBtn');
+        let renaming = false;
+        let renameFocusKey = null;
+
+        // 进入改名模式：5 个目标按钮就地变成输入框
+        function enterRenameMode(focusKey) {
+            if (renaming) return;
+            renaming = true;
+            renameFocusKey = focusKey || null;
+            renameEntryBtn.textContent = '完成';
+            renameEntryBtn.classList.add('active');
+            drawerOptions.forEach(opt => {
+                const key = opt.dataset.enemy;
+                opt.innerHTML = '';
+                const input = document.createElement('input');
+                input.className = 'rename-input';
+                input.type = 'text';
+                input.value = getEnemyDisplay(key);
+                input.maxLength = 10;
+                input.addEventListener('click', (e) => e.stopPropagation());
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                        e.preventDefault();
+                        exitRenameMode();
+                    }
+                });
+                opt.appendChild(input);
+                if (key === renameFocusKey) {
+                    input.focus();
+                    input.select();
+                }
+            });
+            showToast('直接修改名称，点「完成」或点别处保存');
+        }
+
+        // 退出改名模式：收集输入并保存
+        function exitRenameMode() {
+            if (!renaming) return;
+            renaming = false;
+            const o = loadEnemyNames();
+            drawerOptions.forEach(opt => {
+                const input = opt.querySelector('input');
+                if (!input) return;
+                const key = opt.dataset.enemy;
+                const name = input.value.trim();
+                if (name) o[key] = name;
+            });
+            saveEnemyNames(o);
+            renameEntryBtn.textContent = '✎ 改名';
+            renameEntryBtn.classList.remove('active');
+            updateEnemyButtons();
+            updateEnemyList();
+            showToast('✅ 已保存目标名称');
+        }
+
+        renameEntryBtn.addEventListener('click', () => {
+            if (renaming) exitRenameMode();
+            else enterRenameMode();
+        });
+        // 点击目标区以外 → 保存并退出改名模式（捕获阶段，避免被 stopPropagation 拦截）
+        document.addEventListener('click', (e) => {
+            if (renaming && !e.target.closest('.right-panel')) exitRenameMode();
+        }, true);
+
+        // ============================
+        //  单元格编辑（点击操作单元格，修改该密探操作）
+        // ============================
+        // 校验并展开输入文本："↑ ↑ A" 或 "↑↑ A" → ['↑','↑','A']，非法返回 null
+        function parseSymbolsText(text) {
+            const t = (text || '').trim();
+            if (t === '') return [];
+            const tokens = t.split(/\s+/);
+            const symbols = [];
+            for (const tk of tokens) {
+                if (!/^[↑A↓圈]+$/.test(tk)) return null;
+                symbols.push(...tk.split(''));
+            }
+            return symbols;
+        }
+
+        // 编辑后重建该回合的序号：非 switch 按（密探, 数组顺序）排 seq/order，switch 排最后
+        function rebuildRoundSeq(round) {
+            let seq = 0;
+            let order = 0;
+            for (let c = 0; c < CARD_COUNT; c++) {
+                const ops = round.operations[c] || [];
+                for (const op of ops) {
+                    if (op.type !== 'switch') {
+                        seq++;
+                        order++;
+                        op.seq = seq;
+                        op.order = order;
+                    }
+                }
+            }
+            for (let c = 0; c < CARD_COUNT; c++) {
+                const ops = round.operations[c] || [];
+                for (const op of ops) {
+                    if (op.type === 'switch') {
+                        seq++;
+                        op.seq = seq;
+                    }
+                }
+            }
+            round.counter = order;
+            round.seqCounter = seq;
+        }
+
+        // 提交编辑：替换该密探非 switch 操作，target 按位置对齐旧序列
+        function commitCellEdit(roundIdx, cardIdx, inputValue) {
+            const symbols = parseSymbolsText(inputValue);
+            if (symbols === null) {
+                renderTable();
+                showToast('格式不对：用空格分隔 ↑ A ↓ 圈，可连写如 ↑↑');
+                return;
+            }
+            const round = rounds[roundIdx];
+            const oldOps = round.operations[cardIdx] || [];
+            const switchOps = oldOps.filter(op => op.type === 'switch');
+            const oldTargets = [];
+            oldOps.forEach(op => {
+                if (op.type !== 'switch') oldTargets.push(op.target || 'BOSS');
+            });
+            const newOps = symbols.map((sym, i) => ({
+                type: sym,
+                target: oldTargets[i] !== undefined ? oldTargets[i] : (oldTargets[oldTargets.length - 1] || 'BOSS')
+            }));
+            round.operations[cardIdx] = [...switchOps, ...newOps];
+            rebuildRoundSeq(round);
+            renderTable();
+            showToast(`已更新 第${round.round}回合 密探${cardIdx + 1}`);
+        }
+
+        // 进入单元格编辑态
+        function startCellEdit(tdEl, roundIdx, cardIdx) {
+            if (tdEl.querySelector('input')) return;
+            const round = rounds[roundIdx];
+            const oldOps = round.operations[cardIdx] || [];
+            // 显示合并格式的符号序列（如 "↑ ↑ A" → "↑↑ A"）
+            const display = [];
+            let cur = null;
+            oldOps.forEach(op => {
+                if (op.type === 'switch') return;
+                if (cur && cur.type === op.type) {
+                    cur.sym += op.type;
+                } else {
+                    cur = { type: op.type, sym: op.type };
+                    display.push(cur);
+                }
+            });
+            const input = document.createElement('input');
+            input.className = 'cell-edit-input';
+            input.type = 'text';
+            input.value = display.map(d => d.sym).join(' ');
+            input.placeholder = '↑ A ↓ 圈，空格分隔';
+            input.maxLength = 40;
+            tdEl.innerHTML = '';
+            tdEl.appendChild(input);
+            input.focus();
+            input.select();
+
+            let done = false;
+            const finish = (commit) => {
+                if (done) return;
+                done = true;
+                if (commit) commitCellEdit(roundIdx, cardIdx, input.value);
+                else renderTable();
+            };
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    finish(true);
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    finish(false);
+                }
+            });
+            input.addEventListener('blur', () => finish(true));
+            input.addEventListener('click', (e) => e.stopPropagation());
+        }
+
+        // ============================
+        //  模态框控制
+        // ============================
+        function showModal() {
+            modalOverlay.classList.add('active');
+            authorInput.value = '';
+            authorInput.focus();
+            renderAuthorList();
+            return new Promise((resolve) => {
+                const onConfirm = () => {
+                    const val = authorInput.value.trim();
+                    hideModal();
+                    resolve(val || '');
+                };
+                const onCancel = () => {
+                    hideModal();
+                    resolve(null);
+                };
+                modalConfirm.onclick = onConfirm;
+                modalCancel.onclick = onCancel;
+                authorInput.onkeydown = (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        onConfirm();
+                    }
+                };
+                modalOverlay.onclick = (e) => {
+                    if (e.target === modalOverlay) {
+                        onCancel();
+                    }
+                };
+            });
+        }
+
+        function hideModal() {
+            modalOverlay.classList.remove('active');
+            modalConfirm.onclick = null;
+            modalCancel.onclick = null;
+            authorInput.onkeydown = null;
+            modalOverlay.onclick = null;
+        }
+
+        // ============================
+        //  图片预览（所见即所得）
+        // ============================
+        const previewOverlay = document.getElementById('previewModal');
+        const previewImg = document.getElementById('previewImg');
+        const previewTag = document.getElementById('previewTag');
+        const previewSaveBtn = document.getElementById('previewSave');
+        const previewCancelBtn = document.getElementById('previewCancel');
+        let pendingImage = null;
+
+        function showPreview(dataURL, fileName, tag) {
+            previewImg.src = dataURL;
+            previewTag.textContent = tag;
+            pendingImage = { href: dataURL, fileName };
+            previewOverlay.classList.add('active');
+        }
+
+        function hidePreview() {
+            previewOverlay.classList.remove('active');
+            pendingImage = null;
+        }
+
+        previewSaveBtn.addEventListener('click', () => {
+            if (!pendingImage) return;
+            const link = document.createElement('a');
+            link.download = pendingImage.fileName;
+            link.href = pendingImage.href;
+            link.click();
+            hidePreview();
+            showToast('✅ 图片已保存，可分享到小红书');
+        });
+
+        previewCancelBtn.addEventListener('click', hidePreview);
+        previewOverlay.addEventListener('click', (e) => {
+            if (e.target === previewOverlay) hidePreview();
+        });
+
+        // ============================
+        //  本地记录：保存 / 调用 / 删除
+        // ============================
+        const RECORDS_KEY = 'dxdy_operation_records_v1';
+        const recordsOverlay = document.getElementById('recordsModal');
+        const recordNameInput = document.getElementById('recordNameInput');
+        const recordSaveBtn = document.getElementById('recordSaveBtn');
+        const recordListEl = document.getElementById('recordList');
+        const recordsCloseBtn = document.getElementById('recordsCloseBtn');
+
+        function escapeHtml(text) {
+            return String(text).replace(/[&<>"']/g, (ch) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[ch]);
+        }
+
+        function loadRecordsFromStorage() {
+            try {
+                const list = JSON.parse(safeGet(RECORDS_KEY) || '[]');
+                return Array.isArray(list) ? list : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveRecordsToStorage(list) {
+            safeSet(RECORDS_KEY, JSON.stringify(list));
+        }
+
+        function getCurrentTitleText() {
+            const gameName = gameNameBtn.textContent.trim();
+            const levelName = document.getElementById('levelTitle').value.trim();
+            return levelName ? `${gameName} · ${levelName}` : `${gameName} · 操作记录`;
+        }
+
+        function saveCurrentRecord(name) {
+            if (rounds.length === 0) {
+                alert('还没有回合记录，先记录一些操作再保存吧');
+                return false;
+            }
+            const list = loadRecordsFromStorage();
+            list.unshift({
+                id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                name: name || getCurrentTitleText(),
+                savedAt: Date.now(),
+                gameName: gameNameBtn.textContent.trim(),
+                levelName: document.getElementById('levelTitle').value.trim(),
+                rounds: JSON.parse(JSON.stringify(rounds))
+            });
+            saveRecordsToStorage(list);
+            showToast('✅ 已保存到本机');
+            return true;
+        }
+
+        function loadRecord(rec) {
+            if (rounds.length > 0 && !confirm('加载将覆盖当前记录，确定继续吗？')) return;
+            rounds = JSON.parse(JSON.stringify(rec.rounds || []));
+            currentRoundIndex = -1;
+            currentEnemy = 'BOSS';
+            if (rec.gameName) gameNameBtn.textContent = rec.gameName;
+            const levelInput = document.getElementById('levelTitle');
+            levelInput.value = rec.levelName !== undefined ? rec.levelName : '';
+            renderTable();
+            updateCurrentRoundDisplay();
+            updateStartBtnText();
+            updateTargetDots();
+            updateEnemyList();
+            hideRecords();
+            showToast(`✅ 已载入「${rec.name}」`);
+        }
+
+        function renderRecordList() {
+            const list = loadRecordsFromStorage();
+            recordListEl.innerHTML = '';
+            if (list.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'record-empty';
+                empty.textContent = '还没有保存过的记录，点上方「保存当前」试试';
+                recordListEl.appendChild(empty);
+                return;
+            }
+            list.forEach((rec, idx) => {
+                const item = document.createElement('div');
+                item.className = 'record-item';
+                const info = document.createElement('div');
+                info.className = 'record-info';
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'record-name';
+                nameDiv.textContent = rec.name || '未命名';
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'record-meta';
+                const time = new Date(rec.savedAt).toLocaleString();
+                metaDiv.textContent = `${rec.rounds ? rec.rounds.length : 0} 回合 · ${time}`;
+                info.appendChild(nameDiv);
+                info.appendChild(metaDiv);
+                const loadBtn = document.createElement('button');
+                loadBtn.className = 'record-load-btn';
+                loadBtn.textContent = '加载';
+                loadBtn.addEventListener('click', () => loadRecord(rec));
+                const delBtn = document.createElement('button');
+                delBtn.className = 'record-del-btn';
+                delBtn.textContent = '删除';
+                delBtn.addEventListener('click', () => {
+                    if (!confirm(`确定删除「${rec.name || '未命名'}」吗？`)) return;
+                    const nl = loadRecordsFromStorage();
+                    nl.splice(idx, 1);
+                    saveRecordsToStorage(nl);
+                    renderRecordList();
+                    showToast('已删除');
+                });
+                item.appendChild(info);
+                item.appendChild(loadBtn);
+                item.appendChild(delBtn);
+                recordListEl.appendChild(item);
+            });
+        }
+
+        function showRecords() {
+            recordNameInput.value = rounds.length > 0 ? getCurrentTitleText() : '';
+            renderRecordList();
+            recordsOverlay.classList.add('active');
+        }
+
+        function hideRecords() {
+            recordsOverlay.classList.remove('active');
+        }
+
+        document.getElementById('recordsBtn').addEventListener('click', showRecords);
+        recordsCloseBtn.addEventListener('click', hideRecords);
+        recordSaveBtn.addEventListener('click', () => {
+            if (saveCurrentRecord(recordNameInput.value.trim())) {
+                renderRecordList();
+            }
+        });
+        recordNameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (saveCurrentRecord(recordNameInput.value.trim())) {
+                    renderRecordList();
+                }
+            }
+        });
+        recordsOverlay.addEventListener('click', (e) => {
+            if (e.target === recordsOverlay) hideRecords();
+        });
+        renderRecordList();
+
+        // ============================
+        //  常用署名：本地保存 / 选用 / 删除
+        // ============================
+        const AUTHOR_KEY = 'dxdy_author_names_v1';
+        const authorSaveBtn = document.getElementById('authorSaveBtn');
+        const authorSavedList = document.getElementById('authorSavedList');
+
+        function loadAuthors() {
+            try {
+                const arr = JSON.parse(safeGet(AUTHOR_KEY) || '[]');
+                return Array.isArray(arr) ? arr : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveAuthors(arr) {
+            safeSet(AUTHOR_KEY, JSON.stringify(arr));
+        }
+
+        function rememberAuthor(name) {
+            name = (name || '').trim();
+            if (!name) return false;
+            let arr = loadAuthors().filter(n => n !== name);
+            arr.unshift(name);
+            if (arr.length > 20) arr = arr.slice(0, 20);
+            saveAuthors(arr);
+            return true;
+        }
+
+        function renderAuthorList() {
+            const arr = loadAuthors();
+            authorSavedList.innerHTML = '';
+            if (arr.length === 0) {
+                authorSavedList.style.display = 'none';
+                return;
+            }
+            authorSavedList.style.display = '';
+            arr.forEach(name => {
+                const chip = document.createElement('span');
+                chip.className = 'author-chip';
+                const text = document.createElement('span');
+                text.textContent = name;
+                const del = document.createElement('button');
+                del.type = 'button';
+                del.className = 'author-chip-del';
+                del.textContent = '×';
+                del.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (!confirm(`确定删除署名「${name}」吗？`)) return;
+                    saveAuthors(loadAuthors().filter(n => n !== name));
+                    renderAuthorList();
+                    showToast('已删除署名');
+                });
+                chip.addEventListener('click', () => {
+                    authorInput.value = name;
+                    authorInput.focus();
+                    showToast(`已选用「${name}」，确认后生成`);
+                });
+                chip.appendChild(text);
+                chip.appendChild(del);
+                authorSavedList.appendChild(chip);
+            });
+        }
+
+        authorSaveBtn.addEventListener('click', () => {
+            const name = authorInput.value.trim();
+            if (!name) {
+                showToast('先输入署名再记住');
+                return;
+            }
+            if (rememberAuthor(name)) {
+                renderAuthorList();
+                showToast(`✅ 已记住「${name}」`);
+            }
+        });
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+
+        // ============================
+        //  生成图片（小红书竖版 3:4 · 所见即所得）
+        // ============================
+        async function generateImageWithAuthor() {
+            if (rounds.length === 0) {
+                alert('还没有回合记录，先生成回合再出图吧');
+                return;
+            }
+
+            const author = await showModal();
+            if (author === null) return;
+
+            const gameName = (document.getElementById('gameNameBtn').textContent || '').trim() || '代号鸢';
+            const levelName = (document.getElementById('levelTitle').value || '').trim();
+            const title = levelName ? `${gameName} · ${levelName}` : `${gameName} · 操作记录`;
+            // 使用全局合并逻辑
+            const rowData = rounds.map(round => buildGlobalLabelsForRound(round));
+            const notes = buildNotes();
+
+            // —— 小红书竖版 3:4：设计宽度 1080，2 倍输出保证清晰 ——
+            const S = 2;
+            const DW = 1080;
+            const FONT = '"PingFang SC","Microsoft YaHei",sans-serif';
+            const C = {
+                bg: '#F2E8DF',
+                card: '#FFFCF8',
+                card2: '#FAF4EC',
+                card3: '#F5EBDC',
+                primary: '#4A3C35',
+                soft: '#7A6860',
+                highlight: '#A8655E',
+                border: '#E2D5C8',
+                strong: '#C8BAA8'
+            };
+            const enemyBg = {
+                'enemy-none': null,
+                'enemy-1': '#f5d6d0',
+                'enemy-2': '#f5e5c0',
+                'enemy-3': '#d5e5d0',
+                'enemy-4': '#d0d5f0'
+            };
+
+            const m = document.createElement('canvas').getContext('2d');
+            m.font = `24px ${FONT}`;
+
+            // 列宽：回合数 | 密探1~5 | 备注说明（与页面表格比例一致）
+            const COL_W = [88, 142, 142, 142, 142, 142, 134];
+            const tableW = COL_W.reduce((a, b) => a + b, 0);
+            const innerPad = 20;
+            const cardX = 54;
+            const cardW = DW - cardX * 2;
+            const tableX = cardX + innerPad;
+
+            // 密探单元格换行布局（规则同页面 .op-item）
+            const layouts = rowData.map(cells => cells.map((labels, ci) => {
+                const avail = COL_W[ci + 1] - 24;
+                const rowsArr = [];
+                let curRow = [];
+                let cur = 0;
+                labels.forEach(l => {
+                    m.font = `bold 24px ${FONT}`;
+                    const w = m.measureText(l.num + l.sym).width + 20;
+                    if (curRow.length && cur + w > avail) {
+                        rowsArr.push(curRow);
+                        curRow = [];
+                        cur = 0;
+                    }
+                    curRow.push({ num: l.num, sym: l.sym, cls: l.cls, w });
+                    cur += w + 8;
+                });
+                if (curRow.length) rowsArr.push(curRow);
+                return rowsArr.length ? rowsArr : [
+                    []
+                ];
+            }));
+
+            // 备注列换行
+            const remarkLayouts = rounds.map((round) => {
+                const text = round.remark || '';
+                if (!text) return [''];
+                const avail = COL_W[6] - 24;
+                const words = text.split('');
+                const lines = [];
+                let curLine = '';
+                for (const ch of words) {
+                    const test = curLine + ch;
+                    if (m.measureText(test).width > avail && curLine.length > 0) {
+                        lines.push(curLine);
+                        curLine = ch;
+                    } else {
+                        curLine = test;
+                    }
+                }
+                if (curLine) lines.push(curLine);
+                return lines.length ? lines : [''];
+            });
+
+            const rowHeights = layouts.map((ls, ri) => {
+                const chipLines = Math.max(...ls.map(r => r.length), 1);
+                const remLines = remarkLayouts[ri] ? remarkLayouts[ri].length : 1;
+                return Math.max(72, chipLines * 50 + 16, remLines * 36 + 30);
+            });
+
+            // 头部信息（居中，样式同页面 .header）
+            const padTop = 34;
+            const headerH = 44 + (author ? 32 : 0) + 30 + 32;
+            const tableTop = padTop + headerH;
+
+            // 底部备注卡
+            const notesCount = Math.max(notes.length, 1);
+            const notesH = 110 + (notesCount - 1) * 34;
+
+            const totalH = padTop + headerH + rowHeights.reduce((a, b) => a + b, 0) + 20 + notesH + 34;
+
+            const DH = Math.max(1440, totalH + cardX * 2);
+            const cardY = (DH - totalH) / 2;
+
+            const canvas = document.createElement('canvas');
+            canvas.width = DW * S;
+            canvas.height = DH * S;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(S, S);
+            ctx.textAlign = 'left';
+
+            // 页面背景
+            ctx.fillStyle = C.bg;
+            ctx.fillRect(0, 0, DW, DH);
+
+            // 卡片（柔和阴影）
+            ctx.save();
+            ctx.shadowColor = 'rgba(80, 50, 30, 0.13)';
+            ctx.shadowBlur = 24;
+            ctx.shadowOffsetY = 10;
+            ctx.fillStyle = C.card;
+            roundRect(ctx, cardX, cardY, cardW, totalH, 14);
+            ctx.fill();
+            ctx.restore();
+            ctx.fillStyle = C.card;
+            roundRect(ctx, cardX, cardY, cardW, totalH, 14);
+            ctx.fill();
+
+            // 标题
+            ctx.textAlign = 'center';
+            let ty = cardY + padTop;
+            ctx.fillStyle = C.primary;
+            ctx.font = `bold 36px ${FONT}`;
+            let drawTitle = title;
+            while (ctx.measureText(drawTitle).width > cardW - 100 && drawTitle.length > 4) {
+                drawTitle = drawTitle.slice(0, -1);
+            }
+            if (drawTitle !== title) drawTitle += '…';
+            ctx.fillText(drawTitle, cardX + cardW / 2, ty + 36);
+            ty += 44;
+            if (author) {
+                const authorText = `【制表：${author}】`;
+                ctx.font = `bold 24px ${FONT}`;
+                const aw = ctx.measureText(authorText).width;
+                ctx.fillStyle = '#fdf0ef';
+                roundRect(ctx, cardX + cardW / 2 - aw / 2 - 18, ty - 1, aw + 36, 36, 18);
+                ctx.fill();
+                ctx.fillStyle = C.highlight;
+                ctx.fillText(authorText, cardX + cardW / 2, ty + 24);
+                ty += 32;
+            }
+            ctx.fillStyle = C.soft;
+            ctx.font = `22px ${FONT}`;
+            ctx.fillText(`${rounds.length} 回合 · ${new Date().toLocaleDateString()}`, cardX + cardW / 2, ty + 22);
+            ty += 30;
+            ctx.strokeStyle = C.border;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(tableX, ty + 10);
+            ctx.lineTo(tableX + tableW, ty + 10);
+            ctx.stroke();
+            ctx.textAlign = 'left';
+
+            // 表头
+            let y = cardY + tableTop;
+            const HEADER_H = 50;
+            ctx.fillStyle = C.card3;
+            ctx.fillRect(tableX, y, tableW, HEADER_H);
+            const headers = ['回合数', '密探1', '密探2', '密探3', '密探4', '密探5', '备注说明'];
+            ctx.fillStyle = C.primary;
+            ctx.font = `bold 24px ${FONT}`;
+            ctx.textAlign = 'center';
+            let x = tableX;
+            headers.forEach((h, i) => {
+                ctx.fillText(h, x + COL_W[i] / 2, y + 33);
+                x += COL_W[i];
+            });
+            ctx.textAlign = 'left';
+            ctx.strokeStyle = C.border;
+            ctx.lineWidth = 1;
+            for (let i = 1; i < COL_W.length; i++) {
+                const sepX = tableX + COL_W.slice(0, i).reduce((a, b) => a + b, 0);
+                ctx.beginPath();
+                ctx.moveTo(sepX, y);
+                ctx.lineTo(sepX, y + HEADER_H);
+                ctx.stroke();
+            }
+            ctx.strokeStyle = C.strong;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(tableX, y + HEADER_H);
+            ctx.lineTo(tableX + tableW, y + HEADER_H);
+            ctx.stroke();
+            y += HEADER_H;
+
+            // 数据行（斑马纹：白/浅米交替）
+            ctx.font = `24px ${FONT}`;
+            layouts.forEach((ls, ri) => {
+                const h = rowHeights[ri];
+                const baseY = y + h;
+                ctx.fillStyle = ri % 2 === 0 ? C.card : C.card2;
+                ctx.fillRect(tableX, y, tableW, h);
+
+                ctx.fillStyle = C.highlight;
+                ctx.font = `bold 24px ${FONT}`;
+                ctx.textAlign = 'center';
+                ctx.fillText(String(rounds[ri].round), tableX + COL_W[0] / 2, y + h / 2 + 9);
+                ctx.textAlign = 'left';
+                ctx.font = `24px ${FONT}`;
+
+                ls.forEach((rowsArr, ci) => {
+                    const colX = tableX + COL_W[0] + COL_W.slice(1, ci + 1).reduce((a, b) => a + b, 0);
+                    if (rowsArr.length === 1 && rowsArr[0].length === 0) {
+                        ctx.fillStyle = C.soft;
+                        ctx.textAlign = 'center';
+                        ctx.fillText('—', colX + COL_W[ci + 1] / 2, y + h / 2 + 9);
+                        ctx.textAlign = 'left';
+                        return;
+                    }
+                    let yy = y + (h - rowsArr.length * 50 + 8) / 2;
+                    rowsArr.forEach(row => {
+                        let xx = colX + 4;
+                        row.forEach(t => {
+                            const bg = enemyBg[t.cls];
+                            if (bg) {
+                                ctx.fillStyle = bg;
+                                roundRect(ctx, xx, yy, t.w, 42, 8);
+                                ctx.fill();
+                            }
+                            ctx.fillStyle = C.primary;
+                            ctx.font = `bold 24px ${FONT}`;
+                            ctx.fillText(t.num + t.sym, xx + 10, yy + 27);
+                            xx += t.w + 8;
+                        });
+                        yy += 50;
+                    });
+                });
+
+                const remColX = tableX + COL_W[0] + COL_W.slice(1, 6).reduce((a, b) => a + b, 0);
+                const remLines = remarkLayouts[ri] || [''];
+                if (remLines.length === 1 && remLines[0] === '') {
+                    ctx.fillStyle = C.soft;
+                    ctx.textAlign = 'center';
+                    ctx.fillText('—', remColX + COL_W[6] / 2, y + h / 2 + 9);
+                    ctx.textAlign = 'left';
+                } else {
+                    ctx.fillStyle = C.primary;
+                    let ry = y + (h - remLines.length * 36 + 10) / 2;
+                    remLines.forEach(line => {
+                        ctx.fillText(line, remColX + 6, ry + 26);
+                        ry += 36;
+                    });
+                }
+
+                ctx.strokeStyle = C.border;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(tableX, baseY);
+                ctx.lineTo(tableX + tableW, baseY);
+                ctx.stroke();
+                for (let i = 1; i < COL_W.length; i++) {
+                    const sepX = tableX + COL_W.slice(0, i).reduce((a, b) => a + b, 0);
+                    ctx.beginPath();
+                    ctx.moveTo(sepX, y);
+                    ctx.lineTo(sepX, baseY);
+                    ctx.stroke();
+                }
+                y = baseY;
+            });
+
+            // 底部备注卡（切换目标记录）
+            const notesY = y + 20;
+            ctx.fillStyle = C.card2;
+            roundRect(ctx, tableX, notesY, tableW, notesH, 12);
+            ctx.fill();
+            ctx.fillStyle = C.primary;
+            ctx.font = `bold 26px ${FONT}`;
+            ctx.fillText('备注（切换目标）', tableX + 22, notesY + 44);
+            ctx.font = `24px ${FONT}`;
+            ctx.fillStyle = C.soft;
+            if (notes.length === 0) {
+                ctx.fillText('本局未切换目标', tableX + 22, notesY + 76);
+            } else {
+                notes.forEach((n, i) => ctx.fillText(n, tableX + 22, notesY + 76 + i * 34));
+            }
+
+            const dataURL = canvas.toDataURL('image/png');
+            const fileName = `${title.replace(/[\\/:*?"<>|]/g, '_')}${author ? '_' + author.replace(/[\\/:*?"<>|]/g, '_') : ''}.png`;
+            showPreview(dataURL, fileName, `竖版 3:4 · ${canvas.width} × ${canvas.height} px · 适合小红书`);
+        }
+
+        // ============================
+        //  渲染表格（含备注）
+        // ============================
+        function renderTable() {
+            if (rounds.length === 0) {
+                tableBody.innerHTML =
+                    `<tr><td colspan="8" style="color:var(--wiki-primary-soft); padding:20px;">还没有回合，点击「回合开始」记录吧</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            rounds.forEach((round, idx) => {
+                const roundNum = round.round;
+                // 使用全局合并逻辑
+                const labelsPerCard = buildGlobalLabelsForRound(round);
+                let row = `<td><strong>${roundNum}</strong></td>`;
+                for (let i = 0; i < CARD_COUNT; i++) {
+                    const labels = labelsPerCard[i] || [];
+                    const cellAttrs = `class="op-cell" data-round="${idx}" data-card="${i}"`;
+                    if (labels.length === 0) {
+                        row += `<td ${cellAttrs} style="color:var(--wiki-primary-soft);">—</td>`;
+                    } else {
+                        let cellContent = '';
+                        labels.forEach(item => {
+                            cellContent += `<span class="op-item ${item.cls}"><strong>${item.num}${item.sym}</strong></span> `;
+                        });
+                        row += `<td ${cellAttrs}>${cellContent.trim()}</td>`;
+                    }
+                }
+                const remarkText = round.remark || '';
+                row += `<td class="remark-cell" contenteditable="true" data-round="${idx}">${remarkText}</td>`;
+                row += `<td><button class="del-round-btn" data-index="${idx}">✕</button></td>`;
+                html += `<tr class="${idx === currentRoundIndex ? 'current-row' : ''}">${row}</tr>`;
+            });
+            tableBody.innerHTML = html;
+
+            document.querySelectorAll('.del-round-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const idx = parseInt(this.dataset.index);
+                    deleteRound(idx);
+                });
+            });
+
+            // 操作单元格：点击进入编辑（含空单元格）
+            document.querySelectorAll('.op-cell').forEach(td => {
+                td.addEventListener('click', function() {
+                    const r = parseInt(this.dataset.round);
+                    const c = parseInt(this.dataset.card);
+                    if (isNaN(r) || isNaN(c) || r < 0 || r >= rounds.length) return;
+                    startCellEdit(this, r, c);
+                });
+            });
+
+            document.querySelectorAll('.remark-cell').forEach(td => {
+                td.addEventListener('input', function(e) {
+                    const idx = parseInt(this.dataset.round);
+                    if (isNaN(idx) || idx < 0 || idx >= rounds.length) return;
+                    let text = this.textContent || '';
+                    if (text.trim() === '') {
+                        rounds[idx].remark = '';
+                    } else {
+                        rounds[idx].remark = text.trim();
+                    }
+                });
+                td.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            const wrapper = document.querySelector('.table-wrapper');
+            wrapper.scrollTop = wrapper.scrollHeight;
+        }
+
+        function updateCurrentRoundDisplay() {
+            if (currentRoundIndex === -1 || rounds.length === 0) {
+                currentRoundSpan.textContent = '0';
+            } else {
+                currentRoundSpan.textContent = rounds[currentRoundIndex].round;
+            }
+        }
+
+        function updateStartBtnText() {
+            startBtn.textContent = rounds.length === 0 ? '回合开始' : '下一回合';
+        }
+
+        // ============================
+        //  事件绑定
+        // ============================
+        const gameNameBtn = document.getElementById('gameNameBtn');
+        const GAME_NAMES = ['代号鸢', '如鸢'];
+        gameNameBtn.addEventListener('click', () => {
+            const cur = gameNameBtn.textContent.trim();
+            gameNameBtn.textContent = cur === GAME_NAMES[0] ? GAME_NAMES[1] : GAME_NAMES[0];
+            showToast(`已切换至「${gameNameBtn.textContent}」`);
+        });
+
+        document.getElementById('levelTitle').addEventListener('focus', (e) => {
+            setTimeout(() => e.target.select(), 0);
+        });
+
+        startBtn.addEventListener('click', startNewRound);
+        undoBtn.addEventListener('click', undoAction);
+        clearBtn.addEventListener('click', clearAll);
+        genImgBtn.addEventListener('click', generateImageWithAuthor);
+
+        keepTargetChk.addEventListener('change', () => {
+            showToast(keepTargetChk.checked ? '已开启：跨回合保持目标' : '已关闭：每回合重置为 BOSS');
+        });
+
+        renderTable();
+        updateCurrentRoundDisplay();
+        updateStartBtnText();
+        updateEnemyList();
+        updateEnemyButtons();
+        // 首次使用提示：引导找到改名入口（仅提示一次）
+        if (safeGet(ENEMY_NAMES_KEY) === undefined && safeGet('dxdy_rename_hint') === undefined) {
+            safeSet('dxdy_rename_hint', '1');
+            setTimeout(() => showToast('点「✎ 改名」直接在按钮上改目标名称'), 800);
+        }
+        console.info('本工具由 BWIKI 出品，仅供学习交流');
+    </script>
+</body>
+</html>
