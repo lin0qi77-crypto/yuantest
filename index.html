@@ -1301,36 +1301,50 @@ body {
 
 
 
-.sq-save-now {
-    font-size: 11px;
-    color: #8A6A20;
-    background: #F8EDD2;
-    border: 1px solid var(--wiki-gold);
-    border-radius: 12px;
-    padding: 1px 8px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-left: 8px;
+/* 常用配队弹窗：保存行 + 记录列表（与操作记录器一致） */
+.record-save-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
 }
-/* 常用配队面板 */
-.squads-panel {
-    display: none;
-    max-width: 760px;
-    margin: 0 auto 12px;
-    background: var(--wiki-card);
-    border: 1px solid var(--wiki-border);
-    border-radius: 14px;
-    padding: 12px;
-}
-.squads-panel.open { display: block; }
-.squads-panel .sq-title {
-    font-size: 13px;
-    font-weight: 700;
+.record-save-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 14px;
+    border: 2px solid var(--wiki-border);
+    border-radius: 10px;
+    font-size: 14px;
     color: var(--wiki-primary);
-    margin-bottom: 8px;
-    letter-spacing: 1px;
+    background: var(--wiki-card2);
+    outline: none;
 }
-.sq-item {
+.record-save-row input:focus { border-color: var(--wiki-highlight); }
+.record-save-row button {
+    flex-shrink: 0;
+    background: var(--wiki-primary);
+    color: #FFF8F0;
+    border: 1px solid var(--wiki-primary);
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #332a24;
+    touch-action: manipulation;
+}
+.record-save-row button:active { transform: translateY(3px); box-shadow: 0 0 0 #332a24; }
+.record-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    text-align: left;
+}
+.record-empty {
+    font-size: 13px;
+    color: var(--wiki-primary-soft);
+    padding: 14px 4px;
+    text-align: center;
+}
+.record-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1339,28 +1353,50 @@ body {
     border: 1px solid var(--wiki-border);
     background: var(--wiki-card2);
     margin-bottom: 6px;
-    cursor: pointer;
-    touch-action: manipulation;
 }
-.sq-item:active { transform: scale(.98); }
-.sq-item .sq-name { font-weight: 700; color: var(--wiki-primary); flex-shrink: 0; }
-.sq-item .sq-members {
-    flex: 1;
-    font-size: 12px;
-    color: var(--wiki-primary-soft);
+.record-info { flex: 1; min-width: 0; }
+.record-name {
+    font-weight: 700;
+    color: var(--wiki-primary);
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.sq-item .sq-del {
-    color: var(--wiki-highlight, #A8655E);
-    font-size: 13px;
-    padding: 2px 8px;
-    border-radius: 8px;
-    flex-shrink: 0;
+.record-meta {
+    font-size: 11px;
+    color: var(--wiki-primary-soft);
+    margin-top: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.sq-item .sq-del:hover { background: var(--wiki-card3); }
-.sq-empty { font-size: 12px; color: var(--wiki-primary-soft); padding: 6px 0; }
+.record-load-btn {
+    flex-shrink: 0;
+    background: var(--wiki-card3);
+    color: var(--wiki-primary);
+    border: 1px solid var(--wiki-border-strong);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 0 var(--wiki-border-strong);
+    touch-action: manipulation;
+}
+.record-load-btn:active { transform: translateY(2px); box-shadow: 0 0 0 var(--wiki-border-strong); }
+.record-del-btn {
+    flex-shrink: 0;
+    background: var(--wiki-highlight-light);
+    color: var(--wiki-highlight);
+    border: 1px solid var(--wiki-border);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.record-del-btn:active { transform: scale(.96); }
 
 /* 简写冲突选择 */
 .amb-row {
@@ -1690,13 +1726,9 @@ body {
         text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
     }
     /* 导出：小头像 png 自带 padding，图案上移 8px（外框高度不变）；
-       头像改用背景图渲染（html2canvas 对 object-fit 支持不佳会拉伸，background cover 可靠） */
+       头像改用背景图渲染（html2canvas 对 object-fit 支持不佳会拉伸；完整 background 简写由 JS 注入，
+       避免 html2canvas 解析 CSS 简写与内联样式混用时出现渲染瑕疵） */
     .export-mode .b-avatar img { display: none; }
-    .export-mode .b-avatar {
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center -8px;
-    }
     /* 觉醒：直接显示红字，不显示星星 */
     .st-awake-txt {
         color: #D33A3A;
@@ -2111,8 +2143,23 @@ body {
             <button class="tb-btn primary" id="exportBtn" onclick="exportImage()">生成图片</button>
         </div>
     </div>
-    <div class="squads-panel" id="squadsPanel"></div>
-    <div class="app-ver">出战阵容编辑器 v0.30 · 源自代号鸢BWIKI</div>
+    <div class="app-ver">出战阵容编辑器 v0.31 · 源自代号鸢BWIKI</div>
+</div>
+
+<!-- 常用配队弹窗（保存 / 调用 / 删除，与操作记录器一致） -->
+<div class="author-modal-overlay" id="squadModal">
+    <div class="author-modal-box" style="max-width: 440px;">
+        <div class="author-modal-title">常用配队</div>
+        <div class="author-modal-sub">保存在本机浏览器，可随时调用或删除</div>
+        <div class="record-save-row">
+            <input type="text" id="squadNameInput" placeholder="记录名称（默认用当前标题）" maxlength="30">
+            <button type="button" id="squadSaveBtn">保存当前</button>
+        </div>
+        <div class="record-list" id="squadList"></div>
+        <div class="author-modal-actions">
+            <button type="button" class="author-btn-cancel" id="squadCloseBtn">关闭</button>
+        </div>
+    </div>
 </div>
 
 <!-- 密探编辑抽屉（画框下方展开） -->
@@ -2223,7 +2270,7 @@ body {
 // ============================
 //  工具指纹：BWIKI 出品声明（防搬运溯源用，勿删除）
 // ============================
-const DXDIY_TOOL = { name: '代号鸢·出战阵容编辑器', origin: 'wiki.biligame.com/yuan', ver: '0.30' };
+const DXDIY_TOOL = { name: '代号鸢·出战阵容编辑器', origin: 'wiki.biligame.com/yuan', ver: '0.31' };
 
 // ============================
 //  密探池（121 人，源自 BWiki Box 数据）
@@ -2451,6 +2498,14 @@ let state = {
 // ============================
 //  工具
 // ============================
+/* 修为上限与等级联动：100级=17、90级=15、80级=13……每 5 级 ±1 */
+function maxXiuweiForLevel(level) {
+    const lv = parseInt(level) || 100;
+    return Math.max(0, Math.ceil(17 - (100 - lv) * 0.2));
+}
+function xiuweiNeedLevel(x) {
+    return 100 - Math.ceil((17 - x) / 0.2);
+}
 function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -2533,8 +2588,10 @@ function stoneListHtml(list) {
     const arr = (list || []).filter(Boolean);
     let html = '';
     for (let i = 0; i < 3; i++) {
-        html += arr[i]
-            ? `<div class="st-item"><span>${esc(stoneNameOf(arr[i]))}</span><b>${stoneLvOf(arr[i])}</b></div>`
+        const nm = arr[i] ? stoneNameOf(arr[i]) : '';
+        // 无效数据（如旧版「任意」）直接丢弃：显示空槽占位，不显示名字和等级
+        html += (arr[i] && nm !== '任意')
+            ? `<div class="st-item"><span>${esc(nm)}</span><b>${stoneLvOf(arr[i])}</b></div>`
             : '<div class="st-item off">＋</div>';
     }
     return html;
@@ -2549,17 +2606,27 @@ function starRowHtml(h, i) {
     for (let v = 0; v < n; v++) out += `<img class="st-icon" src="${STAR_ICON}" alt="★">`;
     return out;
 }
+/* MediaWiki 缩略图：减小图片体积与解码内存（iOS 导出友好） */
+function thumbUrl(src, w) {
+    if (!src) return '';
+    // MediaWiki: images/yuan/xx/yy/name.png → images/thumb/yuan/xx/yy/name.png/wpx-name.png
+    const m = String(src).match(/^(.*\/images\/)([^/]+\/[^/]+\/[^/]+\/[^/]+)$/);
+    if (!m) return src;
+    const path = m[2];
+    const name = path.split('/').pop();
+    return m[1] + 'thumb/' + path + '/' + w + 'px-' + name;
+}
 function bannerCell(h, i) {
-    const av = h.avatar || '';
+    const av = thumbUrl(h.avatar, 200);
     const img = av ? `<img src="${av}" alt="" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : `<span class="ph">${esc(h.name[0])}</span>`;
     return `<div class="p-cell b-cell" data-pick="${i}" title="点击换人">
-        <div class="b-avatar" data-av="${esc(h.avatar || '')}">${img}</div>
+        <div class="b-avatar" data-av="${esc(av || '')}">${img}</div>
         <div class="b-info">
             <div class="b-name">${esc(h.name)}</div>
             <div class="b-edit-rows">
                 <div class="b-lv-pair">
-                    <div class="b-lv-row"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b></div>
-                    <div class="b-lv-row"><b class="ie" data-edit="xiuwei" data-slot="${i}">${esc(h.xiuwei)}</b></div>
+                    <div class="b-lv-row" data-edit="level" data-slot="${i}"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b></div>
+                    <div class="b-lv-row" data-edit="xiuwei" data-slot="${i}"><b class="ie" data-edit="xiuwei" data-slot="${i}">${esc(h.xiuwei)}</b></div>
                 </div>
                 <div class="b-stars" data-edit="hua" data-slot="${i}" title="点击选择星级">${starRowHtml(h, i)}</div>
             </div>
@@ -2626,7 +2693,7 @@ function reorderRender() {
     list.innerHTML = state.team.map((h, i) => `
         <div class="reorder-item" data-idx="${i}">
             <span class="reorder-no">${i + 1}</span>
-            <img class="reorder-avatar" src="${h.avatar || ''}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+            <img class="reorder-avatar" src="${thumbUrl(h.avatar, 120)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
             <span class="reorder-name">${esc(h.name)}</span>
             <span class="reorder-actions">
                 <button class="reorder-up" data-idx="${i}" ${i === 0 ? 'disabled' : ''}>↑</button>
@@ -2870,7 +2937,6 @@ function fuxingOrdered() {
     const attrs = String(pool.attribute || '').split(',').map(s => s.trim()).filter(Boolean);
     const qiHuang = pool.job === '岐黄';
     const g = n => {
-        if (n === '任意') return [0, 0];
         if (n === '文昌') return [1, 0];
         if (n === '解神') return [2, 0];
         if (n === '文曲') return [3, 0];
@@ -2887,14 +2953,16 @@ function fuxingOrdered() {
         if (kind === '增') return hit ? [6, 0] : [10, 0];
         return hit ? [8, 0] : [8, 1];                // 双抗 → 双免伤组
     };
-    return FU_STARS.filter(n => !(n === '文昌' && !qiHuang)).sort((a, b) => {
+    return FU_STARS.filter(n => n !== '任意' && !(n === '文昌' && !qiHuang)).sort((a, b) => {
         const ga = g(a), gb = g(b);
         return (ga[0] - gb[0]) || (ga[1] - gb[1]) || (FU_STARS.indexOf(a) - FU_STARS.indexOf(b));
     });
 }
 /* 辅星选项 HTML：带拼音/首字母/注释/完整效果的搜索串 */
 function fuxingOptionsHtml() {
-    return fuxingOrdered().map(n => {
+    // 首位「不选择」：点击后清空该槽位
+    const none = '<div class="cs-opt" data-val="__none__" data-hay="不选择 buxuanze bxz" data-init="bxz"><span class="cs-name">不选择</span></div>';
+    return none + fuxingOrdered().map(n => {
         const pinyin = FU_PINYIN[n] || '';
         const init = FU_INIT[n] || '';
         const eff = FU_EFFECTS[n] || '';
@@ -2916,9 +2984,11 @@ function renderStoneRows(part) {
         const lv = Math.max(1, Math.min(60, stoneLvOf(cur)));
         if (part === 'fuxing') {
             // 辅星：当前值显示 + 点击弹出居中选择弹层
-            const curHtml = name
-                ? `${esc(name)}<span class="cs-note">${esc(FU_EFFECTS[name] || '')}</span>`
-                : '<span class="cs-note">— 未选择 —</span>';
+            let name0 = stoneNameOf(cur);
+            if (name0 === '任意') name0 = '';   // 无效数据（旧版「任意」）直接丢弃
+            const curHtml = name0
+                ? `${esc(name0)}<span class="cs-note">${esc(FU_EFFECTS[name0] || '')}</span>`
+                : '<span class="cs-note">不选择</span>';
             slots.push(`<div class="stone-slot">
                 <div class="cs-wrap" data-part="fuxing" data-idx="${j}">
                     <div class="cs-current">${curHtml}</div>
@@ -2929,7 +2999,7 @@ function renderStoneRows(part) {
             // 主星：职业限制星石禁用（带提示），已被其他槽选用的星石禁用（不可重复）
             const others = new Set();
             list.forEach((s, k) => { if (k !== j && s) others.add(stoneNameOf(s)); });
-            const optsArr = ['<option value=""' + (name === '' ? ' selected' : '') + '>— 未选择 —</option>'];
+            const optsArr = ['<option value=""' + (name === '' ? ' selected' : '') + '>不选择</option>'];
             STONE_NAMES.forEach(n => {
                 if (n === name) { optsArr.push(`<option value="${n}" selected>${n}</option>`); return; }
                 if (others.has(n)) { optsArr.push(`<option value="${n}" disabled>${n}（已选）</option>`); return; }
@@ -2984,7 +3054,8 @@ function bindModalInputs() {
         let lv = 60;
         if (slotEl) lv = parseInt(slotEl.querySelector('input').value) || 60;
         lv = Math.max(1, Math.min(60, lv));
-        h.fuxing[csModalIdx] = val === '任意' ? '任意' + lv : val + lv;
+        if (val === '__none__') h.fuxing[csModalIdx] = '';   // 不选择：清空该槽位
+        else h.fuxing[csModalIdx] = val + lv;
         closeCsModal();
         renderStoneRows('fuxing');
         renderStoneCombos();
@@ -3214,9 +3285,15 @@ function ieBuildEditor(field, slot, currentText) {
         if (!HUA_SIMPLE.some(o => o[0] === cur)) opts += `<option value="${esc(cur)}" selected>${esc(cur)}</option>`;
         ed.innerHTML = `<select class="ie-select">${opts}</select>`;
     } else if (field === 'xiuwei') {
+        // 修为：倒序排列（17 常用置顶），超当前等级上限的选项禁用并标注所需等级
         const cur = Number(state.team[slot].xiuwei) || 0;
+        const maxX = maxXiuweiForLevel(state.team[slot].level);
         let opts = '';
-        for (let v = 0; v <= 17; v++) opts += `<option value="${v}"${cur === v ? ' selected' : ''}>${v}</option>`;
+        for (let v = 17; v >= 0; v--) {
+            const dis = (v > maxX && v !== cur) ? ' disabled' : '';
+            const tip = v > maxX ? `（需等级 ${xiuweiNeedLevel(v)}）` : '';
+            opts += `<option value="${v}"${cur === v ? ' selected' : ''}${dis}>${v}${tip}</option>`;
+        }
         ed.innerHTML = `<select class="ie-select">${opts}</select>`;
     } else if (field === 'round') {
         ed.innerHTML = `<input class="ie-input" type="number" min="0" value="${esc(currentText)}" inputmode="numeric">`;
@@ -3243,7 +3320,15 @@ function ieApply(field, slot, value) {
         const h = state.team[slot];
         if (field === 'hua') h.hua = value;
         else if (field === 'xiuwei') h.xiuwei = parseInt(value) || 0;
-        else if (field === 'level') h.level = Math.max(1, Math.min(100, parseInt(value) || 1));
+        else if (field === 'level') {
+            h.level = Math.max(1, Math.min(100, parseInt(value) || 1));
+            // 等级下调时修为可能超限：自动调整并提醒
+            const mx = maxXiuweiForLevel(h.level);
+            if (Number(h.xiuwei) > mx) {
+                h.xiuwei = mx;
+                alert(`等级 ${h.level} 的修为上限为 ${mx}，修为已自动调整为 ${mx}`);
+            }
+        }
         else if (field === 'hp') h.hp = value === '' ? '' : Math.min(99999, parseInt(value) || 0);
         else if (field === 'atk') h.atk = value === '' ? '' : Math.min(99999, parseInt(value) || 0);
     }
@@ -3256,6 +3341,7 @@ document.getElementById('frame').addEventListener('click', e => {
     const field = t.dataset.edit;
     const slot = t.dataset.slot !== undefined ? parseInt(t.dataset.slot) : -1;
     const curText = t.textContent.trim();
+    t.dataset.origText = curText;
     const ed = ieBuildEditor(field, slot, curText);
     t.replaceWith(ed);
     const ctrl = ed.querySelector('input, select');
@@ -3269,8 +3355,14 @@ document.getElementById('frame').addEventListener('click', e => {
             val = val.trim();
             if (!val) val = state.sell;
         }
+        const changed = String(val) !== String(t.dataset.origText);
         ieApply(field, slot, val);
-        renderPreview();
+        if (changed) {
+            renderPreview();
+        } else {
+            // 未修改：还原原元素，避免整帧重渲染导致后续点击落到旧 DOM
+            ed.replaceWith(t);
+        }
     };
     ctrl.addEventListener('blur', done);
     ctrl.addEventListener('change', done);
@@ -3306,11 +3398,18 @@ function loadSquads() {
 function saveSquads(list) {
     try { localStorage.setItem(SQUADS_KEY, JSON.stringify(list)); } catch (e) {}
 }
-function saveSquad() {
-    const name = (state.teamName || '').trim() || '未命名配队';
+/* 保存配队（需要用户点击；名称默认用当前标题） */
+function squadDefaultTitle() {
+    return (state.gameName || '代号鸢') + ' · ' + (state.stage || '关卡名称');
+}
+function saveSquad(name) {
+    if (!state.team.length) { alert('还没有阵容，先选人再保存吧'); return false; }
+    const title = (name || '').trim() || squadDefaultTitle();
     const list = loadSquads();
     const data = {
-        name: name,
+        name: title,
+        savedAt: Date.now(),
+        gameName: state.gameName || '代号鸢',
         team: state.team.map(h => ({
             name: h.name, avatar: h.avatar, sub: h.sub,
             hp: h.hp, atk: h.atk, level: h.level, xiuwei: h.xiuwei, hua: h.hua,
@@ -3318,10 +3417,11 @@ function saveSquad() {
             zhuxing: [...h.zhuxing], fuxing: [...h.fuxing]
         }))
     };
-    const idx = list.findIndex(s => s.name === name);
+    const idx = list.findIndex(s => s.name === title);
     if (idx >= 0) list[idx] = data; else list.unshift(data);
     saveSquads(list);
-    alert(`已保存配队「${name}」（当前 ${state.team.length} 人）`);
+    alert(`已保存配队「${title}」（当前 ${state.team.length} 人）`);
+    return true;
 }
 function applySquad(data) {
     state.teamName = data.name;
@@ -3333,36 +3433,86 @@ function applySquad(data) {
     }));
     renderPreview();
 }
-function openSquads() {
-    const panel = document.getElementById('squadsPanel');
-    const list = loadSquads();
-    if (!list.length) {
-        panel.innerHTML = '<div class="sq-title">常用配队 <span class="sq-save-now" onclick="saveSquad()">＋ 保存当前阵容</span></div><div class="sq-empty">还没有保存的配队——点上方「＋ 保存当前阵容」保存</div>';
-    } else {
-        panel.innerHTML = '<div class="sq-title">常用配队（点击调取） <span class="sq-save-now" onclick="saveSquad()">＋ 保存当前阵容</span></div>' + list.map((s, i) =>
-            `<div class="sq-item" data-i="${i}">
-                <span class="sq-name">${esc(s.name)}</span>
-                <span class="sq-members">${s.team.map(h => esc(h.name)).join('、')}</span>
-                <span class="sq-del" data-del="${i}">删除</span>
-            </div>`).join('');
-    }
-    panel.classList.toggle('open');
+/* 常用配队弹窗：保存 / 调用 / 删除（与操作记录器一致） */
+function fmtDate(t) {
+    if (!t) return '';
+    const d = new Date(t);
+    if (isNaN(d.getTime())) return '';
+    const p = n => String(n).padStart(2, '0');
+    return String(d.getFullYear()).slice(-2) + '/' + p(d.getMonth() + 1) + '/' + p(d.getDate());
 }
-document.getElementById('squadsPanel').addEventListener('click', e => {
-    const del = e.target.closest ? e.target.closest('.sq-del') : null;
-    if (del) {
-        const list = loadSquads();
-        list.splice(parseInt(del.dataset.del), 1);
-        saveSquads(list);
-        openSquads();
+function renderSquadList() {
+    // 内测阶段不做旧存档兼容：结构不符的数据直接丢弃并清理
+    const raw = loadSquads();
+    const list = raw.filter(r => r && typeof r.name === 'string' && typeof r.gameName === 'string' &&
+        typeof r.savedAt === 'number' && Array.isArray(r.team) && r.team.length > 0);
+    if (list.length !== raw.length) saveSquads(list);
+    const box = document.getElementById('squadList');
+    box.innerHTML = '';
+    if (!list.length) {
+        const empty = document.createElement('div');
+        empty.className = 'record-empty';
+        empty.textContent = '还没有保存过的配队，点上方「保存当前」试试';
+        box.appendChild(empty);
         return;
     }
-    const item = e.target.closest ? e.target.closest('.sq-item') : null;
-    if (item) {
-        const list = loadSquads();
-        const data = list[parseInt(item.dataset.i)];
-        if (data) { applySquad(data); document.getElementById('squadsPanel').classList.remove('open'); }
+    list.forEach((rec, idx) => {
+        const item = document.createElement('div');
+        item.className = 'record-item';
+        const info = document.createElement('div');
+        info.className = 'record-info';
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'record-name';
+        nameDiv.textContent = `${rec.gameName} · ${rec.name} · ${rec.team.length}人`;
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'record-meta';
+        metaDiv.textContent = fmtDate(rec.savedAt) + ' · ' + rec.team.map(h => h.name).join('、');
+        info.appendChild(nameDiv);
+        info.appendChild(metaDiv);
+        const loadBtn = document.createElement('button');
+        loadBtn.className = 'record-load-btn';
+        loadBtn.textContent = '加载';
+        loadBtn.addEventListener('click', () => {
+            applySquad(rec);
+            closeSquadModal();
+            alert(`已载入「${rec.name}」`);
+        });
+        const delBtn = document.createElement('button');
+        delBtn.className = 'record-del-btn';
+        delBtn.textContent = '删除';
+        delBtn.addEventListener('click', () => {
+            if (!confirm(`确定删除「${rec.name}」吗？`)) return;
+            const nl = loadSquads();
+            nl.splice(idx, 1);
+            saveSquads(nl);
+            renderSquadList();
+        });
+        item.appendChild(info);
+        item.appendChild(loadBtn);
+        item.appendChild(delBtn);
+        box.appendChild(item);
+    });
+}
+function openSquads() {
+    document.getElementById('squadNameInput').value = squadDefaultTitle();
+    renderSquadList();
+    document.getElementById('squadModal').classList.add('active');
+}
+function closeSquadModal() {
+    document.getElementById('squadModal').classList.remove('active');
+}
+document.getElementById('squadSaveBtn').addEventListener('click', () => {
+    if (saveSquad(document.getElementById('squadNameInput').value)) renderSquadList();
+});
+document.getElementById('squadNameInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (saveSquad(document.getElementById('squadNameInput').value)) renderSquadList();
     }
+});
+document.getElementById('squadCloseBtn').addEventListener('click', closeSquadModal);
+document.getElementById('squadModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeSquadModal();
 });
 
 
@@ -3434,7 +3584,7 @@ function renderSelectGrid() {
         const picked = pi >= 0;
         const div = document.createElement('div');
         div.className = 'pick-item' + (picked ? ' picked' : '');
-        div.innerHTML = `<img class="pick-avatar" src="${m.avatar || ''}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` +
+        div.innerHTML = `<img class="pick-avatar" src="${thumbUrl(m.avatar, 160)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` +
             (picked ? `<b class="pick-no">${pi + 1}</b>` : '') +
             `<span class="pick-name">${esc(m.name)}</span>`;
         div.onclick = () => togglePick(m);
@@ -3691,13 +3841,24 @@ async function exportImage() {
     // 4. 未填写的 生命/攻击 显示「请输入」，导出时临时置空
     const phEls = frame.querySelectorAll('.ph-txt');
     phEls.forEach(el => { el.dataset.orig = el.textContent; el.textContent = ''; });
-    // 5. 导出前把头像切为背景图方案（html2canvas 对 object-fit 支持不佳会拉伸；background cover 可靠）
+    // 5. 导出前把头像切为背景图方案：完整 background 简写由 JS 注入（含上移 8px）
     const avEls = frame.querySelectorAll('.b-avatar');
     avEls.forEach(el => {
-        el.dataset.origBg = el.style.backgroundImage;
+        el.dataset.origBg = el.style.background;
         const av = el.dataset.av || '';
-        el.style.backgroundImage = av ? `url('${av}')` : '';
+        el.style.background = av ? `url('${av}') center -8px / cover no-repeat` : '';
     });
+    // 5.5 临时把画框固定到视口左上角（避免移动端滚动/横向溢出导致右缘裁切），宽度不超视口
+    const fStyle = {
+        pos: frame.style.position, left: frame.style.left, top: frame.style.top,
+        margin: frame.style.margin, width: frame.style.width, maxW: frame.style.maxWidth
+    };
+    frame.style.position = 'fixed';
+    frame.style.left = '0';
+    frame.style.top = '0';
+    frame.style.margin = '0';
+    frame.style.width = Math.min(480, document.documentElement.clientWidth) + 'px';
+    frame.style.maxWidth = 'none';
     btn.textContent = '生成中...';
     const restore = () => {
         subLine.innerHTML = savedSub;
@@ -3706,36 +3867,55 @@ async function exportImage() {
         phEls.forEach(el => { if (el.dataset.orig !== undefined) { el.textContent = el.dataset.orig; delete el.dataset.orig; } });
         frame.classList.remove('export-mode');
         avEls.forEach(el => {
-            el.style.backgroundImage = el.dataset.origBg || '';
+            el.style.background = el.dataset.origBg || '';
             delete el.dataset.origBg;
         });
+        frame.style.position = fStyle.pos;
+        frame.style.left = fStyle.left;
+        frame.style.top = fStyle.top;
+        frame.style.margin = fStyle.margin;
+        frame.style.width = fStyle.width;
+        frame.style.maxWidth = fStyle.maxW;
     };
     // 6. 预加载头像（带 CORS），提高 iOS 导出成功率
-    await Promise.all(state.team.map(h => loadAvatar(h.avatar || '')));
-    // 7. 截取：失败自动降档重试（iOS 大画布兼容）
+    await Promise.all(state.team.map(h => loadAvatar(thumbUrl(h.avatar, 200))));
+    // 7. 截取：每档带超时保护（iOS 上 html2canvas 可能挂起不返回，超时视为失败降档）；
+    //    iOS 直接用低 scale，避免大画布内存卡死
+    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent || '');
+    const scaleSeq = isIOS ? [1, 1.5] : [2, 1.5, 1];
     let canvas = null;
     let lastErr = null;
-    for (const s of [2, 1.5, 1]) {
-        try {
-            canvas = await html2canvas(frame, {
-                backgroundColor: '#F2E8DF',
-                scale: s,
-                useCORS: true
-            });
-            break;
-        } catch (err) { lastErr = err; }
-    }
-    if (!canvas) {
+    let failMsg = null;
+    btn.textContent = '生成中...';
+    try {
+        for (const s of scaleSeq) {
+            const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('截图超时（设备性能不足）')), 15000));
+            try {
+                canvas = await Promise.race([
+                    html2canvas(frame, {
+                        backgroundColor: '#F2E8DF',
+                        scale: s,
+                        useCORS: true
+                    }),
+                    timeout
+                ]);
+                break;
+            } catch (err) {
+                lastErr = err;
+            }
+        }
+        if (!canvas) {
+            failMsg = '导出失败：' + (lastErr ? lastErr.message + '，' : '') + '请稍后重试';
+            return;
+        }
+        const dataUrl = canvas.toDataURL('image/png');
+        // 预览确认后再保存（与操作记录器一致）
+        showExportPreview(dataUrl, (state.stage || '出战阵容').replace(/[\\/:*?"<>|]/g, '_') + '.png');
+    } finally {
         restore();
-        alert('导出失败：头像可能受跨域限制，稍后重试' + (lastErr ? '（' + lastErr.message + '）' : ''));
         btn.textContent = '生成图片';
-        return;
     }
-    const dataUrl = canvas.toDataURL('image/png');
-    restore();
-    btn.textContent = '生成图片';
-    // 预览确认后再保存（与操作记录器一致）
-    showExportPreview(dataUrl, (state.stage || '出战阵容').replace(/[\\/:*?"<>|]/g, '_') + '.png');
+    if (failMsg) alert(failMsg);
 }
 
 /* 导出预览窗格：确认无误再保存 */
