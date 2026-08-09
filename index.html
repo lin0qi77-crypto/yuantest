@@ -1,35 +1,41 @@
 <!DOCTYPE html>
+<!-- ============================================================
+     代号鸢 · 出战阵容编辑器 | BWIKI 出品 (wiki.biligame.com/yuan)
+     本工具为 BWIKI 原创，请勿整站搬运或用于任何商业用途。
+     ============================================================ -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="generator" content="BWIKI">
+<meta name="author" content="BWIKI">
 <title>代号鸢 · 出战阵容展示</title>
 <style>
 :root {
-    --bg: #F2E8DF;
-    --card: #FFFCF8;
-    --card2: #FAF4EC;
-    --card3: #F5EBDC;
-    --primary: #4A3C35;
-    --soft: #7A6860;
-    --border: #E2D5C8;
-    --border-strong: #C8BAA8;
-    --gold: #C8A24B;
-    --hp: #C86B6B;
-    --atk: #C8904B;
-    --star: #B58BB0;
-    --highlight: #A8655E;
-    --highlight-light: #fdf0ef;
-    --button-bg: #EFE0CC;
-    --shadow-lg: 0 8px 30px rgba(80, 50, 30, 0.13);
-    --r: 12px;
-    --r-lg: 14px;
+    --wiki-bg: #F2E8DF;
+    --wiki-card: #FFFCF8;
+    --wiki-card2: #FAF4EC;
+    --wiki-card3: #F5EBDC;
+    --wiki-primary: #4A3C35;
+    --wiki-primary-soft: #7A6860;
+    --wiki-border: #E2D5C8;
+    --wiki-border-strong: #C8BAA8;
+    --wiki-gold: #C8A24B;
+    --wiki-hp: #4F8A4F;
+    --wiki-atk: #C8904B;
+    --wiki-star: #B58BB0;
+    --wiki-highlight: #A8655E;
+    --wiki-highlight-light: #fdf0ef;
+    --wiki-button-bg: #EFE0CC;
+    --wiki-shadow-lg: 0 8px 30px rgba(80, 50, 30, 0.13);
+    --wiki-r: 12px;
+    --wiki-r-lg: 14px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
-    background: var(--bg);
-    color: var(--primary);
+    background: var(--wiki-bg);
+    color: var(--wiki-primary);
     min-height: 100vh;
     padding: 24px 16px 40px;
     background:
@@ -107,7 +113,7 @@ body {
     outline: none;
     font-size: 13px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--wiki-primary);
     text-align: center;
 }
 
@@ -117,7 +123,7 @@ body {
     top: 12px;
     right: 16px;
     font-size: 14px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     font-weight: 600;
     letter-spacing: 1px;
 }
@@ -125,7 +131,7 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    color: var(--gold);
+    color: var(--wiki-gold);
     font-size: 14px;
     font-weight: 700;
     width: 120px;
@@ -148,8 +154,8 @@ body {
 }
 /* 角色卡 */
 .hero {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--wiki-card);
+    border: 1px solid var(--wiki-border);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(80, 50, 30, .10);
@@ -163,8 +169,8 @@ body {
     text-align: center;
     background:
         radial-gradient(120px 60px at 50% -10px, rgba(200,162,75,.25), transparent 70%),
-        linear-gradient(180deg, var(--card3), var(--card));
-    border-bottom: 1px solid var(--border);
+        linear-gradient(180deg, var(--wiki-card3), var(--wiki-card));
+    border-bottom: 1px solid var(--wiki-border);
 }
 /* 参考排版：去掉顶部金色条 */
 .hero-top::before { display: none; }
@@ -202,12 +208,12 @@ body {
 }
 .level-info {
     font-size: 12px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     letter-spacing: 1px;
     margin-top: 1px;
 }
 .level-info b {
-    color: var(--primary);
+    color: var(--wiki-primary);
     font-weight: 700;
 }
 .level-info .dot { opacity: .6; }
@@ -216,7 +222,7 @@ body {
     text-align: center;
     padding: 2px 12px 8px;
     font-size: 16px;
-    color: var(--primary);
+    color: var(--wiki-primary);
     letter-spacing: 1px;
     display: flex;
     align-items: center;
@@ -236,7 +242,7 @@ body {
 /* T1/T2 chips 区从卡片内容区开始 */
 .chip-block.first {
     padding-top: 8px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--wiki-border);
 }
 /* T4 底栏：生命 / 攻击（最弱化） */
 /* 参考排版：生命/攻击一行，红/橙数值 */
@@ -245,7 +251,7 @@ body {
     justify-content: space-between;
     padding: 4px 16px 4px;
     font-size: 12px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
 }
 .base-stats .stat-item {
     display: flex;
@@ -256,10 +262,10 @@ body {
     font-size: 12px;
     font-weight: 800;
     letter-spacing: .3px;
-    color: var(--primary);
+    color: var(--wiki-primary);
 }
-.base-stats .stat-item.hp b { color: var(--hp); }
-.base-stats .stat-item.atk b { color: var(--atk); }
+.base-stats .stat-item.hp b { color: var(--wiki-hp); }
+.base-stats .stat-item.atk b { color: var(--wiki-atk); }
 /* 底部：作者署名 + bwiki 广告 */
 .footer {
     margin-top: 26px;
@@ -269,18 +275,18 @@ body {
     margin-top: 6px;
     padding: 8px 16px;
     background: #F9F1E3;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 12px;
     display: inline-block;
     font-size: 12px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
 }
 .bwiki-ad b {
-    color: var(--primary);
+    color: var(--wiki-primary);
     letter-spacing: 1px;
 }
 .bwiki-ad a {
-    color: var(--gold);
+    color: var(--wiki-gold);
     text-decoration: none;
     font-weight: 600;
 }
@@ -326,9 +332,9 @@ body {
     color: #7A6432;
 }
 .chip.mp-unknown {
-    background: var(--card2);
-    border-color: var(--border);
-    color: var(--soft);
+    background: var(--wiki-card2);
+    border-color: var(--wiki-border);
+    color: var(--wiki-primary-soft);
 }
 /* 命盘必带 / 禁带（扁平风） */
 .chip.need {
@@ -354,9 +360,9 @@ body {
     color: #8A6A4A;
 }
 .chip.note {
-    background: var(--card2);
-    border-color: var(--border);
-    color: var(--soft);
+    background: var(--wiki-card2);
+    border-color: var(--wiki-border);
+    color: var(--wiki-primary-soft);
 }
 .empty-tip {
     font-size: 11px;
@@ -371,17 +377,17 @@ body {
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
-.frame-tip b { color: var(--gold); }
+.frame-tip b { color: var(--wiki-gold); }
 /* ===== 展示面板（参考「视觉参考」480px 竖版） ===== */
 .frame {
     margin: 0 auto;
     max-width: 480px;
     width: 100%;
-    background: var(--card);
-    border-radius: var(--r-lg);
+    background: var(--wiki-card);
+    border-radius: var(--wiki-r-lg);
     padding: 14px 12px 20px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
+    box-shadow: var(--wiki-shadow-lg);
+    border: 1px solid var(--wiki-border);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -452,16 +458,17 @@ body {
 
 .tb-btn {
     background: #F8EDD2;
-    border: 1.5px solid var(--gold);
+    border: 1.5px solid var(--wiki-gold);
     color: #8A6A20;
     border-radius: 24px;
     padding: 10px 24px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 3px 0 var(--wiki-border-strong);
     touch-action: manipulation;
 }
-.tb-btn:active { transform: scale(.96); }
+.tb-btn:active { transform: translateY(2px) scale(.98); box-shadow: 0 1px 0 var(--wiki-border-strong); }
 
 .frame { margin: 0 auto; }
 .frame .hero { cursor: pointer; }
@@ -477,8 +484,8 @@ body {
     width: min(680px, 94vw);
     max-height: 88vh;
     z-index: 1600;
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #F8EFE1;
+    border: 1px solid var(--wiki-border);
     border-radius: 14px;
     box-shadow: 0 12px 36px rgba(80, 50, 30, .25);
     flex-direction: column;
@@ -490,8 +497,8 @@ body {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(74, 60, 53, 0.4);
-    backdrop-filter: blur(3px);
+    background: rgba(245, 244, 245, .45);
+    backdrop-filter: blur(2px);
     z-index: -1;
 }
 .drawer-head {
@@ -499,21 +506,21 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--card3);
+    border-bottom: 1px solid var(--wiki-border);
+    background: var(--wiki-card3);
 }
-.drawer-head h2 { font-size: 15px; color: var(--primary); letter-spacing: 1px; }
+.drawer-head h2 { font-size: 15px; color: var(--wiki-primary); letter-spacing: 1px; }
 .drawer-close {
     border: none;
     background: transparent;
     font-size: 17px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     cursor: pointer;
     padding: 4px 10px;
     border-radius: 8px;
     touch-action: manipulation;
 }
-.drawer-close:active { background: var(--card3); }
+.drawer-close:active { background: var(--wiki-card3); }
 .drawer-body {
     padding: 14px 16px;
     max-height: 60vh;
@@ -523,21 +530,22 @@ body {
     display: flex;
     justify-content: flex-end;
     padding: 10px 16px;
-    border-top: 1px solid var(--border);
-    background: var(--card2);
+    border-top: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
 }
 .modal-ok {
-    background: #C8A24B;
+    background: #EFE0CC;
     color: #4A3C35;
-    border: none;
+    border: 1px solid #C8BAA8;
     border-radius: 30px;
     padding: 10px 34px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 3px 0 #C8BAA8;
     touch-action: manipulation;
 }
-.modal-ok:active { transform: scale(.97); }
+.modal-ok:active { transform: translateY(3px); box-shadow: 0 0 0 #C8BAA8; }
 
 /* ---------- 弹窗（box 风格）：简写冲突选择等 ---------- */
 .modal-overlay {
@@ -556,9 +564,9 @@ body {
     width: 100%;
     max-width: 480px;
     max-height: 88vh;
-    background: var(--card);
+    background: var(--wiki-card);
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     box-shadow: 0 12px 36px rgba(80, 50, 30, .25);
     display: flex;
     flex-direction: column;
@@ -569,21 +577,21 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    background: var(--card3);
+    border-bottom: 1px solid var(--wiki-border);
+    background: var(--wiki-card3);
 }
-.modal-head h2 { font-size: 16px; color: var(--primary); letter-spacing: 1px; }
+.modal-head h2 { font-size: 16px; color: var(--wiki-primary); letter-spacing: 1px; }
 .modal-close {
     border: none;
     background: transparent;
     font-size: 17px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     cursor: pointer;
     padding: 4px 10px;
     border-radius: 8px;
     touch-action: manipulation;
 }
-.modal-close:active { background: var(--card3); }
+.modal-close:active { background: var(--wiki-card3); }
 .modal-body {
     padding: 16px 18px;
     overflow-y: auto;
@@ -593,8 +601,8 @@ body {
     display: flex;
     justify-content: flex-end;
     padding: 12px 18px;
-    border-top: 1px solid var(--border);
-    background: var(--card2);
+    border-top: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
 }
 
 /* ---------- 表单控件 ---------- */
@@ -604,7 +612,7 @@ body {
     gap: 4px;
     margin-bottom: 12px;
     font-size: 12px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     font-weight: 600;
 }
 .field-row { display: flex; gap: 10px; }
@@ -612,12 +620,12 @@ body {
 .field input,
 .modal-body input,
 .modal-body textarea {
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 10px 12px;
     font-size: 16px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     outline: none;
     width: 100%;
     font-family: inherit;
@@ -626,7 +634,7 @@ body {
 .field input:focus,
 .modal-body input:focus,
 .modal-body textarea:focus {
-    border-color: var(--gold);
+    border-color: var(--wiki-gold);
 }
 .modal-body textarea {
     font-size: 14px;
@@ -647,8 +655,8 @@ body {
     height: 54px;
     object-fit: cover;
     border-radius: 6px;
-    border: 1px solid var(--border-strong);
-    background: var(--card3);
+    border: 1px solid var(--wiki-border-strong);
+    background: var(--wiki-card3);
 }
 .he-name {
     font-size: 16px;
@@ -660,7 +668,7 @@ body {
 }
 .he-pick {
     background: #F8EDD2;
-    border: 1.5px solid var(--gold);
+    border: 1.5px solid var(--wiki-gold);
     color: #8A6A20;
     border-radius: 20px;
     padding: 6px 14px;
@@ -680,17 +688,17 @@ body {
 .he-input-label {
     display: block;
     font-size: 11px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     margin-bottom: 3px;
 }
 .he-field select {
     width: 100%;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 9px 8px;
     font-size: 15px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     outline: none;
 }
 /* 命盘 12 槽选择 */
@@ -699,7 +707,7 @@ body {
 }
 .hm-mp-label {
     font-size: 11px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     margin-bottom: 6px;
     font-weight: 600;
 }
@@ -710,46 +718,96 @@ body {
     margin-bottom: 8px;
 }
 .mp-opt {
-    border: 1.5px solid var(--border);
+    border: 1.5px solid var(--wiki-border);
     border-radius: 8px;
     padding: 7px 4px;
     font-size: 12px;
     text-align: center;
     cursor: pointer;
-    color: var(--primary);
-    background: var(--card2);
+    color: var(--wiki-primary);
+    background: var(--wiki-card2);
     user-select: none;
     touch-action: manipulation;
     line-height: 1.3;
 }
 .mp-opt.on {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px var(--gold);
+    border-color: var(--wiki-gold);
+    box-shadow: 0 0 0 2px var(--wiki-gold);
     font-weight: 700;
 }
 .mp-opt.mp-blue { background: #EEF3FB; border-color: #B9CBE8; color: #4A5F86; }
 .mp-opt.mp-purple { background: #F4EEFB; border-color: #CDB8E8; color: #6A5294; }
 .mp-opt.mp-gold { background: #FBF3E0; border-color: #E5CF9A; color: #7A6432; }
-.mp-opt.mp-unknown { background: var(--card2); border-color: var(--border); color: var(--soft); }
+.mp-opt.mp-unknown { background: var(--wiki-card2); border-color: var(--wiki-border); color: var(--wiki-primary-soft); }
+/* 已选命盘：4 槽位（暗示最多选 4 个，末位为禁位），每槽 必/禁 直选 + ✕ 删除 */
 .hm-mp-sel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+}
+.mp-slot {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    min-height: 28px;
-}
-.hm-mp-sel .chip {
-    display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    border: 1.5px solid var(--wiki-border);
+    border-radius: 10px;
+    padding: 6px 8px;
+    background: var(--wiki-card2);
+    font-size: 13px;
+    min-width: 0;
 }
+.mp-slot .mp-slot-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.mp-slot-acts { display: flex; gap: 4px; flex-shrink: 0; }
+.mp-slot-acts b {
+    font-style: normal;
+    font-size: 12px;
+    padding: 4px 14px;
+    min-width: 36px;
+    text-align: center;
+    border-radius: 9px;
+    border: 1px solid var(--wiki-border-strong);
+    cursor: pointer;
+    background: #F0F5E8;
+    color: #4F7A2E;
+    touch-action: manipulation;
+    user-select: none;
+}
+.mp-slot-acts b[data-act="ban"] { background: #FBEEEE; color: #B05A5A; }
+.mp-slot-acts b.on { background: #7FA65A; border-color: #7FA65A; color: #FFF8F0; font-weight: 700; }
+.mp-slot-acts b[data-act="ban"].on { background: #D98A8A; border-color: #D98A8A; color: #FFF8F0; }
+.mp-slot.must { border-color: #7FA65A; background: #F0F7E8; }
+.mp-slot.ban { border-color: #D98A8A; background: #FBF0F0; }
 .mp-x {
     font-style: normal;
-    font-size: 11px;
+    font-size: 13px;
     opacity: .7;
-    padding: 0 2px;
+    padding: 0 3px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 .mp-x:hover { opacity: 1; }
+.mp-slot.empty {
+    border-style: dashed;
+    border-color: var(--wiki-gold);
+    color: #B5A89A;
+    background: transparent;
+    justify-content: center;
+    font-size: 12px;
+}
+.mp-slot.empty.ban-hint {
+    border-color: #D98A8A;
+    background: #FBF0F0;
+    color: #B05A5A;
+    font-weight: 600;
+}
 /* 星石快捷组合 */
 .hm-stone {
     margin-bottom: 10px;
@@ -760,12 +818,12 @@ body {
     gap: 6px;
 }
 .stone-combo-btn {
-    background: var(--card2);
-    border: 1.5px solid var(--border-strong);
+    background: var(--wiki-card2);
+    border: 1.5px solid var(--wiki-border-strong);
     border-radius: 18px;
     padding: 6px 12px;
     font-size: 12px;
-    color: var(--primary);
+    color: var(--wiki-primary);
     cursor: pointer;
     touch-action: manipulation;
     font-weight: 600;
@@ -782,51 +840,42 @@ body {
 /* 底部按钮行 */
 .bottom-bar {
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
     margin: 14px auto 0;
     max-width: 760px;
 }
+.bottom-funcs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.bottom-main {
+    display: flex;
+    justify-content: center;
+}
+.tb-btn.on {
+    background: var(--wiki-primary);
+    color: #FFF8F0;
+    border-color: var(--wiki-primary);
+    box-shadow: 0 3px 0 #332a24;
+}
 .tb-btn.primary {
-    background: #C8A24B;
-    color: #4A3C35;
-    border-color: #C8A24B;
+    background: var(--wiki-primary);
+    color: #FFF8F0;
+    border-color: var(--wiki-primary);
+    box-shadow: 0 3px 0 #332a24;
 }
-/* 配队输入（队伍名下方，默认隐藏） */
-.squad-slot { display: none; margin-top: 8px; }
-.squad-slot.open { display: block; }
-.squad-slot input {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-size: 15px;
-    background: var(--card);
-    color: var(--primary);
-    outline: none;
-    user-select: text;
+.tb-btn.primary:active { transform: translateY(2px) scale(.98); box-shadow: 0 1px 0 #332a24; }
+/* 警告按钮（清空所有）：浅红底 + 深红字，与操作记录器一致 */
+.tb-btn.danger {
+    background: var(--wiki-highlight-light);
+    color: var(--wiki-highlight);
+    border-color: var(--wiki-border);
+    box-shadow: 0 3px 0 var(--wiki-border);
 }
-.squad-slot input:focus { border-color: var(--gold); }
-.squad-slot .squad-hint {
-    font-size: 11px;
-    color: var(--soft);
-    margin-top: 4px;
-    text-align: left;
-    opacity: .75;
-}
-.squad-slot .squad-go {
-    margin-top: 6px;
-    background: #C8A24B;
-    color: #4A3C35;
-    border: none;
-    border-radius: 10px;
-    padding: 8px 22px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    touch-action: manipulation;
-}
+.tb-btn.danger:active { transform: translateY(2px) scale(.98); box-shadow: 0 1px 0 var(--wiki-border); }
 /* 星石：主/辅各占一行（等级前置，如 60天府），区块分割线 */
 .stones-row {
     display: grid;
@@ -839,7 +888,7 @@ body {
 }
 .stones-row li { min-width: 0; }
 .chip-block + .chip-block {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--wiki-border);
     padding-top: 6px;
     margin-top: 6px;
 }
@@ -930,12 +979,12 @@ body {
 /* 辅星自定义下拉（星石名 + 灰色效果注释） */
 .cs-wrap { position: relative; flex: 1; min-width: 0; }
 .cs-current {
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 8px 10px;
     font-size: 15px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     cursor: pointer;
     display: flex;
     align-items: baseline;
@@ -943,49 +992,80 @@ body {
     gap: 6px;
     touch-action: manipulation;
 }
-.cs-current .cs-note { color: var(--soft); font-size: 12px; }
-.cs-current::after { content: '▾'; color: var(--soft); font-size: 11px; }
-.cs-list {
+.cs-current .cs-note { color: var(--wiki-primary-soft); font-size: 12px; }
+.cs-current::after { content: '▾'; color: var(--wiki-primary-soft); font-size: 11px; }
+
+/* 辅星选择弹层（居中浮层，手机上不会被容器裁剪） */
+.cs-modal-overlay {
     display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0; right: 0;
-    background: var(--card);
-    border: 1px solid var(--border);
+    position: fixed;
+    inset: 0;
+    background: rgba(90, 60, 45, .45);
+    z-index: 1700;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+.cs-modal-overlay.open { display: flex; }
+.cs-modal {
+    width: min(380px, 92vw);
+    max-height: 72vh;
+    background: #FFF9F0;
+    border: 1px solid var(--wiki-border);
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(80, 50, 30, .25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.cs-modal-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--wiki-border);
+    background: #F5EBDC;
+}
+.cs-modal-title { font-size: 14px; font-weight: 700; color: var(--wiki-primary); flex-shrink: 0; }
+.cs-modal-head .cs-search {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(80, 50, 30, .18);
-    z-index: 60;
-    max-height: 220px;
-    overflow-y: auto;
-}
-.cs-search {
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    padding: 8px 10px;
+    padding: 7px 10px;
     font-size: 13px;
-    background: var(--card3);
-    color: var(--primary);
+    background: #FFFCF8;
+    color: var(--wiki-primary);
     outline: none;
-    position: sticky;
-    top: 0;
 }
-.cs-wrap.open .cs-list { display: block; }
-.cs-wrap.open .cs-current { border-color: var(--gold); }
+.cs-modal-head .cs-search:focus { border-color: var(--wiki-gold); }
+.cs-modal-close {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--wiki-primary-soft);
+    cursor: pointer;
+    padding: 2px 8px;
+    flex-shrink: 0;
+}
+.cs-modal-list {
+    overflow-y: auto;
+    padding: 4px 0;
+}
 .cs-opt {
-    padding: 8px 10px;
+    padding: 10px 14px;
     font-size: 14px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    gap: 6px;
-    border-bottom: 1px solid var(--card3);
+    align-items: baseline;
+    gap: 10px;
+    border-bottom: 1px solid var(--wiki-card3);
     touch-action: manipulation;
 }
 .cs-opt:last-child { border-bottom: none; }
-.cs-opt:hover { background: var(--card3); }
-.cs-opt .cs-note { color: var(--soft); font-size: 11px; }
+.cs-opt:hover { background: #F5EBDC; }
+.cs-opt .cs-note { color: var(--wiki-primary-soft); font-size: 12px; }
 
 /* 主星/辅星：3 槽一行排开，等级在各自下方 */
 .hm-stones {
@@ -1007,30 +1087,30 @@ body {
 }
 .stone-slot select {
     width: 100%;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 8px 6px;
     font-size: 14px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     outline: none;
     min-width: 0;
 }
 .stone-slot input {
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 6px 8px;
     font-size: 14px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     outline: none;
     text-align: center;
 }
 .stone-slot select:focus,
 .stone-slot input:focus {
-    border-color: var(--gold);
+    border-color: var(--wiki-gold);
 }
 
 /* ---------- 选人面板 ---------- */
@@ -1050,9 +1130,9 @@ body {
     width: 100%;
     max-width: 640px;
     max-height: 84vh;
-    background: var(--card);
+    background: var(--wiki-card);
     border-radius: 14px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     box-shadow: 0 8px 30px rgba(80, 50, 30, .2);
     display: flex;
     flex-direction: column;
@@ -1063,16 +1143,16 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--card3);
+    border-bottom: 1px solid var(--wiki-border);
+    background: var(--wiki-card3);
 }
-.select-title { font-weight: 700; font-size: 15px; color: var(--primary); }
-.select-count { font-size: 12px; color: var(--soft); font-weight: 600; }
+.select-title { font-weight: 700; font-size: 15px; color: var(--wiki-primary); }
+.select-count { font-size: 12px; color: var(--wiki-primary-soft); font-weight: 600; }
 .select-close {
     border: none;
     background: transparent;
     font-size: 16px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     cursor: pointer;
     padding: 4px 10px;
     border-radius: 8px;
@@ -1080,12 +1160,12 @@ body {
 .select-panel > input {
     margin: 12px 14px 4px;
     padding: 10px 14px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     font-size: 16px;
     outline: none;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     user-select: text;
 }
 
@@ -1093,13 +1173,13 @@ body {
 
 /* 点哪改哪：就地编辑 */
 .ie-input, .ie-select {
-    border: 1px solid var(--gold);
+    border: 1px solid var(--wiki-gold);
     border-radius: 8px;
     padding: 2px 6px;
     font-size: inherit;
     font-family: inherit;
-    color: var(--primary);
-    background: var(--card);
+    color: var(--wiki-primary);
+    background: var(--wiki-card);
     outline: none;
     width: 100%;
     min-width: 40px;
@@ -1115,7 +1195,7 @@ body {
     font-weight: 600;
     color: #8A6A20;
     background: #F8EDD2;
-    border: 1.5px solid var(--gold);
+    border: 1.5px solid var(--wiki-gold);
     border-radius: 14px;
     padding: 2px 10px;
     cursor: pointer;
@@ -1133,7 +1213,7 @@ body {
     font-size: 11px;
     color: #8A6A20;
     background: #F8EDD2;
-    border: 1px solid var(--gold);
+    border: 1px solid var(--wiki-gold);
     border-radius: 12px;
     padding: 1px 8px;
     cursor: pointer;
@@ -1145,8 +1225,8 @@ body {
     display: none;
     max-width: 760px;
     margin: 0 auto 12px;
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--wiki-card);
+    border: 1px solid var(--wiki-border);
     border-radius: 14px;
     padding: 12px;
 }
@@ -1154,7 +1234,7 @@ body {
 .squads-panel .sq-title {
     font-size: 13px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--wiki-primary);
     margin-bottom: 8px;
     letter-spacing: 1px;
 }
@@ -1164,31 +1244,31 @@ body {
     gap: 8px;
     padding: 8px 10px;
     border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--card2);
+    border: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
     margin-bottom: 6px;
     cursor: pointer;
     touch-action: manipulation;
 }
 .sq-item:active { transform: scale(.98); }
-.sq-item .sq-name { font-weight: 700; color: var(--primary); flex-shrink: 0; }
+.sq-item .sq-name { font-weight: 700; color: var(--wiki-primary); flex-shrink: 0; }
 .sq-item .sq-members {
     flex: 1;
     font-size: 12px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 .sq-item .sq-del {
-    color: var(--highlight, #A8655E);
+    color: var(--wiki-highlight, #A8655E);
     font-size: 13px;
     padding: 2px 8px;
     border-radius: 8px;
     flex-shrink: 0;
 }
-.sq-item .sq-del:hover { background: var(--card3); }
-.sq-empty { font-size: 12px; color: var(--soft); padding: 6px 0; }
+.sq-item .sq-del:hover { background: var(--wiki-card3); }
+.sq-empty { font-size: 12px; color: var(--wiki-primary-soft); padding: 6px 0; }
 
 /* 简写冲突选择 */
 .amb-row {
@@ -1197,7 +1277,7 @@ body {
 .amb-raw {
     font-size: 13px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--wiki-primary);
     margin-bottom: 5px;
 }
 .amb-cands {
@@ -1208,9 +1288,9 @@ body {
 .amb-cand {
     padding: 6px 14px;
     border-radius: 16px;
-    border: 1.5px solid var(--border-strong);
-    background: var(--card2);
-    color: var(--primary);
+    border: 1.5px solid var(--wiki-border-strong);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     font-size: 13px;
     cursor: pointer;
     touch-action: manipulation;
@@ -1231,16 +1311,16 @@ body {
 .pick-batch input {
     flex: 1;
     min-width: 0;
-    border: 1px solid var(--border);
+    border: 1px solid var(--wiki-border);
     border-radius: 10px;
     padding: 9px 12px;
     font-size: 15px;
-    background: var(--card2);
-    color: var(--primary);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary);
     outline: none;
     user-select: text;
 }
-.pick-batch input:focus { border-color: var(--gold); }
+.pick-batch input:focus { border-color: var(--wiki-gold); }
 .batch-ok {
     flex-shrink: 0;
     background: #C8A24B;
@@ -1261,7 +1341,7 @@ body {
         display: flex;
         flex-direction: column;
         gap: 6px;
-        border-bottom: 2px solid var(--border);
+        border-bottom: 2px solid var(--wiki-border);
         padding-bottom: 12px;
         text-align: center;
     }
@@ -1273,11 +1353,11 @@ body {
         width: 100%;
     }
     .title-game {
-        border: 1px solid var(--border-strong);
-        background: var(--card3);
+        border: 1px solid var(--wiki-border-strong);
+        background: var(--wiki-card3);
         font-size: 18px;
         font-weight: 600;
-        color: var(--primary);
+        color: var(--wiki-primary);
         letter-spacing: 1px;
         padding: 4px 10px;
         border-radius: 8px;
@@ -1285,7 +1365,7 @@ body {
         flex: 0 0 auto;
     }
     .title-sep {
-        color: var(--soft);
+        color: var(--wiki-primary-soft);
         font-size: 18px;
         font-weight: 600;
         flex: 0 0 auto;
@@ -1294,14 +1374,14 @@ body {
     .title-input {
         font-size: 18px;
         font-weight: 600;
-        color: var(--primary);
+        color: var(--wiki-primary);
         letter-spacing: 1px;
         text-align: center;
         min-width: 0;
     }
     .header .sub {
         font-size: 12px;
-        color: var(--soft);
+        color: var(--wiki-primary-soft);
         text-align: center;
     }
 
@@ -1314,9 +1394,9 @@ body {
         font-weight: 700;
         letter-spacing: 2px;
         color: #FFF8F0;
-        background: var(--highlight);
+        background: var(--wiki-highlight);
         border-radius: 40px;
-        box-shadow: 0 3px 0 var(--border-strong);
+        box-shadow: 0 3px 0 var(--wiki-border-strong);
     }
 
     /* ===== 分隔标题（复用 drawer-title-row 样式） ===== */
@@ -1326,36 +1406,69 @@ body {
         justify-content: center;
         gap: 8px;
         width: 100%;
-        border-bottom: 1px dashed var(--border-strong);
+        border-bottom: 1px dashed var(--wiki-border-strong);
         padding-bottom: 4px;
     }
     .section-title {
         font-weight: 600;
-        color: var(--primary);
+        color: var(--wiki-primary);
         font-size: 13px;
         letter-spacing: 2px;
     }
 
-    /* ===== 行式五列布局（对照示意图） ===== */
-    .p-row {
+    /* ===== 五列布局：按密探列组织，斑马纹区分 1/3/5 与 2/4 ===== */
+    .frame-cols {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 4px;
         width: 100%;
     }
+    .col-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding: 5px 4px 6px;
+        border-radius: 12px;
+    }
+    .col-wrap.z-a { background: #FFF9F0; }
+    .col-wrap.z-b { background: #F4E8D8; }
+    .col-wrap.dragging { opacity: .55; }
+    .col-wrap.drop-before { box-shadow: inset 3px 0 0 var(--wiki-gold); }
+    /* 空位占位：未选满 5 人时的虚线框 */
+    .col-wrap.col-empty {
+        background: transparent;
+        border: 2px dashed var(--wiki-border-strong);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 150px;
+    }
+    .empty-slot {
+        text-align: center;
+        color: var(--wiki-primary-soft);
+        font-size: 12px;
+        line-height: 1.8;
+        cursor: pointer;
+        padding: 16px 4px;
+        touch-action: manipulation;
+        user-select: none;
+    }
+    .empty-slot b { display: block; font-size: 14px; color: var(--wiki-border-strong); letter-spacing: 1px; }
+    /* 调整站位模式：整列可拖，抓取提示 */
+    .frame.reorder-mode .col-wrap { cursor: grab; }
+    .frame.reorder-mode .col-wrap.dragging { cursor: grabbing; }
+    .frame.reorder-mode .col-wrap:not(.col-empty):hover { outline: 2px solid var(--wiki-gold); outline-offset: -2px; }
     .p-cell { min-width: 0; }
 
-    /* 方形头像 + 姓名/等级修为/星级在头像下方（直接点击可改） */
-    .banner-row { gap: 3px; }
+    /* 方形头像 + 姓名/等级修为/星级在头像下方（直接点击可改，立绘区可拖动换位） */
     .b-cell {
         display: flex;
         flex-direction: column;
-        border-radius: 14px;
-        background: var(--card2);
-        border: 1px solid var(--border);
+        border-radius: 10px;
         overflow: hidden;
         cursor: pointer;
-        padding-bottom: 4px;
+        touch-action: pan-y;
     }
     .b-cell .b-avatar {
         width: 100%;
@@ -1367,12 +1480,12 @@ body {
         overflow: hidden;
     }
     .b-cell .b-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .b-cell .ph { font-size: 22px; font-weight: 700; color: var(--highlight); }
-    .b-cell:hover { outline: 2px solid var(--highlight); }
+    .b-cell .ph { font-size: 22px; font-weight: 700; color: var(--wiki-highlight); }
+    .b-cell:hover { outline: 2px solid var(--wiki-highlight); }
 
-    /* 头像下方信息条（姓名 / 等级+修为 / 星级） */
+    /* 头像下方信息条（姓名 / 等级+修为 / 星级）；字号不动，加大点击热区 */
     .b-info {
-        padding: 4px 2px 0;
+        padding: 4px 2px 2px;
         text-align: center;
         line-height: 1.3;
     }
@@ -1382,16 +1495,19 @@ body {
         letter-spacing: 1px;
         white-space: nowrap;
         overflow: hidden;
-        color: var(--primary);
+        color: var(--wiki-primary);
     }
-    .b-lv { font-size: 10px; font-weight: 700; color: var(--primary); }
+    .b-lv { font-size: 10px; font-weight: 700; color: var(--wiki-primary); padding: 3px 0 4px; }
+    .b-lv b { padding: 2px 5px; border-radius: 6px; }
+    .b-lv b:hover { background: rgba(200, 162, 75, .18); }
     .b-stars {
         font-size: 10px;
         letter-spacing: 1px;
         color: #B98A2E;
         user-select: none;
+        padding: 2px 0 3px;
     }
-    .b-stars .st-star { cursor: pointer; }
+    .b-stars .st-star { cursor: pointer; padding: 3px 3px; display: inline-block; }
     .b-stars .st-star.off { color: #D8C9A8; }
     .b-stars .st-star.awake { cursor: default; }
 
@@ -1401,14 +1517,14 @@ body {
         align-items: center;
         gap: 5px;
         font-size: 11px;
-        color: var(--soft);
+        color: var(--wiki-primary-soft);
         letter-spacing: 2px;
         padding: 3px 0;
     }
     .col-cap::before, .col-cap::after {
         content: '';
         flex: 1;
-        border-top: 1px dashed var(--border-strong);
+        border-top: 1px dashed var(--wiki-border-strong);
     }
 
     /* 命盘列（需绿 / 禁红，点击开抽屉勾选） */
@@ -1417,10 +1533,10 @@ body {
         position: relative;
         font-size: 11px;
         padding: 2px 2px;
-        border: 1px solid var(--border);
+        border: 1px solid var(--wiki-border);
         border-radius: 6px;
-        color: var(--primary);
-        background: var(--card);
+        color: var(--wiki-primary);
+        background: var(--wiki-card);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1462,22 +1578,22 @@ body {
     .st-item.off {
         justify-content: center;
         color: #B5A89A;
-        border: 1px dashed var(--border-strong);
+        border: 1px dashed var(--wiki-border-strong);
         background: transparent;
     }
 
     /* 生命 / 攻击行（就地可改） */
-    .stat-col { text-align: center; font-size: 11px; color: var(--soft); line-height: 1.8; }
+    .stat-col { text-align: center; font-size: 11px; color: var(--wiki-primary-soft); line-height: 1.8; }
     .stat-col b { font-size: 12px; font-weight: 700; }
-    .stat-col .num-hp { color: var(--hp); }
-    .stat-col .num-atk { color: var(--atk); }
+    .stat-col .num-hp { color: var(--wiki-hp); }
+    .stat-col .num-atk { color: var(--wiki-atk); }
     .stat-col .ph-txt { color: #B5A89A; font-weight: 400; font-size: 11px; }
 
     /* ===== 页脚 ===== */
     .foot {
         text-align: center;
         font-size: 11px;
-        color: var(--soft);
+        color: var(--wiki-primary-soft);
         opacity: .6;
         user-select: none;
     }
@@ -1490,24 +1606,25 @@ body {
         justify-content: center;
         gap: 10px;
         padding: 42px 12px;
-        border: 2px dashed var(--border-strong);
+        border: 2px dashed var(--wiki-border-strong);
         border-radius: 14px;
-        background: var(--card2);
+        background: var(--wiki-card2);
     }
-    .empty-team-text { font-size: 15px; font-weight: 700; color: var(--soft); letter-spacing: 2px; }
+    .empty-team-text { font-size: 15px; font-weight: 700; color: var(--wiki-primary-soft); letter-spacing: 2px; }
     .empty-team-btn {
-        background: #C8A24B;
-        color: #4A3C35;
+        background: var(--wiki-primary);
+        color: #FFF8F0;
         border: none;
         border-radius: 30px;
         padding: 8px 26px;
         font-size: 14px;
         font-weight: 700;
         cursor: pointer;
+        box-shadow: 0 3px 0 #332a24;
         touch-action: manipulation;
     }
-    .empty-team-btn:active { transform: scale(.97); }
-    .empty-team-tip { font-size: 11px; color: var(--soft); }
+    .empty-team-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #332a24; }
+    .empty-team-tip { font-size: 11px; color: var(--wiki-primary-soft); }
 
     /* ===== 工具条
 /* 选人面板：首字母条 + 筛选 chips */
@@ -1516,7 +1633,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    border-bottom: 1px solid var(--card3);
+    border-bottom: 1px solid var(--wiki-card3);
     margin-bottom: 2px;
 }
 .pf-row {
@@ -1527,7 +1644,7 @@ body {
 }
 .pf-label {
     font-size: 10px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     flex-shrink: 0;
     width: 34px;
 }
@@ -1535,9 +1652,9 @@ body {
     font-size: 12px;
     padding: 3px 8px;
     border-radius: 14px;
-    border: 1px solid var(--border);
-    background: var(--card2);
-    color: var(--soft);
+    border: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
+    color: var(--wiki-primary-soft);
     cursor: pointer;
     touch-action: manipulation;
     min-width: 26px;
@@ -1552,7 +1669,7 @@ body {
 .pf-chip.dim { opacity: .35; }
 .pf-clear {
     font-size: 11px;
-    color: var(--soft);
+    color: var(--wiki-primary-soft);
     cursor: pointer;
     margin-left: auto;
     padding: 3px 6px;
@@ -1571,7 +1688,7 @@ body {
 }
 .pick-item {
     position: relative;
-    border: 2px solid var(--border);
+    border: 2px solid var(--wiki-border);
     border-radius: 10px;
     padding: 8px 5px 6px;
     display: flex;
@@ -1579,7 +1696,7 @@ body {
     align-items: center;
     gap: 4px;
     cursor: pointer;
-    background: var(--card2);
+    background: var(--wiki-card2);
     transition: 0.12s;
     user-select: none;
     touch-action: manipulation;
@@ -1591,20 +1708,20 @@ body {
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid var(--border-strong);
-    background: var(--card);
+    border: 1px solid var(--wiki-border-strong);
+    background: var(--wiki-card);
 }
-.pick-item .pick-name { font-size: 12px; color: var(--primary); max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pick-item .pick-name { font-size: 12px; color: var(--wiki-primary); max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pick-item.picked {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px var(--gold);
+    border-color: var(--wiki-gold);
+    box-shadow: 0 0 0 2px var(--wiki-gold);
 }
 .pick-item .pick-no {
     position: absolute;
     top: -6px; right: -6px;
     min-width: 20px; height: 20px;
     padding: 0 4px;
-    background: var(--gold);
+    background: var(--wiki-gold);
     color: #4A3C35;
     border-radius: 10px;
     font-size: 12px;
@@ -1618,19 +1735,128 @@ body {
     display: flex;
     justify-content: flex-end;
     padding: 12px 16px;
-    border-top: 1px solid var(--border);
-    background: var(--card2);
+    border-top: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
 }
 .select-btn-ok {
-    background: #C8A24B;
-    color: #4A3C35;
+    background: var(--wiki-primary);
+    color: #FFF8F0;
     border: none;
     border-radius: 30px;
     padding: 10px 30px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 3px 0 #332a24;
     touch-action: manipulation;
+}
+.select-btn-ok:active { transform: translateY(3px); box-shadow: 0 0 0 #332a24; }
+
+/* ---------- 署名弹窗（与操作记录器一致） ---------- */
+.author-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(74, 60, 53, 0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    padding: 20px;
+    animation: authorModalFadeIn 0.2s ease;
+}
+.author-modal-overlay.active { display: flex; }
+@keyframes authorModalFadeIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+.author-modal-box {
+    background: var(--wiki-card);
+    border-radius: 14px;
+    padding: 28px 32px 32px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(74, 60, 53, 0.25);
+    border: 1px solid var(--wiki-border);
+    text-align: center;
+}
+.author-modal-title { font-size: 18px; font-weight: 600; color: var(--wiki-primary); margin-bottom: 4px; }
+.author-modal-sub { font-size: 14px; color: var(--wiki-primary-soft); margin-bottom: 18px; }
+.author-modal-box input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--wiki-border);
+    border-radius: 12px;
+    font-size: 16px;
+    color: var(--wiki-primary);
+    background: var(--wiki-card2);
+    outline: none;
+    text-align: center;
+}
+.author-modal-box input:focus { border-color: var(--wiki-highlight); box-shadow: 0 0 0 3px rgba(168, 101, 94, 0.15); }
+.author-modal-box input::placeholder { color: var(--wiki-primary-soft); opacity: .6; }
+.author-quick-row { margin-top: 10px; }
+.author-quick-row button {
+    background: var(--wiki-card3);
+    color: var(--wiki-primary);
+    border: 1px solid var(--wiki-border-strong);
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 2px 0 var(--wiki-border-strong);
+    touch-action: manipulation;
+}
+.author-saved { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 10px; }
+.author-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--wiki-card3);
+    border: 1px solid var(--wiki-border);
+    border-radius: 20px;
+    padding: 4px 8px 4px 12px;
+    font-size: 13px;
+    color: var(--wiki-primary);
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.author-chip-del { border: none; background: transparent; color: var(--wiki-primary-soft); font-size: 14px; cursor: pointer; padding: 0 4px; }
+.author-modal-actions { display: flex; gap: 10px; margin-top: 18px; justify-content: center; }
+.author-modal-actions button {
+    padding: 10px 28px;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid var(--wiki-border-strong);
+    cursor: pointer;
+    transition: 0.2s;
+    touch-action: manipulation;
+    flex: 1;
+    max-width: 140px;
+}
+.author-btn-cancel { background: var(--wiki-card2); color: var(--wiki-primary-soft); border-color: var(--wiki-border); }
+.author-btn-cancel:hover { background: var(--wiki-card3); }
+.author-btn-confirm { background: var(--wiki-primary); color: #FFF8F0; border-color: var(--wiki-primary); box-shadow: 0 3px 0 #332a24; }
+.author-btn-confirm:hover { background: #5d4d45; box-shadow: 0 5px 0 #332a24; }
+.author-btn-confirm:active { transform: translateY(4px) scale(0.96); box-shadow: 0 0 0 #332a24; }
+
+/* 导出临时元素：署名 pill + 日期行 */
+.gen-author {
+    display: inline-block;
+    background: #fdf0ef;
+    color: var(--wiki-highlight);
+    border-radius: 18px;
+    padding: 2px 14px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.gen-date {
+    text-align: center;
+    font-size: 11px;
+    color: var(--wiki-primary-soft);
+    margin-top: 2px;
 }
 
 /* ---------- 预览区补充元素 ---------- */
@@ -1639,7 +1865,7 @@ body {
     font-size: 26px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: var(--primary);
+    color: var(--wiki-primary);
     padding: 4px 10px;
 }
 .frame .stage-text { font-size: 17px; letter-spacing: 1.5px; padding: 0; }
@@ -1648,11 +1874,11 @@ body {
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 1px;
-    color: var(--primary);
+    color: var(--wiki-primary);
     margin: 4px auto 8px;
 }
 .frame .team-text { font-size: 13px; margin: 2px auto 6px; }
-.author-name { color: var(--gold); font-weight: 700; }
+.author-name { color: var(--wiki-gold); font-weight: 700; }
 
 /* 手机：画框全宽，弹窗全屏化 */
 @media (max-width: 768px) {
@@ -1665,21 +1891,20 @@ body {
 
 </style>
 </head>
-<body>
+<body data-tool="dxdy-lineup-editor" data-ver="0.29">
 <div class="app">
-    <div class="frame-tip">XHS 封面预览 · 1:1（1080 × 1080px）· 点立绘/名字换人 · 点星级/等级/修为/生命/攻击直接修改 · 点命盘/星石区编辑</div>
+    <div class="frame-tip">XHS 封面预览 · 1:1（1080 × 1080px）· 点标题切换 代号鸢/如鸢 · 点立绘/名字换人 · 点星级/等级/修为/生命/攻击直接修改 · 点命盘/星石区编辑 · 按住立绘拖动换位</div>
     <div class="frame" id="frame"></div>
     <div class="bottom-bar">
-        <button class="tb-btn" onclick="toggleSquadInput()">配队</button>
-        <button class="tb-btn" onclick="openSquads()">常用配队</button>
-        <button class="tb-btn" onclick="clearTeam()">清空阵容</button>
-        <button class="tb-btn" onclick="syncTeam()">导入录制器</button>
-        <button class="tb-btn primary" id="exportBtn" onclick="exportImage()">生成图片</button>
-    </div>
-    <div class="squad-slot" id="squadSlot">
-        <input type="text" id="squadInput" placeholder="输入密探姓名，空格隔开，如：诸葛亮 黄月英 赵云">
-        <div class="squad-hint">可直接输入密探姓名用空格隔开，支持拼音和模糊音</div>
-        <button class="squad-go" onclick="squadFill()">填入阵容</button>
+        <div class="bottom-funcs">
+            <button class="tb-btn" onclick="openSquads()">常用配队</button>
+            <button class="tb-btn danger" onclick="clearTeam()">清空所有</button>
+            <button class="tb-btn" onclick="syncTeam()">导入录制器</button>
+            <button class="tb-btn" id="reorderBtn" onclick="toggleReorder()">调整站位</button>
+        </div>
+        <div class="bottom-main">
+            <button class="tb-btn primary" id="exportBtn" onclick="exportImage()">生成图片</button>
+        </div>
     </div>
     <div class="squads-panel" id="squadsPanel"></div>
 </div>
@@ -1697,7 +1922,7 @@ body {
         </div>
         <div class="he-fields" id="hmFields"></div>
         <div class="hm-mp">
-            <div class="hm-mp-label">命盘 · 12 槽点选（最多 4 个；点已选切换 必/禁/普通，✕ 移除）</div>
+            <div class="hm-mp-label">命盘 · 12 槽点选（最多 4 个）</div>
             <div class="hm-mp-grid" id="hmMingpanPick"></div>
             <div class="hm-mp-sel" id="hmMingpanSel"></div>
         </div>
@@ -1715,15 +1940,32 @@ body {
     <div class="drawer-foot"><button class="modal-ok" onclick="closeModal('heroModal')">完成</button></div>
 </div>
 
-<!-- 简写冲突选择 -->
-<div class="modal-overlay" id="ambModal">
-    <div class="modal">
-        <div class="modal-head">
-            <h2>简写冲突，请选择</h2>
-            <button class="modal-close" onclick="closeAmb()">✕</button>
+<!-- 辅星选择弹层（手机上避免内嵌下拉被容器裁剪，统一居中弹层） -->
+<div class="cs-modal-overlay" id="csModal">
+    <div class="cs-modal">
+        <div class="cs-modal-head">
+            <span class="cs-modal-title">选择辅星</span>
+            <input class="cs-search" id="csModalSearch" placeholder="搜索：拼音 / 名称 / 注释（如 js、技增）">
+            <button class="cs-modal-close" id="csModalClose">✕</button>
         </div>
-        <div class="modal-body" id="ambBody"></div>
-        <div class="modal-foot"><button class="modal-ok" onclick="applyPlan()">填入</button></div>
+        <div class="cs-modal-list" id="csModalList"></div>
+    </div>
+</div>
+
+<!-- 署名弹窗（生成图片时确认，与操作记录器一致） -->
+<div class="author-modal-overlay" id="authorModal">
+    <div class="author-modal-box">
+        <div class="author-modal-title">输入署名</div>
+        <div class="author-modal-sub">您的署名将显示在图片标题下方</div>
+        <input type="text" id="authorInput" placeholder="请输入您的署名或笔名" maxlength="30" autofocus>
+        <div class="author-quick-row">
+            <button type="button" id="authorSaveBtn">记住此署名</button>
+        </div>
+        <div class="author-saved" id="authorSavedList"></div>
+        <div class="author-modal-actions">
+            <button type="button" class="author-btn-cancel" id="authorCancelBtn">取消</button>
+            <button type="button" class="author-btn-confirm" id="authorConfirmBtn">确认生成</button>
+        </div>
     </div>
 </div>
 
@@ -1749,6 +1991,11 @@ body {
 
 <script>
 // ============================
+//  工具指纹：BWIKI 出品声明（防搬运溯源用，勿删除）
+// ============================
+const DXDIY_TOOL = { name: '代号鸢·出战阵容编辑器', origin: 'wiki.biligame.com/yuan', ver: '0.29' };
+
+// ============================
 //  密探池（121 人，源自 BWiki Box 数据）
 // ============================
 const MIRROR_POOL = [{"id":"司马孚","name":"司马孚","rarity":"绝密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/6/6f/rmkxfpyo4oyk192vps5y7m2c5s8l4it.png","slots":{"太岁":{"color":"橙","effect":"黄粱"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"受胙"},"丹曲":{"color":"橙","effect":"严重过敏"},"延寿":{"color":"紫","effect":"初始能量+1"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"防御减伤提升"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"群猫搦鼠"}},"created":"19 7月 2026 10:18:32"},{"id":"赵云","name":"赵云","rarity":"绝密","job":"破军","attribute":"风,火","avatar":"https://patchwiki.biligame.com/images/yuan/7/79/m53t7gum4pytxg3j0p14hlsatb59xay.png","slots":{"太岁":{"color":"橙","effect":"为汉爪士"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"火随风起"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"紫","effect":"防御时恢复生命"},"丹曲":{"color":"橙","effect":"七进七出"},"延寿":{"color":"橙","effect":"英风慑敌"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"攻击力小幅提升"},"上生":{"color":"橙","effect":"匹马单枪"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"18 7月 2026 16:21:50"},{"id":"孙辅","name":"孙辅","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/1/1b/tqf9e723flxzs6n0iyrjve8alimmlh3.png","slots":{"太岁":{"color":"橙","effect":"伏藏"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"诡步"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"最大生命大幅提升"},"阳明":{"color":"紫","effect":"普攻伤害中幅增加"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"掣肘"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"24 5月 2026 11:08:29"},{"id":"张松","name":"张松","rarity":"绝密","job":"诡道","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/5/54/a19nrqsfege4d45rdinr2v8odtjhqxd.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"拂秽"},"北极":{"color":"橙","effect":"策无遗算"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"蓝","effect":"技能伤害小幅增加"},"丹曲":{"color":"橙","effect":"挥军"},"延寿":{"color":"紫","effect":"最大生命中幅提升"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"生命高时攻击提升"},"上生":{"color":"橙","effect":"指画阴阳"},"命宫":{"color":"紫","effect":"普攻强化，技能免伤提升"},"益算":{"color":"蓝","effect":"最大生命小幅提升"}},"created":"24 5月 2026 11:06:59"},{"id":"孟获","name":"孟获","rarity":"绝密","job":"岐黄","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/7/77/eur1wvcnbkeve3riitgryeaaqz112pz.png","slots":{"太岁":{"color":"蓝","effect":"最大生命小幅提升"},"暗星":{"color":"橙","effect":"山深丰佑"},"北极":{"color":"橙","effect":"骇兽仙飨"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"橙","effect":"寄生"},"丹曲":{"color":"蓝","effect":"防御减伤提升"},"延寿":{"color":"蓝","effect":"治疗效果小幅提升"},"阳明":{"color":"蓝","effect":"生命低时攻击提升"},"天关":{"color":"橙","effect":"最大生命大幅提升"},"上生":{"color":"紫","effect":"治疗效果中幅提升"},"命宫":{"color":"紫","effect":"攻击力中幅提升"},"益算":{"color":"橙","effect":"洪胀"}},"created":"17 5月 2026 10:15:55"},{"id":"孙静","name":"孙静","rarity":"绝密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/f/f5/9p7kwhi6wi4it1h9ommhjuzi55q30z3.png","slots":{"太岁":{"color":"橙","effect":"水火相济"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"攻其无备"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"最大生命大幅提升"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"出其不意"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"17 5月 2026 10:15:07"},{"id":"陈应","name":"陈应","rarity":"绝密","job":"破军","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/1/19/4eed6eypnod9krtc2e03497pyvnkhx7.png","slots":{"太岁":{"color":"橙","effect":"少年游"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"载酒欢歌"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"蓝","effect":"普攻伤害小幅增加"},"延寿":{"color":"紫","effect":"技能伤害中幅增加"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"凌云意气"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"30 3月 2026 06:11:28"},{"id":"陈纪","name":"陈纪","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/7/76/hssbw472m00wooqlgn3c8z21pxdpj63.png","slots":{"太岁":{"color":"橙","effect":"雍和"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"至德"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"言不务华"},"延寿":{"color":"橙","effect":"事不虚饰"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"对子骂父则是无礼"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"30 3月 2026 06:10:29"},{"id":"卢植","name":"卢植","rarity":"绝密","job":"诡道","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/4/42/2u6xcjgebqdp5fsd3ftmtlc4dswgpq1.png","slots":{"太岁":{"color":"橙","effect":"采薇遗歌"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"玉盘珠落"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+2"},"延寿":{"color":"紫","effect":"初始能量+1"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"弦外余音"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"24 2月 2026 10:17:27"},{"id":"庞德","name":"庞德","rarity":"绝密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/d/d0/ocgeh3wstap4xvd3yyoq0xvpghxbpgo.png","slots":{"太岁":{"color":"橙","effect":"叱敌"},"暗星":{"color":"蓝","effect":"普攻伤害小幅增加"},"北极":{"color":"橙","effect":"苦击"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"惊云破阵"},"延寿":{"color":"橙","effect":"抬棺决死"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"死战不屈"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"24 2月 2026 10:11:51"},{"id":"酆公玖","name":"酆公玖","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/9/97/8wybrjuuvfdeseuaef8fxi50v3jpp1x.png","slots":{"太岁":{"color":"橙","effect":"杲杲日升"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"否极泰来"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"并曜中天"},"延寿":{"color":"橙","effect":"换斗移星"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"紫","effect":"技能强化，普攻免伤提升"},"上生":{"color":"橙","effect":"五星归垣"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"普攻强化，技能免伤提升"}},"created":"1 2月 2026 04:14:59"},{"id":"酆公珠","name":"酆公珠","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/6/6b/lmm6lncechg5owlgyxd985enytbccxj.png","slots":{"太岁":{"color":"橙","effect":"山灵护野"},"暗星":{"color":"橙","effect":"最大生命大幅提升"},"北极":{"color":"橙","effect":"月盈复魄"},"中天":{"color":"蓝","effect":"生命高时提升攻击"},"帝君":{"color":"紫","effect":"治疗效果中幅提升"},"丹曲":{"color":"橙","effect":"维虺维蛇"},"延寿":{"color":"橙","effect":"龙蛇之蛰"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"瑶光贯月"},"命宫":{"color":"蓝","effect":"治疗效果小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"1 2月 2026 04:13:58"},{"id":"陈群","name":"陈群","rarity":"绝密","job":"神纪","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/e/eb/rrlj7xvqat9y65cmjkf2ckk6z8svn1j.png","slots":{"太岁":{"color":"橙","effect":"青烟鹊尾"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"宝篆浮烟"},"中天":{"color":"蓝","effect":"生命高时提升攻击"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"伐谋"},"延寿":{"color":"橙","effect":"守文持正"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"行药"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"20 12月 2025 10:39:24"},{"id":"法正","name":"法正","rarity":"绝密","job":"神纪","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/3/34/3ewvtci3w16qa0nt7txzv6dg5bl8c01.png","slots":{"太岁":{"color":"橙","effect":"首抽福利"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"回应吾！灵者之厄运！"},"中天":{"color":"蓝","effect":"生命高时提升攻击"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"咸鱼回血"},"延寿":{"color":"橙","effect":"金币攻击"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"吞云吐月"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"20 12月 2025 10:38:17"},{"id":"郭女王","name":"郭女王","rarity":"绝密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/8/82/byrf0dhqva2wbubhsj51jnpq4qsoevp.png","slots":{"太岁":{"color":"橙","effect":"龙飞紫极"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"两生对"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"卡学历"},"延寿":{"color":"橙","effect":"初始能量+2"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"我甄的宓了！"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"7 12月 2025 10:17:48"},{"id":"蒯良","name":"蒯良","rarity":"绝密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/b/b6/7kr5ndz4hbvqvfms8c0154m71ffr8hj.png","slots":{"太岁":{"color":"橙","effect":"祸福无门"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"君子慎独"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"蓝","effect":"生命高时提升攻击"},"丹曲":{"color":"橙","effect":"最大生命大幅提升"},"延寿":{"color":"橙","effect":"端审谨言"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"因来果报"},"命宫":{"color":"蓝","effect":"防御减伤提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"7 12月 2025 10:16:40"},{"id":"诸葛亮","name":"诸葛亮","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/a/ab/qf07yu4758yus20frue1v6l4kysecd6.png","slots":{"太岁":{"color":"橙","effect":"天命所归"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"往来建木"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"飞龙在天"},"延寿":{"color":"橙","effect":"利见"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"沟通天地"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"2 11月 2025 10:19:24"},{"id":"司马徽","name":"司马徽","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/3/39/flixzq6r01lwtus0v4a2y553027qxps.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"最大生命小幅提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"鹿蜀"},"帝君":{"color":"橙","effect":"毕方"},"丹曲":{"color":"橙","effect":"皋涂山"},"延寿":{"color":"橙","effect":"白泽"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"紫","effect":"最大生命中幅提升"},"命宫":{"color":"蓝","effect":"生命高时攻击提升"},"益算":{"color":"紫","effect":"普攻伤害中幅增加"}},"created":"2 11月 2025 10:18:49"},{"id":"简雍","name":"简雍","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/8/88/obb0pcnvj0vqsshtkk02dxpqw7pir3m.png","slots":{"太岁":{"color":"橙","effect":"职场老人"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"赋闲返聘"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"普攻伤害大幅增加"},"延寿":{"color":"橙","effect":"初始能量+2"},"阳明":{"color":"紫","effect":"普攻伤害中幅增加"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"看着叫人火大"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"12 10月 2025 11:29:28"},{"id":"曹丕","name":"曹丕","rarity":"绝密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/f/f4/0z6lk1zn3kp9mb87ahi176mvky86u87.png","slots":{"太岁":{"color":"橙","effect":"碧血"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"受禅之刃"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"猛气"},"延寿":{"color":"紫","effect":"普攻时恢复生命"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"曳我裳"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"12 10月 2025 11:26:24"},{"id":"吕布","name":"吕布","rarity":"绝密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/b/be/7mosxiovzx93bi1q1ys0d9vf8eijtgk.png","slots":{"太岁":{"color":"橙","effect":"辕门射戟"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"豪杰纵横"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"以战养战"},"延寿":{"color":"橙","effect":"马踏血泥"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"骁骑赫怒"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"7 9月 2025 13:35:04"},{"id":"周忠","name":"周忠","rarity":"绝密","job":"岐黄","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/f/f8/lgtf6q04oa730ynnaydme1iytcjmii5.png","slots":{"太岁":{"color":"橙","effect":"孕蝶"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"酣足"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"治疗效果大幅提升"},"延寿":{"color":"橙","effect":"初始能量+2"},"阳明":{"color":"紫","effect":"治疗效果中幅提升"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"夜长梦多"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"7 9月 2025 13:34:31"},{"id":"庞羲","name":"庞羲","rarity":"绝密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/8/84/q5nylii04553ce8odilnn7n7hl0pt46.png","slots":{"太岁":{"color":"橙","effect":"日光"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"专权"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"事君同忧"},"延寿":{"color":"橙","effect":"临战"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"羲和"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"18 8月 2025 15:26:44"},{"id":"刘璋","name":"刘璋","rarity":"绝密","job":"神纪","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/4/4c/klekcfs8o0o1vv8r7y68c22wrrqnb6n.png","slots":{"太岁":{"color":"橙","effect":"蜀道难"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"初始能量+3"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"大破敌"},"延寿":{"color":"紫","effect":"普攻伤害中幅增加"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"闭隘"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"18 8月 2025 15:25:13"},{"id":"钟繇","name":"钟繇","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/9/90/90fapv9628m3i7ahnqrppm3gezjp5k1.png","slots":{"太岁":{"color":"橙","effect":"持节督军"},"暗星":{"color":"紫","effect":"技能伤害中幅增加"},"北极":{"color":"橙","effect":"曲终阕尽"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"馀弦更兴"},"延寿":{"color":"橙","effect":"琴砚共依"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"悔作丝桐"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"23 6月 2025 05:18:56"},{"id":"夏侯渊","name":"夏侯渊","rarity":"绝密","job":"破军","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/9/98/nc2pxxhrjorxy1mta5fdlol55ofdl3v.png","slots":{"太岁":{"color":"橙","effect":"学法律学的"},"暗星":{"color":"橙","effect":"攻击力大幅提升"},"北极":{"color":"橙","effect":"虎步关右"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻城破阵"},"延寿":{"color":"橙","effect":"恃勇身先"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"出敌不意"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"23 6月 2025 05:16:35"},{"id":"张燕","name":"张燕","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/1/18/8cwqe3ltpc6v5sxqwj4268y6a2qdn92.png","slots":{"太岁":{"color":"橙","effect":"噢"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"嗯"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"啥？"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"啊？"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"25 5月 2025 04:33:04"},{"id":"虞翻","name":"虞翻","rarity":"绝密","job":"破军","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/0/03/haazp9w4kw907wu7x1161f4e7p6ms6d.png","slots":{"太岁":{"color":"橙","effect":"右鬼非命"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"节食"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"攻其不备"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"紧带断腰"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"25 5月 2025 04:32:12"},{"id":"士燮","name":"士燮","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/3/3d/e0n1eo6aon5k20wpmbcmhe15p6d43ql.png","slots":{"太岁":{"color":"橙","effect":"战前赏赐"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"交州之主"},"中天":{"color":"蓝","effect":"生命高时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"护盾效果大幅提升"},"延寿":{"color":"橙","effect":"蕉叶覆鹿"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"吃早茶"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"28 4月 2025 12:24:20"},{"id":"程普","name":"程普","rarity":"绝密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/e/e2/9tlzrfzzjueuak3se2oidlzc5e47sj6.png","slots":{"太岁":{"color":"橙","effect":"打铁"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"老铁"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"金卫战意"},"阳明":{"color":"紫","effect":"技能伤害中幅增加"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"幽州肉搏战"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"28 4月 2025 12:23:34"},{"id":"张昭","name":"张昭","rarity":"绝密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/e/e1/cgo1mra74vlwr7c8z06my96z2fopbjd.png","slots":{"太岁":{"color":"橙","effect":"萧瑟"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"维山崔嵬"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"紫","effect":"普攻伤害中幅增加"},"丹曲":{"color":"橙","effect":"肃杀"},"延寿":{"color":"橙","effect":"八风回"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"初始能量+3"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"9 3月 2025 11:50:18"},{"id":"董白","name":"董白","rarity":"绝密","job":"神纪","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/3/31/3zsiq2shadzfe1n8ze7l7wxao2rvemx.png","slots":{"太岁":{"color":"橙","effect":"窅窅翳翳"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"汔可休息"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"丹曲":{"color":"橙","effect":"最大生命大幅提升"},"延寿":{"color":"橙","effect":"发踪指示"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"观衅而动"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"9 3月 2025 11:48:49"},{"id":"张绣","name":"张绣","rarity":"绝密","job":"破军","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/6/61/r3wvx0p8mjri41lglqx2zudhq59rgwd.png","slots":{"太岁":{"color":"橙","effect":"磨牙吮血"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"孤阳偾"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"骨饵犬狼"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"饥兽群嗥"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"16 2月 2025 10:35:10"},{"id":"刘豹","name":"刘豹","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/1/1b/am7s4b3yw71gef01a1wxfbag10trph2.png","slots":{"太岁":{"color":"橙","effect":"关山难越"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"大漠穷秋"},"中天":{"color":"橙","effect":"雪霁初晴"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"铁骑"},"延寿":{"color":"橙","effect":"霜重鼓寒"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"春风不度"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"16 2月 2025 10:34:01"},{"id":"祢衡","name":"祢衡","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/d/d7/7b2neout1g5qn4859gfierv393kj964.png","slots":{"太岁":{"color":"橙","effect":"英明神武"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"伐竹为枪"},"中天":{"color":"橙","effect":"游放心狂"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+4"},"延寿":{"color":"橙","effect":"普攻伤害大幅增加"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"风紧扯呼"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"6 1月 2025 10:37:41"},{"id":"蒯越","name":"蒯越","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/0/01/4jsqz9h68vnatql2hzikjicvs9p4m6l.png","slots":{"太岁":{"color":"橙","effect":"沧海可越"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"营营何求"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"为王前驱"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"翼翼上弼"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"6 1月 2025 10:36:47"},{"id":"史子眇·赴烛","name":"史子眇·赴烛","rarity":"电影","job":"岐黄","attribute":"混沌","avatar":"https://patchwiki.biligame.com/images/yuan/c/cb/cb314b09t86ni223vm3l9oyesrpw4i0.png","slots":{"太岁":{"color":"橙","effect":"身魂俱殁"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"念兹在兹"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"仁心护持"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"重灵降诛"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"11 12月 2024 04:38:21"},{"id":"陈登·黍王","name":"陈登·黍王","rarity":"电影","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/a/af/6vaj3ymlbmeii1ahc97s4frevakswjw.png","slots":{"太岁":{"color":"橙","effect":"时和岁丰"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"积善馀庆"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"河淸海晏"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"雨顺物康"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"11 12月 2024 04:32:37"},{"id":"朱然","name":"朱然","rarity":"绝密","job":"龙盾","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/a/a5/ik659ecv7az5hl0rex7nfbba51owgpx.png","slots":{"太岁":{"color":"橙","effect":"临危不挠"},"暗星":{"color":"蓝","effect":"最大生命小幅提升"},"北极":{"color":"橙","effect":"至刚至阳"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"橙","effect":"强御不畏"},"丹曲":{"color":"橙","effect":"汤池之固"},"延寿":{"color":"紫","effect":"初始能量+1"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"14 11月 2024 08:01:18"},{"id":"黄盖","name":"黄盖","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/b/be/nvfqcka2atzeelcmmmba9zacw6q86ot.png","slots":{"太岁":{"color":"橙","effect":"敌明我暗"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"斑子"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"橙","effect":"刃出封喉"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"声如洪钟"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"14 11月 2024 07:59:11"},{"id":"令狐茂","name":"令狐茂","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/b/ba/pnwr0fbqpjbwcasv2cf57yqjiyzyez5.png","slots":{"太岁":{"color":"橙","effect":"石上三生"},"暗星":{"color":"橙","effect":"初始能量+4"},"北极":{"color":"橙","effect":"灵河有源"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"长生亦苦"},"延寿":{"color":"橙","effect":"去日苦多"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"历世长存"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"5 11月 2024 09:20:08"},{"id":"马腾","name":"马腾","rarity":"绝密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/a/a4/81nsz82x9k5flr7bzdyje0vn2rfb8ha.png","slots":{"太岁":{"color":"橙","effect":"地狱空"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"荡荡如空"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"纵骑驱骋"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"自彼氐羌"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"5 11月 2024 09:16:21"},{"id":"刘繇","name":"刘繇","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/e/eb/0vodrsvg99et88r6ca21pkg78allb70.png","slots":{"阳明":{"color":"紫","effect":"最大生命中幅提升"},"暗星":{"color":"蓝","effect":"最大生命小幅提升"},"丹曲":{"color":"橙","effect":"兔死狗烹"},"延寿":{"color":"橙","effect":"千金市骨"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"天命在身"},"太岁":{"color":"橙","effect":"渊图远算"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"帝君":{"color":"橙","effect":"等量齐观"},"中天":{"color":"蓝","effect":"生命低时攻击提升"}},"created":"9 9月 2024 13:36:05"},{"id":"戏学","name":"戏学","rarity":"绝密","job":"诡道","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/3/3f/6lcwibfbngs0eufb8uuyixxj8yhp2e0.png","slots":{"阳明":{"color":"紫","effect":"初始能量+1"},"暗星":{"color":"蓝","effect":"防御时恢复生命"},"丹曲":{"color":"橙","effect":"初始能量+4"},"延寿":{"color":"橙","effect":"分身降低免伤值"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"},"北极":{"color":"橙","effect":"捉生替死"},"太岁":{"color":"橙","effect":"膏泽丰壤"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"气谊相投"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"中天":{"color":"蓝","effect":"生命低时攻击提升"}},"created":"9 9月 2024 13:34:13"},{"id":"安期","name":"安期","rarity":"绝密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/6/68/7ju1x1srz7y2jh8qcu4veauc5cphi3e.png","slots":{"阳明":{"color":"紫","effect":"初始能量+1"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"丹曲":{"color":"橙","effect":"虚而不屈"},"延寿":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"最大生命中幅提升"},"北极":{"color":"橙","effect":"动而愈出"},"太岁":{"color":"橙","effect":"取予然诺"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"我独若遗"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"中天":{"color":"蓝","effect":"生命低时攻击提升"}},"created":"25 8月 2024 09:28:46"},{"id":"凌统","name":"凌统","rarity":"绝密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/4/46/o5ljsmhviqkr2u7s0xloqgxk5uz2t35.png","slots":{"阳明":{"color":"紫","effect":"最大生命中幅提升"},"暗星":{"color":"蓝","effect":"最大生命小幅提升"},"丹曲":{"color":"橙","effect":"声名烈烈"},"延寿":{"color":"橙","effect":"初始能量+3"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"共愤同仇"},"太岁":{"color":"橙","effect":"济河焚舟"},"天关":{"color":"蓝","effect":"攻击力中幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"帝君":{"color":"橙","effect":"枕戈饮血"},"中天":{"color":"紫","effect":"生命低时攻击提升"}},"created":"25 8月 2024 09:27:35"},{"id":"满宠","name":"满宠","rarity":"绝密","job":"破军","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/e/e0/8xa1beylh9zw655bjrwbwgnaw7keikg.png","slots":{"太岁":{"color":"橙","effect":"剐骨离髓"},"暗星":{"color":"蓝","effect":"最大生命小幅提升"},"北极":{"color":"橙","effect":"威刑肃物"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"橙","effect":"严正判决"},"丹曲":{"color":"橙","effect":"幽明参半"},"延寿":{"color":"橙","effect":"攻击力大幅提升"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"30 6月 2024 04:19:47"},{"id":"荀攸","name":"荀攸","rarity":"绝密","job":"诡道","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/3/3b/0hlnj9ugh53pwnlaq9e4cuxb3b0si9k.png","slots":{"太岁":{"color":"橙","effect":"初始能量+3"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"一智谋众"},"中天":{"color":"蓝","effect":"生命低时攻击提升"},"帝君":{"color":"紫","effect":"攻击力中幅提升"},"丹曲":{"color":"橙","effect":"于无声处"},"延寿":{"color":"橙","effect":"惊雷低声"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"隐幕"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"30 6月 2024 04:17:49"},{"id":"诸葛诞","name":"诸葛诞","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/7/71/8qi6kvjd44im3hjaf1a73u1hc6vi19g.png","slots":{"太岁":{"color":"橙","effect":"同气连枝"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"笳鼓喧喧"},"中天":{"color":"蓝","effect":"普攻伤害小幅增加"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"丹曲":{"color":"橙","effect":"吹火吐焰"},"延寿":{"color":"橙","effect":"双生"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"攻击力小幅提升"},"上生":{"color":"橙","effect":"折冲御侮"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"23 5月 2024 10:21:00"},{"id":"诸葛瑾","name":"诸葛瑾","rarity":"绝密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/2/2d/por3fwb0dctyinsr9qs4pi7ppjflwrb.png","slots":{"太岁":{"color":"橙","effect":"济威以仁"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"岂无鹡鸰"},"中天":{"color":"蓝","effect":"技能伤害小幅增加"},"帝君":{"color":"紫","effect":"白露震霆"},"丹曲":{"color":"橙","effect":"深沉穆远"},"延寿":{"color":"橙","effect":"常棣"},"阳明":{"color":"紫","effect":"随方就圆"},"天关":{"color":"紫","effect":"初始能量+1"},"上生":{"color":"橙","effect":"寒霜拂矢"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"23 5月 2024 10:19:24"},{"id":"曹植","name":"曹植","rarity":"绝密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/f/f2/dnl4jr38lek25iv0aenu25plosdl6lj.png","slots":{"太岁":{"color":"橙","effect":"洒落赋韵"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"音义既远"},"中天":{"color":"蓝","effect":"技能伤害小幅增加"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"技能伤害大幅增加"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"紫","effect":"初始能量+1"},"上生":{"color":"橙","effect":"亲交从游"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"6 5月 2024 12:10:58"},{"id":"董奉","name":"董奉","rarity":"绝密","job":"岐黄","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/3/3b/d5rm75bn32umgcexeh3t7usxhwqnmg3.png","slots":{"太岁":{"color":"橙","effect":"使用技能后防御"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"橙","effect":"随营医者"},"中天":{"color":"蓝","effect":"治疗效果小幅提升"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"丹曲":{"color":"橙","effect":"扶正祛邪"},"延寿":{"color":"橙","effect":"执杏成丛"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"攻击力小幅提升"},"上生":{"color":"橙","effect":"着手成春"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"治疗效果中幅提升"}},"created":"6 5月 2024 12:09:59"},{"id":"张邈","name":"张邈","rarity":"绝密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/2/2c/mkyxzazwonaqaxyqdudzzkhpun0dqgp.png","slots":{"阳明":{"color":"紫","effect":"攻击力中幅提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"风属性密探强化"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"普攻伤害中幅增加"},"北极":{"color":"橙","effect":"无晴却有晴"},"太岁":{"color":"橙","effect":"道同为谋"},"天关":{"color":"蓝","effect":"攻击力小幅提升"},"上生":{"color":"橙","effect":"使用技能后防御"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"中天":{"color":"紫","effect":"初始能量+1"}},"created":"10 3月 2024 04:17:43"},{"id":"黄月英","name":"黄月英","rarity":"绝密","job":"龙盾","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/6/6d/axqt2koc81gc5ir6z3y8gla2n8mu647.png","slots":{"阳明":{"color":"紫","effect":"攻击力中幅提升"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"丹曲":{"color":"橙","effect":"山川妈妈"},"延寿":{"color":"橙","effect":"尸解"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"灵倾三台"},"北极":{"color":"橙","effect":"羽化"},"太岁":{"color":"橙","effect":"应龙之盾"},"天关":{"color":"蓝","effect":"攻击力小幅提升"},"上生":{"color":"橙","effect":"乾坤既定"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"中天":{"color":"紫","effect":"初始能量+1"}},"created":"10 3月 2024 04:15:27"},{"id":"孔融","name":"孔融","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/b/b9/5e4n1xy75ds1rhhpqtxk43exj1w4ccs.png","slots":{"太岁":{"color":"橙","effect":"天道有常"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"包元履德"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"紫","effect":"普攻伤害中幅增加"},"丹曲":{"color":"橙","effect":"初始能量+4"},"延寿":{"color":"橙","effect":"君君臣臣"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"普攻伤害小幅增加"},"上生":{"color":"橙","effect":"普攻伤害大幅增加"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"18 2月 2024 09:54:34"},{"id":"张鲁","name":"张鲁","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/b/ba/93ms72jl9mftf1m843oqv7szov210c6.png","slots":{"太岁":{"color":"橙","effect":"伐身害命"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"阴属性密探强化"},"中天":{"color":"蓝","effect":"技能伤害小幅增加"},"帝君":{"color":"橙","effect":"斩灭尸"},"丹曲":{"color":"橙","effect":"夺纪夺算"},"延寿":{"color":"橙","effect":"技能伤害系数大幅增加"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"紫","effect":"初始能量+1"},"上生":{"color":"紫","effect":"与张修联动"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"18 2月 2024 09:48:55"},{"id":"甄宓","name":"甄宓","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/b/b8/qzmgtehes1f5ri66ssvfv5shksggdtz.png","slots":{"太岁":{"color":"橙","effect":"反戈"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"橙","effect":"压制"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"紫","effect":"最大生命中幅提升"},"丹曲":{"color":"橙","effect":"初始能量+3"},"延寿":{"color":"橙","effect":"暗线"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"蓝","effect":"最大生命小幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"14 1月 2024 08:43:55"},{"id":"甘宁","name":"甘宁","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/e/e0/mn3j0cjvviaxru6k1wbz49hh032d6sq.png","slots":{"太岁":{"color":"橙","effect":"同流合污"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"橙","effect":"穷凶恶极"},"中天":{"color":"蓝","effect":"技能伤害小幅增加"},"帝君":{"color":"橙","effect":"巧取豪夺"},"丹曲":{"color":"橙","effect":"掠夺攻击力"},"延寿":{"color":"橙","effect":"坐享其成"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"紫","effect":"防御时恢复生命"},"上生":{"color":"紫","effect":"普攻伤害中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"14 1月 2024 08:41:55"},{"id":"徐庶","name":"徐庶","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/f/f5/gkfydyxawtbvqqma50b9akrjrt2pscl.png","slots":{"太岁":{"color":"橙","effect":"技能后降低敌人抗性"},"暗星":{"color":"蓝","effect":"生命值高时攻击提升"},"北极":{"color":"橙","effect":"谋无遗策"},"中天":{"color":"蓝","effect":"技能伤害小幅增加"},"帝君":{"color":"橙","effect":"剑气纵横"},"丹曲":{"color":"橙","effect":"敌人较少时提升能力"},"延寿":{"color":"橙","effect":"敌人较多时提升能力"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"紫","effect":"攻击力中福提升"},"上生":{"color":"紫","effect":"青手力量偏向辅助"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"技能伤害中幅增加"}},"created":"17 12月 2023 11:01:27"},{"id":"张郃","name":"张郃","rarity":"绝密","job":"神纪","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/0/05/ay11j8in51fcczkq1598yzkxxri2cqq.png","slots":{"太岁":{"color":"橙","effect":"火属性密探回复生命"},"暗星":{"color":"蓝","effect":"生命值高时攻击提升"},"北极":{"color":"橙","effect":"顺风扯旗"},"中天":{"color":"紫","effect":"初始能量+1"},"帝君":{"color":"橙","effect":"治疗效果大幅提升"},"丹曲":{"color":"橙","effect":"使用技能后防御"},"延寿":{"color":"橙","effect":"乘机应变"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"紫","effect":"治疗效果中幅提升"},"上生":{"color":"蓝","effect":"治疗效果小幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"防御时恢复生命"}},"created":"17 12月 2023 10:55:15"},{"id":"张闿","name":"张闿","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/2/29/j5w132v0f44ge55qkbb3s71rvqdftrm.png","slots":{"太岁":{"color":"橙","effect":"技能触发持续伤害"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"攻击力大幅提升"},"帝君":{"color":"橙","effect":"飞镰横扫"},"丹曲":{"color":"橙","effect":"初始能量+2"},"延寿":{"color":"紫","effect":"最大生命中幅提升"},"阳明":{"color":"紫","effect":"普攻伤害中幅增加"},"天关":{"color":"紫","effect":"防御时恢复生命"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"迅步潜影"}},"created":"27 11月 2023 09:20:52"},{"id":"太史慈","name":"太史慈","rarity":"绝密","job":"破军","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/0/0a/rpqyz3pss4pnpdznwkkmwjwwan0texc.png","slots":{"太岁":{"color":"橙","effect":"新订单-合力攻击"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"绩效激励"},"帝君":{"color":"橙","effect":"新订单-禁止防御"},"丹曲":{"color":"橙","effect":"攻击力大幅提升"},"延寿":{"color":"紫","effect":"技能伤害系数中幅增加"},"阳明":{"color":"紫","effect":"普攻伤害中幅增加"},"天关":{"color":"紫","effect":"防御时恢复生命"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"时间规划"}},"created":"27 11月 2023 09:19:52"},{"id":"马超","name":"马超","rarity":"绝密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/0/00/ibs3ffcyjms3dg1736raiwbeubvir89.png","slots":{"太岁":{"color":"橙","effect":"铁骑当千"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"出手法"},"帝君":{"color":"橙","effect":"【嘲讽】回合提升"},"丹曲":{"color":"橙","effect":"以攻为守"},"延寿":{"color":"紫","effect":"技能伤害系数中幅增加"},"阳明":{"color":"紫","effect":"普攻伤害中幅增加"},"天关":{"color":"紫","effect":"防御时恢复生命"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"西凉坚壁"}},"created":"8 11月 2023 06:48:14"},{"id":"程昱","name":"程昱","rarity":"绝密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/4/4e/c2nsidb47ba0y7acho40upa8fil5x9n.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"明哲保身"},"北极":{"color":"橙","effect":"审时度势"},"中天":{"color":"橙","effect":"等价交换"},"帝君":{"color":"橙","effect":"知止不殆"},"丹曲":{"color":"橙","effect":"血肉阴谋"},"延寿":{"color":"蓝","effect":"生命高时攻击提升"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"技能伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"技能伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"8 11月 2023 06:47:50"},{"id":"张角","name":"张角","rarity":"绝密","job":"破军","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/2/2e/pqyxrxwm5j6hfjd84p9r887w3i4n2tq.png","slots":{"太岁":{"color":"橙","effect":"反噬"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"天宫"},"帝君":{"color":"橙","effect":"苍天"},"丹曲":{"color":"橙","effect":"黄天"},"延寿":{"color":"紫","effect":"无极"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"紫","effect":"布道"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"符水"}},"created":"28 9月 2023 00:39:02"},{"id":"夏侯惇","name":"夏侯惇","rarity":"绝密","job":"龙盾","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/a/a6/al7ep2rfce2ng9d2p39eoxinc8skj99.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"橙","effect":"拔矢啖晴"},"中天":{"color":"橙","effect":"陷阵护主"},"帝君":{"color":"橙","effect":"进入战斗获得能量"},"丹曲":{"color":"紫","effect":"亲力亲为"},"延寿":{"color":"橙","effect":"临机应变"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"28 9月 2023 00:36:50"},{"id":"张飞","name":"张飞","rarity":"绝密","job":"破军","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/0/05/8cbst5ydaje4uct222isxfqwzrkfo0w.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害小幅增加"},"中天":{"color":"橙","effect":"【死战】持续回合增加"},"帝君":{"color":"橙","effect":"风掣雷行"},"丹曲":{"color":"橙","effect":"断桥横矛"},"延寿":{"color":"橙","effect":"【悬赏】目标数增加"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"橙","effect":"普攻伤害大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"6 9月 2023 08:24:05"},{"id":"蔡琰","name":"蔡琰","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/b/b3/gzb196czfgfv98iq9bfwz9a0zuqn9y0.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"过目不忘"},"帝君":{"color":"橙","effect":"【记录】效果延长"},"丹曲":{"color":"橙","effect":"初始能量+2"},"延寿":{"color":"橙","effect":"白水鉴心"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"6 9月 2023 08:23:09"},{"id":"庞统","name":"庞统","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/a/aa/533r9r7we2m4yzmk55c58skr95xaaxl.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"鹦鹉投蛋伤害提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"普攻变为群体伤害"},"帝君":{"color":"橙","effect":"鹦鹉学舌"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"雅兴内融"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"3 8月 2023 01:13:14"},{"id":"荀彧","name":"荀彧","rarity":"绝密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/c/c1/hjncj7exg5jp1r8synfudnexal8o6sb.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"明以举贤"},"北极":{"color":"紫","effect":"居中持重"},"中天":{"color":"橙","effect":"普攻技能护盾提升"},"帝君":{"color":"橙","effect":"王佐之才"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"机鉴先识"},"阳明":{"color":"紫","effect":"回合开始时回复生命"},"天关":{"color":"蓝","effect":"技能伤害系数小幅增加"},"上生":{"color":"橙","effect":"辟雍三贤"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"以守为攻"}},"created":"3 8月 2023 01:12:46"},{"id":"葛洪","name":"葛洪","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/6/6d/7em17azzggqm61jt3ydyfzun844m9hq.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"狡兔三窟"},"帝君":{"color":"橙","effect":"技能消耗降低但伤害降低"},"丹曲":{"color":"橙","effect":"技能后防御并回复"},"延寿":{"color":"橙","effect":"阴属性密探强化"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"19 6月 2023 04:10:26"},{"id":"周瑜","name":"周瑜","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/8/8b/mnnrx47mivbiax93ohy29xqovj74dws.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"技能消耗提升，但效果更强"},"帝君":{"color":"橙","effect":"余音绕梁"},"丹曲":{"color":"橙","effect":"削弱普攻强化技能"},"延寿":{"color":"橙","effect":"初始能量+2"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"19 6月 2023 04:09:49"},{"id":"张仲景","name":"张仲景","rarity":"绝密","job":"岐黄","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/1/19/0oraam3yerhd5ea1av8apwsgt9lpap9.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"治疗效果大幅提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"橙","effect":"技能额外选择目标"},"帝君":{"color":"橙","effect":"普攻附加群对减伤"},"丹曲":{"color":"蓝","effect":"队长技强化"},"延寿":{"color":"橙","effect":"<五藏论>额外提供减伤"},"阳明":{"color":"紫","effect":"生命高时攻击提升"},"天关":{"color":"紫","effect":"治疗效果中幅提升"},"上生":{"color":"紫","effect":"最大生命中幅提升"},"命宫":{"color":"蓝","effect":"治疗效果小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"5 6月 2023 03:22:10"},{"id":"张辽","name":"张辽","rarity":"绝密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/6/63/609xxcklq451p4enkswukejfohsvgs4.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"无路可退"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"技能也能获得连击"},"帝君":{"color":"橙","effect":"追加攻击概率提升"},"丹曲":{"color":"蓝","effect":"生命低时攻击提升"},"延寿":{"color":"橙","effect":"技能效果所需连击降低"},"阳明":{"color":"紫","effect":"队长技强化"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"5 6月 2023 03:21:45"},{"id":"王粲","name":"王粲","rarity":"绝密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/3/37/fyjpm0jgs71bpum9bmiw8nur251eiro.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"技能消耗能量-1"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"技能提供护盾"},"帝君":{"color":"橙","effect":"【同生共死】回合增加"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"回合结束恢复血量"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"紫","effect":"治疗效果中幅提升"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"提升全队攻击但受伤提升"}},"created":"30 4月 2023 10:16:35"},{"id":"张修","name":"张修","rarity":"绝密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/f/f7/18qwhe1ok9ha0p5wyhx6mu65laj7g1f.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"技能消耗降低但伤害降低"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"强化生存能力"},"帝君":{"color":"橙","effect":"队长技额外强化"},"丹曲":{"color":"橙","effect":"敌人死亡提升攻击"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"益算":{"color":"紫","effect":"初始能量+1"},"阳明":{"color":"蓝","effect":"生命高时攻击提升"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"}},"created":"30 4月 2023 10:16:04"},{"id":"孙权","name":"孙权","rarity":"绝密","job":"龙盾","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/1/14/3oean8g1l934b5cuidtcxh6libavktn.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"防御时嘲讽并减伤"},"帝君":{"color":"橙","effect":"释放技能后获得剑"},"丹曲":{"color":"橙","effect":"受击时获得减伤"},"延寿":{"color":"橙","effect":"技能额外强化"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:14:51"},{"id":"郭解","name":"郭解","rarity":"绝密","job":"龙盾","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/4/45/2xrznf3arc9g7s4y9a1smomoiotp54j.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害小幅增加"},"中天":{"color":"橙","effect":"普攻后获得护盾"},"帝君":{"color":"橙","effect":"反击概率提升，次数降低"},"丹曲":{"color":"橙","effect":"变阵"},"延寿":{"color":"紫","effect":"郭解不再会退场"},"益算":{"color":"紫","effect":"初始能量+1"},"阳明":{"color":"紫","effect":"技能伤害中幅增加"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"橙","effect":"受击降低敌人攻击"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"}},"created":"30 4月 2023 10:14:04"},{"id":"陆逊","name":"陆逊","rarity":"绝密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/f/fe/2g2avnfukojk1fcy4aw80hfzh8zmwq7.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"技能消耗提升但效果更强"},"帝君":{"color":"橙","effect":"队长技额外强化"},"丹曲":{"color":"橙","effect":"普攻和技能都会附加【灼伤】"},"延寿":{"color":"橙","effect":"技能消耗能量-1"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:13:05"},{"id":"干吉","name":"干吉","rarity":"绝密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/7/7e/bs1ah0lg4aa4un0od7l3knlfh06uawx.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"强化技能"},"帝君":{"color":"橙","effect":"死亡后更快复活"},"丹曲":{"color":"橙","effect":"强化普攻"},"延寿":{"color":"紫","effect":"普攻伤害中幅增加"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"紫","effect":"普攻技能伤害增加"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:52:12"},{"id":"华佗","name":"华佗","rarity":"绝密","job":"岐黄","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/a/ae/7vfb1evdbos8kl62jfjviypvdmn9tdg.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"提升攻击降低治疗"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"橙","effect":"悬壶济世"},"帝君":{"color":"橙","effect":"弃医从武"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"神纪岐黄伤害提升"},"阳明":{"color":"紫","effect":"治疗效果提升"},"天关":{"color":"紫","effect":"攻击力中幅提升"},"上生":{"color":"紫","effect":"最大生命中幅提升"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:37:53"},{"id":"吕蒙","name":"吕蒙","rarity":"绝密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/4/44/4j4fvfxtqs80r0y4obccayz67k2wgya.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"变身概率提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"变身时提升属性"},"帝君":{"color":"橙","effect":"普攻和技能会附加【灼伤】"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"必定额外攻击"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:36:53"},{"id":"鲁肃","name":"鲁肃","rarity":"绝密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/b/bc/dvm1uyjyfl635ndnn5cy4rp49tnyr62.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"技能劝退概率提升"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:33:27"},{"id":"郭嘉","name":"郭嘉","rarity":"绝密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/3/34/o5z0xctm5wwqrpi0m8dm96xy78t3lnx.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"强化与贾诩的联动"},"帝君":{"color":"橙","effect":"【解析】无限叠加"},"丹曲":{"color":"橙","effect":"死亡时提升全队属性"},"延寿":{"color":"紫","effect":"血量消耗降低"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"普攻后提升攻击"}},"created":"30 4月 2023 09:21:23"},{"id":"孙尚香","name":"孙尚香","rarity":"绝密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/9/9d/1amb9n0oyzbdg4vq480rr7u8ux199ed.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"紫","effect":"防御时恢复生命"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"暴击效果提升"},"帝君":{"color":"橙","effect":"全队可以暴击"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"普攻变为全体伤害"},"阳明":{"color":"紫","effect":"初始能量+1"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"橙","effect":"技能变为全体伤害"}},"created":"29 4月 2023 16:50:05"},{"id":"贾诩","name":"贾诩","rarity":"绝密","job":"诡道","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/d/d0/ifveiqpjjc4ozik1w1k2uzawyiyzfhl.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"冷酷毒计"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"强化与郭嘉的联动"},"帝君":{"color":"橙","effect":"【看破】无限叠加"},"丹曲":{"color":"紫","effect":"伤害转移次数提升"},"延寿":{"color":"橙","effect":"抽到吉时伤害提升"},"阳明":{"color":"紫","effect":"抽到凶时，伤害降低"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"29 4月 2023 14:13:45"},{"id":"杨修","name":"杨修","rarity":"绝密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/9/95/iapahiox40adu8igqwod7vtrx35y6kg.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"技能额外效果"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"普攻概率回复能量"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"橙","effect":"队长技额外强化"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"29 4月 2023 08:33:09"},{"id":"公孙珊","name":"公孙珊","rarity":"机密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/7/7e/9ix4w1cnvv1wz8plmttk5lcwxveugvt.png","slots":{"太岁":{"color":"橙","effect":"最大生命大幅提升"},"暗星":{"color":"紫","effect":"初始能量+1"},"北极":{"color":"橙","effect":"【入道】状态必定失控"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"蓝","effect":"生命高时攻击提升"},"丹曲":{"color":"橙","effect":"普攻伤害大幅增加"},"延寿":{"color":"橙","effect":"初始能量+2"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"紫","effect":"普攻强化，技能免伤提升"},"上生":{"color":"蓝","effect":"攻击力小幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"最大生命中幅提升"}},"created":"27 11月 2023 09:21:41"},{"id":"王异","name":"王异","rarity":"机密","job":"龙盾","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/f/f7/dfbgv17rdx8h4rnkn0163c6okfktrz2.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"普攻伤害大幅增加"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"橙","effect":"震荡效果提升"},"帝君":{"color":"橙","effect":"嘲讽效果提升"},"丹曲":{"color":"橙","effect":"初始能量+2"},"延寿":{"color":"蓝","effect":"生命高时攻击提升"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"攻击力中幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"28 9月 2023 00:29:49"},{"id":"陆绩","name":"陆绩","rarity":"机密","job":"诡道","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/7/7e/4se0xp3jef5o442xj7393i1dr2tqk5d.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"橙","effect":"普攻伤害大幅增加"},"北极":{"color":"蓝","effect":"技能伤害小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"防御时恢复生命"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"技能伤害系数大幅增加"},"上生":{"color":"橙","effect":"普攻脆弱概率提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"3 8月 2023 01:12:11"},{"id":"许曼","name":"许曼","rarity":"机密","job":"诡道","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/1/1d/ip634bblwaf2mgi3vqitze9cj2a3xkl.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命高时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"橙","effect":"初始能量+2"},"帝君":{"color":"橙","effect":"麻痹概率提升"},"丹曲":{"color":"橙","effect":"普攻伤害大幅增加"},"延寿":{"color":"橙","effect":"技能伤害系数大幅增加"},"阳明":{"color":"紫","effect":"防御时恢复生命"},"天关":{"color":"紫","effect":"普攻伤害中幅增加"},"上生":{"color":"紫","effect":"技能伤害系数中幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"19 6月 2023 04:11:06"},{"id":"小乔","name":"小乔","rarity":"机密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/3/33/im6e52hbh48hljh86kw2ri8tekv12p4.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"攻击力中幅提升"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"技能伤害系数大幅增加"},"上生":{"color":"橙","effect":"技能强化水属性密探"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"5 6月 2023 03:21:05"},{"id":"史子眇","name":"史子眇","rarity":"机密","job":"岐黄","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/4/42/5o4cw6juowrvw33de714thpj8tj54yv.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"治疗效果中幅提升"},"帝君":{"color":"橙","effect":"技能提供减伤"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"防御时恢复生命"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"治疗效果大幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"治疗效果小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:51:21"},{"id":"阿蝉","name":"阿蝉","rarity":"机密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/3/31/ehhigs32z8stgjlq8jmq6xko80piwgb.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"追击伤害提升"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"追击次数增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:44:24"},{"id":"陈登","name":"陈登","rarity":"机密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/f/ff/f4prewwg3vopnltz8xnsiutkzh74vm7.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻强化，技能免伤提升"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:43:33"},{"id":"颜良","name":"颜良","rarity":"机密","job":"龙盾","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/3/34/1wa3lyqhiqqq0apexsk33bbfch3kfxy.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"攻击恢复生命"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"援护概率提升"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:41:50"},{"id":"文丑","name":"文丑","rarity":"机密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/d/d9/thkkgsiyvvf7lixv6jc20rqmolic338.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"技能不消耗生命"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:41:04"},{"id":"许攸","name":"许攸","rarity":"机密","job":"诡道","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/1/1a/fjyqh1yjhauxiw6kjr2c9dzj8z1a8hi.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:40:09"},{"id":"严白虎","name":"严白虎","rarity":"机密","job":"龙盾","attribute":"阴","avatar":"https://patchwiki.biligame.com/images/yuan/c/c8/euvgnb6k0njkjcdpo5aiaa9amzx7fkw.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"被动触发概率提升"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:38:59"},{"id":"蜂使","name":"蜂使","rarity":"隐密","job":"龙盾","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/b/b1/dc5y6r85j982w9bith8cd45hex3c0ir.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻强化，技能免伤提升"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:11:55"},{"id":"杨阜","name":"杨阜","rarity":"隐密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/1/11/bmwzw8n99htdpnpr1t6w03ldlb34fxo.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:11:18"},{"id":"李真","name":"李真","rarity":"隐密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/d/d6/fec9rh86zjul4ifdsv41kvri3859n4t.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:10:41"},{"id":"徐稺","name":"徐稺","rarity":"隐密","job":"破军","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/6/68/1apa76z3alqzoh99pv9utm703pu0lyp.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"攻击力小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:10:05"},{"id":"楼班","name":"楼班","rarity":"隐密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/7/7d/lsavf52konwtj2gr6tm2k4d865vk4q6.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:08:59"},{"id":"李脱","name":"李脱","rarity":"隐密","job":"神纪","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/a/af/9p26d3na2jtggqbvn89be0glv27k7ik.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"最大生命中幅提升"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"技能强化，普攻免伤提升"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"最大生命大幅提升"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"最大生命小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:08:21"},{"id":"毛玠","name":"毛玠","rarity":"隐密","job":"破军","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/4/40/r70axvqzyl612oscrw6s3ef1g0ogdgr.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:07:50"},{"id":"飞云","name":"飞云","rarity":"隐密","job":"龙盾","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/a/aa/aam5ytoisyx8o53tr427uk095fwxcw4.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:07:10"},{"id":"绣球","name":"绣球","rarity":"隐密","job":"破军","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/c/c0/ffiiaw0utzvm961bzq8sye2t82caqb4.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:06:20"},{"id":"周群","name":"周群","rarity":"隐密","job":"诡道","attribute":"火","avatar":"https://patchwiki.biligame.com/images/yuan/5/5f/273ibicplcrktvque24cm6nat9zsnh6.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:05:31"},{"id":"第五天","name":"第五天","rarity":"隐密","job":"神纪","attribute":"阳","avatar":"https://patchwiki.biligame.com/images/yuan/c/c9/6u1foyxr1ngoe19cctfpqx9fbfi4co2.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 10:04:29"},{"id":"眭固","name":"眭固","rarity":"隐密","job":"龙盾","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/2/26/iysshgfeacxzfawi8i5ir5k9k85wkt8.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:55:33"},{"id":"雀使","name":"雀使","rarity":"隐密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/0/08/84s3v35yyxv3m6uhioxcqoskw7s2zh5.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:53:04"},{"id":"山九","name":"山九","rarity":"隐密","job":"神纪","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/6/6d/m1mpn8xb7hhq0v1lkspjwrjnm3g1md0.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:50:27"},{"id":"高览","name":"高览","rarity":"隐密","job":"破军","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/e/e2/82qapsz9zismxaxmydk4ec9pd5bov0q.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:49:49"},{"id":"伍丹","name":"伍丹","rarity":"隐密","job":"岐黄","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/0/0d/smfy6gqbrpqek4a3k3cesp7pl12m2fn.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"治疗效果中幅提升"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"防御时恢复生命"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"治疗效果大幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"治疗效果小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:49:13"},{"id":"崔烈","name":"崔烈","rarity":"隐密","job":"龙盾","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/0/0c/n8hr90ssi6t7erram2wvwlevj7cnem6.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:48:24"},{"id":"鸢使","name":"鸢使","rarity":"隐密","job":"诡道","attribute":"风","avatar":"https://patchwiki.biligame.com/images/yuan/5/5d/hvdylv9fszhv84cq0k8y45bvq6x4s88.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:47:36"},{"id":"甘缇","name":"甘缇","rarity":"隐密","job":"神纪","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/d/de/7jmsf39oz7j1sjkauxxnsphnmlan9pj.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"攻击力小幅提升"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻强化，技能免伤提升"},"阳明":{"color":"紫","effect":"攻击力中幅提升"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"攻击力大幅提升"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:46:51"},{"id":"关靖","name":"关靖","rarity":"隐密","job":"岐黄","attribute":"水","avatar":"https://patchwiki.biligame.com/images/yuan/0/02/mz82jxy08flp5vcjb7rnmmkfecmppip.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"最大生命小幅提升"},"中天":{"color":"紫","effect":"攻击力中幅提升"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"防御时恢复生命"},"阳明":{"color":"紫","effect":"最大生命中幅提升"},"天关":{"color":"橙","effect":"治疗效果大幅提升"},"上生":{"color":"橙","effect":"最大生命大幅提升"},"命宫":{"color":"蓝","effect":"治疗效果小幅提升"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:46:01"},{"id":"严颜","name":"严颜","rarity":"隐密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/2/2f/7vg8vijfgq81kwkmnx446vtxowkzty7.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:45:18"},{"id":"蛾使","name":"蛾使","rarity":"隐密","job":"破军","attribute":"地","avatar":"https://patchwiki.biligame.com/images/yuan/c/c1/3lwqq0wz7n2xclwos3zlj6n9o2z47fv.png","slots":{"太岁":{"color":"蓝","effect":"防御减伤提升"},"暗星":{"color":"蓝","effect":"生命低时攻击提升"},"北极":{"color":"蓝","effect":"技能伤害系数小幅增加"},"中天":{"color":"紫","effect":"普攻伤害中幅增加"},"帝君":{"color":"橙","effect":"初始能量+2"},"丹曲":{"color":"蓝","effect":"生命高时攻击提升"},"延寿":{"color":"紫","effect":"普攻技能伤害增加"},"阳明":{"color":"紫","effect":"技能伤害系数中幅增加"},"天关":{"color":"橙","effect":"普攻伤害大幅增加"},"上生":{"color":"橙","effect":"技能伤害系数大幅增加"},"命宫":{"color":"蓝","effect":"普攻伤害小幅增加"},"益算":{"color":"紫","effect":"初始能量+1"}},"created":"30 4月 2023 09:35:45"}];
@@ -1766,43 +2013,6 @@ const FIELDS = [
     { key: 'level', label: '等级' }
 ];
 
-// 默认阵容
-const DEFAULT_TEAM = [
-    {
-        name: '诸葛亮', avatar: 'https://patchwiki.biligame.com/images/yuan/a/ab/qf07yu4758yus20frue1v6l4kysecd6.png', sub: '绝密 · 神纪 · 阳',
-        hp: 33946, atk: 8126, level: 100, xiuwei: 17, hua: '3-4',
-        mingpan: [{ n: '往来建木', must: true }, { n: '飞龙在天' }, { n: '天命所归' }, { n: '沟通天地', ban: true }],
-        zhuxing: ['天府60', '武曲60', '天机60'], fuxing: ['擎羊40', '天贵30', '天姚30']
-    },
-    {
-        name: '徐庶', avatar: 'https://patchwiki.biligame.com/images/yuan/f/f5/gkfydyxawtbvqqma50b9akrjrt2pscl.png', sub: '绝密 · 诡道 · 阳',
-        hp: 31427, atk: 8019, level: 100, xiuwei: 17, hua: '3-0',
-        mingpan: [{ n: '谋无遗策' }, { n: '降低阳抗' }],
-        zhuxing: ['天府60', '武曲60', '天机60'], fuxing: ['解神60', '天姚30', '禄存30']
-    },
-    {
-        name: '黄月英', avatar: 'https://patchwiki.biligame.com/images/yuan/6/6d/axqt2koc81gc5ir6z3y8gla2n8mu647.png', sub: '绝密 · 龙盾 · 阳',
-        hp: 46113, atk: 5991, level: 100, xiuwei: 17, hua: '3-0',
-        mingpan: [{ n: '羽化' }, { n: '乾坤既定' }, { n: '尸解', must: true }, { n: '山川妈妈', ban: true }],
-        zhuxing: ['天府60', '武曲60', '太阳60'], fuxing: ['擎羊60', '三台60', '天姚40']
-    },
-    {
-        name: '庞统', avatar: 'https://patchwiki.biligame.com/images/yuan/a/aa/533r9r7we2m4yzmk55c58skr95xaaxl.png', sub: '绝密 · 神纪 · 阳',
-        hp: 40054, atk: 6130, level: 100, xiuwei: 17, hua: '4-0',
-        mingpan: [{ n: '防御回血' }],
-        zhuxing: ['天相60'], fuxing: []
-    },
-    {
-        name: '董奉', avatar: 'https://patchwiki.biligame.com/images/yuan/3/3b/d5rm75bn32umgcexeh3t7usxhwqnmg3.png', sub: '绝密 · 诡道 · 阳',
-        hp: 34666, atk: 6973, level: 100, xiuwei: 17, hua: '3-0',
-        mingpan: [{ n: '植杏成丛' }, { n: '随营医者' }, { n: '着手成春' }],
-        zhuxing: ['天同60', '太阴60', '天梁60'], fuxing: ['文昌60', '红鸾50', '天姚50']
-    }
-];
-
-
-// ============================
-//  星石组合数据（源自 BWiki 面板计算器 stone.json，勿改动）
 // ============================
 const STONE_GROUP = [
     { "StoneComboName": "紫微+天相", "StoneNames": ["紫微", "天相"], "valueType": "免伤", "values": ["1","2","3","4","5"] },
@@ -1981,17 +2191,13 @@ const AVATAR_BIG = {
 //  状态
 // ============================
 let state = {
-    author: '骨笛',
+    author: '',
+    gameName: '代号鸢',
     stage: '8月洞窟 救救舅舅',
     sell: '【不赌博】',
     round: 4,
-    teamName: '诸葛亮唤醒队伍',
-    team: DEFAULT_TEAM.map(h => ({
-        ...h,
-        mingpan: h.mingpan.map(m => ({ ...m })),
-        zhuxing: [...h.zhuxing],
-        fuxing: [...h.fuxing]
-    }))
+    teamName: '',
+    team: []
 };
 
 // ============================
@@ -2116,27 +2322,54 @@ function bannerCell(h, i) {
 function renderPreview() {
     const frame = document.getElementById('frame');
     const t = state.team;
+    const empties = [];
+    for (let i = t.length; i < 5; i++) {
+        empties.push(`
+        <div class="col-wrap col-empty${i % 2 ? ' z-b' : ' z-a'}" data-idx="${i}">
+            <div class="empty-slot" onclick="openSelect()"><b>＋ 空位</b><span>点这里选人</span></div>
+        </div>`);
+    }
     const teamHtml = t.length ? `
-    <div class="p-row banner-row">${t.map((h, i) => bannerCell(h, i)).join('')}</div>
-    <div class="p-row mp-row">${t.map((h, i) => `<div class="p-cell mp-col" data-mp="${i}"><div class="col-cap">命盘</div>${mpListHtml(h.mingpan)}</div>`).join('')}</div>
-    <div class="p-row stone-grid">${t.map((h, i) => `<div class="p-cell st-col" data-stone="${i}"><div class="col-cap">主星</div>${stoneListHtml(h.zhuxing)}<div class="col-cap">辅星</div>${stoneListHtml(h.fuxing)}</div>`).join('')}</div>
-    <div class="p-row stat-row">${t.map((h, i) => `<div class="p-cell stat-col"><div class="stat-line">生命 <b class="ie num-hp" data-edit="hp" data-slot="${i}">${statVal(h.hp)}</b></div><div class="stat-line">攻击 <b class="ie num-atk" data-edit="atk" data-slot="${i}">${statVal(h.atk)}</b></div></div>`).join('')}</div>` : `
+    <div class="frame-cols">${t.map((h, i) => `
+        <div class="col-wrap${i % 2 ? ' z-b' : ' z-a'}" data-idx="${i}">
+            ${bannerCell(h, i)}
+            <div class="p-cell mp-col" data-mp="${i}"><div class="col-cap">命盘</div>${mpListHtml(h.mingpan)}</div>
+            <div class="p-cell st-col" data-stone="${i}"><div class="col-cap">主星</div>${stoneListHtml(h.zhuxing)}<div class="col-cap">辅星</div>${stoneListHtml(h.fuxing)}</div>
+            <div class="p-cell stat-col"><div class="stat-line">生命 <b class="ie num-hp" data-edit="hp" data-slot="${i}">${statVal(h.hp)}</b></div><div class="stat-line">攻击 <b class="ie num-atk" data-edit="atk" data-slot="${i}">${statVal(h.atk)}</b></div></div>
+        </div>`).join('')}${empties.join('')}
+    </div>` : `
     <div class="empty-team">
         <div class="empty-team-text">阵容为空</div>
         <button class="empty-team-btn" onclick="openSelect()">＋ 选人</button>
-        <div class="empty-team-tip">或点下方「配队」用文字快速输入</div>
+        <div class="empty-team-tip">点击上方「＋ 选人」开始配队</div>
     </div>`;
     frame.innerHTML = `
     <div class="header">
         <div class="title-row">
-            <span class="title-game">代号鸢</span>
+            <span class="title-game" onclick="toggleGameName()" title="点击切换">${esc(state.gameName)}</span>
             <span class="title-sep">·</span>
             <span class="title-input ie" data-edit="stage">${esc(state.stage)}</span>
         </div>
-        <span class="sub">攻略作者：<span class="ie" data-edit="author">${esc(state.author) || '?'}</span> · 点击文字可直接修改</span>
+        <span class="sub">攻略作者：<span class="ph-txt" id="subAuthor">生成图片时填写</span></span>
     </div>
     ${teamHtml}
     <div class="foot">密探图片 & 数值源自「代号鸢BWIKI」 图鉴 / 数值 / 文案 / 剧情 · wiki.biligame.com/yuan</div>`;
+}
+/* 点击标题切换 代号鸢 / 如鸢（与操作记录器一致） */
+function toggleGameName() {
+    state.gameName = state.gameName === '代号鸢' ? '如鸢' : '代号鸢';
+    renderPreview();
+}
+/* 调整站位模式：开启后可整列拖动换位（默认关闭，避免误触） */
+let reorderMode = false;
+function toggleReorder() {
+    reorderMode = !reorderMode;
+    document.getElementById('reorderBtn').classList.toggle('on', reorderMode);
+    const tip = document.querySelector('.frame-tip');
+    if (tip) {
+        tip.dataset.orig = tip.dataset.orig || tip.textContent;
+        tip.textContent = reorderMode ? '调整站位模式：按住密探板块任意位置拖动换位，再点「调整站位」退出' : tip.dataset.orig;
+    }
 }
 
 // ============================
@@ -2232,15 +2465,27 @@ function renderMingpanPick() {
         return `<div class="mp-opt ${colorCls(s.color)}${picked.has(s.effect) ? ' on' : ''}" data-n="${esc(s.effect)}">${esc(label)}</div>`;
     }).join('');
 }
+/* 已选命盘：4 槽位，每槽 必/禁 直选（点选中的按钮取消回允），✕ 移除；末位空槽为禁位 */
 function renderMingpanSel() {
     const h = state.team[heroModalIndex];
     const el = document.getElementById('hmMingpanSel');
-    el.innerHTML = h.mingpan.map((m, i) => {
-        const q = m.color || mpQToColor(MP_Q[m.n]);
-        const cls = m.must ? 'need' : m.ban ? 'ban' : colorCls(q);
+    const list = h.mingpan.map((m, i) => {
         const label = MP_SHORT[m.n] || m.n;
-        return `<span class="chip ${cls}" data-idx="${i}">${esc(label)}<b class="mp-x" data-idx="${i}">✕</b></span>`;
-    }).join('') || '<span class="empty-tip">尚未选择命盘</span>';
+        const st = m.must ? 'must' : m.ban ? 'ban' : 'allow';
+        return `<div class="mp-slot ${st}" data-idx="${i}">
+            <span class="mp-slot-name">${esc(label)}</span>
+            <span class="mp-slot-acts">
+                <b data-act="must" class="${m.must ? 'on' : ''}">必</b>
+                <b data-act="ban" class="${m.ban ? 'on' : ''}">禁</b>
+            </span>
+            <b class="mp-x" data-idx="${i}">✕</b>
+        </div>`;
+    }).join('');
+    let empty = '';
+    for (let i = h.mingpan.length; i < 4; i++) {
+        empty += `<div class="mp-slot empty${i === 3 ? ' ban-hint' : ''}">${i === 3 ? '禁位' : '＋ 空位'}</div>`;
+    }
+    el.innerHTML = list + empty;
 }
 
 
@@ -2340,23 +2585,18 @@ function renderStoneRows(part) {
     const el = document.getElementById(part === 'zhuxing' ? 'hmZhuxingRows' : 'hmFuxingRows');
     const list = state.team[heroModalIndex][part] || [];
     const slots = [];
-    const fuxOpts = part === 'fuxing' ? fuxingOptionsHtml() : '';
     for (let j = 0; j < 3; j++) {
         const cur = list[j] || '';
         const name = stoneNameOf(cur);
         const lv = Math.max(1, Math.min(60, stoneLvOf(cur)));
         if (part === 'fuxing') {
-            // 辅星：自定义下拉（动态排序 + 可搜索），星石名 + 灰色效果简写
+            // 辅星：当前值显示 + 点击弹出居中选择弹层
             const curHtml = name
                 ? `${esc(name)}<span class="cs-note">${esc(FU_EFFECTS[name] || '')}</span>`
                 : '<span class="cs-note">— 未选择 —</span>';
             slots.push(`<div class="stone-slot">
                 <div class="cs-wrap" data-part="fuxing" data-idx="${j}">
                     <div class="cs-current">${curHtml}</div>
-                    <div class="cs-list">
-                        <input class="cs-search" placeholder="搜索：拼音 / 名称 / 注释（如 js、技增）">
-                        ${fuxOpts}
-                    </div>
                 </div>
                 <input data-part="fuxing" data-idx="${j}" type="number" min="1" max="60" value="${lv}" inputmode="numeric">
             </div>`);
@@ -2372,6 +2612,7 @@ function renderStoneRows(part) {
     el.innerHTML = `<div class="stone-row">${slots.join('')}</div>`;
 }
 function openHeroModal(i) {
+    if (!state.team[i]) return;   // 空阵容保护
     heroModalIndex = i;
     fillHeroModal();
     openModal('heroModal');
@@ -2386,46 +2627,44 @@ function bindModalInputs() {
         h[field] = (e.target.value === '' || isNaN(+e.target.value)) ? e.target.value : +e.target.value;
         renderPreview();
     });
-    // 辅星自定义下拉：展开（重置搜索）/选择
+    // 辅星：点击当前值 → 打开居中选择弹层
     document.getElementById('hmFuxingRows').addEventListener('click', e => {
-        if (heroModalIndex < 0) return;
         const cur = e.target.closest ? e.target.closest('.cs-current') : null;
-        const opt = e.target.closest ? e.target.closest('.cs-opt') : null;
-        if (cur) {
-            const wrap = cur.closest('.cs-wrap');
-            const wasOpen = wrap.classList.contains('open');
-            document.querySelectorAll('.cs-wrap.open').forEach(w => w.classList.remove('open'));
-            if (!wasOpen) {
-                wrap.classList.add('open');
-                const si = wrap.querySelector('.cs-search');
-                if (si) { si.value = ''; wrap.querySelectorAll('.cs-opt').forEach(o => o.style.display = ''); }
-            }
-            return;
-        }
-        if (opt) {
-            const wrap = opt.closest('.cs-wrap');
-            const idx = parseInt(wrap.dataset.idx);
-            const val = opt.dataset.val;
-            const h = state.team[heroModalIndex];
-            while (h.fuxing.length < 3) h.fuxing.push('');
-            const slot = wrap.closest('.stone-slot');
-            let lv = 60;
-            if (slot) lv = parseInt(slot.querySelector('input').value) || 60;
-            lv = Math.max(1, Math.min(60, lv));
-            h.fuxing[idx] = val === '任意' ? '任意' + lv : val + lv;
-            wrap.classList.remove('open');
-            renderStoneRows('fuxing');
-            renderStoneCombos();
-            renderPreview();
-        }
+        if (!cur || heroModalIndex < 0) return;
+        const wrap = cur.closest('.cs-wrap');
+        openCsModal(parseInt(wrap.dataset.idx));
     });
-    // 辅星下拉搜索：拼音 / 原文 / 注释 / 完整效果
-    document.getElementById('hmFuxingRows').addEventListener('input', e => {
-        const s = e.target.closest ? e.target.closest('.cs-search') : null;
-        if (!s) return;
-        const q = s.value.trim().toLowerCase();
-        const list = s.closest('.cs-list');
-        list.querySelectorAll('.cs-opt').forEach(opt => {
+    // 辅星弹层：选择 / 搜索 / 关闭
+    let csModalIdx = -1;
+    function openCsModal(idx) {
+        csModalIdx = idx;
+        const search = document.getElementById('csModalSearch');
+        search.value = '';
+        document.getElementById('csModalList').innerHTML = fuxingOptionsHtml();
+        document.getElementById('csModal').classList.add('open');
+    }
+    function closeCsModal() {
+        document.getElementById('csModal').classList.remove('open');
+    }
+    document.getElementById('csModalList').addEventListener('click', e => {
+        const opt = e.target.closest ? e.target.closest('.cs-opt') : null;
+        if (!opt || heroModalIndex < 0 || csModalIdx < 0) return;
+        const val = opt.dataset.val;
+        const h = state.team[heroModalIndex];
+        while (h.fuxing.length < 3) h.fuxing.push('');
+        const slotEl = document.querySelector('#hmFuxingRows .stone-slot:nth-child(' + (csModalIdx + 1) + ')');
+        let lv = 60;
+        if (slotEl) lv = parseInt(slotEl.querySelector('input').value) || 60;
+        lv = Math.max(1, Math.min(60, lv));
+        h.fuxing[csModalIdx] = val === '任意' ? '任意' + lv : val + lv;
+        closeCsModal();
+        renderStoneRows('fuxing');
+        renderStoneCombos();
+        renderPreview();
+    });
+    document.getElementById('csModalSearch').addEventListener('input', e => {
+        const q = e.target.value.trim().toLowerCase();
+        document.querySelectorAll('#csModalList .cs-opt').forEach(opt => {
             const hay = opt.dataset.hay || '';
             const init = opt.dataset.init || '';
             let show = !q || hay.includes(q);
@@ -2435,10 +2674,9 @@ function bindModalInputs() {
             opt.style.display = show ? '' : 'none';
         });
     });
-    document.addEventListener('click', e => {
-        if (!e.target.closest || !e.target.closest('.cs-wrap')) {
-            document.querySelectorAll('.cs-wrap.open').forEach(w => w.classList.remove('open'));
-        }
+    document.getElementById('csModalClose').addEventListener('click', closeCsModal);
+    document.getElementById('csModal').addEventListener('click', e => {
+        if (e.target === e.currentTarget) closeCsModal();
     });
     // 主星/辅星：3 槽一行，下拉 + 等级（等级在各自下方）
     ['hmZhuxingRows', 'hmFuxingRows'].forEach(id => {
@@ -2485,7 +2723,7 @@ function bindModalInputs() {
         renderMingpanSel();
         renderPreview();
     });
-    // 已选命盘：本体点击循环 普通→必→禁→普通，✕ 移除
+    // 已选命盘：必/禁 直选（点选中的取消回允；必≤3、禁≤1），✕ 移除
     document.getElementById('hmMingpanSel').addEventListener('click', e => {
         if (heroModalIndex < 0) return;
         const h = state.team[heroModalIndex];
@@ -2493,13 +2731,26 @@ function bindModalInputs() {
         if (x) {
             h.mingpan.splice(parseInt(x.dataset.idx), 1);
         } else {
-            const chip = e.target.closest ? e.target.closest('.chip') : null;
-            if (!chip) return;
-            const m = h.mingpan[parseInt(chip.dataset.idx)];
-            if (!m) return;
-            if (m.must) { m.must = false; m.ban = true; }
-            else if (m.ban) { m.ban = false; }
-            else { m.must = true; }
+            const act = e.target.closest ? e.target.closest('.mp-slot-acts b') : null;
+            if (act) {
+                const slotEl = act.closest('.mp-slot');
+                const m = h.mingpan[parseInt(slotEl.dataset.idx)];
+                if (!m) return;
+                const actName = act.dataset.act;
+                if (actName === 'must') {
+                    if (m.must) { m.must = false; }
+                    else {
+                        if (h.mingpan.filter(z => z.must).length >= 3) { alert('必带最多 3 个'); return; }
+                        m.must = true; m.ban = false;
+                    }
+                } else if (actName === 'ban') {
+                    if (m.ban) { m.must = false; m.ban = false; }
+                    else {
+                        if (h.mingpan.filter(z => z.ban).length >= 1) { alert('禁带最多 1 个'); return; }
+                        m.ban = true; m.must = false;
+                    }
+                }
+            }
         }
         renderMingpanPick();
         renderMingpanSel();
@@ -2520,6 +2771,7 @@ function bindModalInputs() {
 
     // 画框点击：数值就地编辑（data-edit 由 ie 委托处理）；星星→化极星级；立绘/名字→选人；命盘/星石区→抽屉
     document.getElementById('frame').addEventListener('click', e => {
+        if (reorderMode) return;   // 调整站位模式下不做任何编辑，只允许拖动
         if (e.target.closest('[data-edit]')) return;   // 就地编辑交给 ie 委托
         const star = e.target.closest ? e.target.closest('[data-star]') : null;
         if (star) {
@@ -2543,6 +2795,59 @@ function bindModalInputs() {
     heroModalEl.addEventListener('click', e => {
         if (e.target === heroModalEl) closeModal('heroModal');
     });
+    // 调整站位模式：开启后按住整列任意位置拖动换位（默认关闭，避免误触）
+    let dragState = null;
+    let suppressClick = false;
+    const frameEl = document.getElementById('frame');
+    frameEl.addEventListener('pointerdown', e => {
+        if (!reorderMode) return;
+        if (e.button !== undefined && e.button !== 0) return;   // 仅左键
+        const col = e.target.closest ? e.target.closest('.col-wrap') : null;
+        if (!col || col.classList.contains('col-empty')) return;
+        dragState = { x: e.clientX, y: e.clientY, col: col, idx: parseInt(col.dataset.idx), moved: false, target: col };
+    });
+    frameEl.addEventListener('pointermove', e => {
+        if (!dragState) return;
+        if (!dragState.moved) {
+            if (Math.hypot(e.clientX - dragState.x, e.clientY - dragState.y) < 6) return;
+            dragState.moved = true;
+            dragState.col.classList.add('dragging');
+        }
+        const cols = [].slice.call(frameEl.querySelectorAll('.col-wrap'));
+        let target = dragState.col;
+        cols.forEach(c => {
+            const r = c.getBoundingClientRect();
+            if (e.clientX > r.left + r.width / 2) target = c;
+        });
+        cols.forEach(c => c.classList.toggle('drop-before', c === target && c !== dragState.col));
+        dragState.target = target;
+    });
+    frameEl.addEventListener('pointerup', () => {
+        if (!dragState) return;
+        const ds = dragState;
+        dragState = null;
+        ds.col.classList.remove('dragging');
+        frameEl.querySelectorAll('.drop-before').forEach(c => c.classList.remove('drop-before'));
+        if (!ds.moved) return;
+        suppressClick = true;   // 拖拽结束的这次点击不再触发编辑
+        const from = ds.idx;
+        const to = ds.target && ds.target !== ds.col ? parseInt(ds.target.dataset.idx) : from;
+        if (to !== from) {
+            const t = state.team;
+            const [m] = t.splice(from, 1);
+            t.splice(to, 0, m);
+            renderPreview();
+        }
+    });
+    frameEl.addEventListener('pointercancel', () => {
+        if (!dragState) return;
+        dragState.col.classList.remove('dragging');
+        frameEl.querySelectorAll('.drop-before').forEach(c => c.classList.remove('drop-before'));
+        dragState = null;
+    });
+    frameEl.addEventListener('click', e => {
+        if (suppressClick) { e.stopImmediatePropagation(); e.preventDefault(); suppressClick = false; }
+    }, true);
 }
 
 
@@ -2669,6 +2974,7 @@ function ieApply(field, slot, value) {
 }
 
 document.getElementById('frame').addEventListener('click', e => {
+    if (reorderMode) return;   // 调整站位模式下不做就地编辑
     const t = e.target.closest ? e.target.closest('[data-edit]') : null;
     if (!t) return;
     e.stopPropagation();
@@ -2700,64 +3006,22 @@ document.getElementById('frame').addEventListener('click', e => {
 });
 
 // ============================
-//  批量填入（主界面，就地展开）
+//  阵容操作
 // ============================
-// 配队按钮：展开/收起队伍输入（即批量填入，画框内队伍名下方）
-function toggleSquadInput() {
-    const slot = document.getElementById('squadSlot');
-    const open = !slot.classList.contains('open');
-    slot.classList.toggle('open', open);
-    if (open) {
-        const inp = document.getElementById('squadInput');
-        inp.value = state.team.map(h => h.name).join(' ');
-        setTimeout(() => inp.focus(), 50);
-    }
-}
-function closeSquadInput() {
-    const slot = document.getElementById('squadSlot');
-    if (slot) slot.classList.remove('open');
-}
 /* 清空阵容：整队移除，画框显示空态提示 */
 function clearTeam() {
     if (!state.team.length) return;
-    if (!confirm('确定清空当前阵容？')) return;
+    if (!confirm('确定要清空所有阵容吗？')) return;
     state.team = [];
     heroModalIndex = -1;
     closeModal('heroModal');
-    closeSquadInput();
     renderPreview();
-}
-function squadFill() {
-    const input = document.getElementById('squadInput');
-    const rawList = input.value.trim().split(/\s+/).filter(Boolean);
-    if (!rawList.length) { alert('请输入密探名字，空格分隔'); return; }
-    // 保序解析：展开合称、收集歧义候选
-    const plan = [];
-    for (const raw of rawList) {
-        const r = resolveName(raw);
-        if (r && r.length) {
-            const arr = Array.isArray(r) ? r : [r];
-            arr.forEach(n => plan.push({ raw: raw, name: n }));
-        } else {
-            const cands = buildCandidates(raw);
-            if (cands) plan.push({ raw: raw, name: null, candidates: cands });
-            else plan.push({ raw: raw, name: null, failed: true });
-        }
-    }
-    const hasAmb = plan.some(it => it.candidates);
-    pendingPlan = plan;
-    if (hasAmb) {
-        renderAmb();
-        openAmb();
-        return;
-    }
-    applyPlan();
 }
 
 // ============================
 //  配队：保存 / 常用配队调取（localStorage）
 // ============================
-const SQUADS_KEY = 'dhy_squads';
+const SQUADS_KEY = 'dxdy_squads_v1';
 function loadSquads() {
     try {
         const v = localStorage.getItem(SQUADS_KEY);
@@ -2828,74 +3092,9 @@ document.getElementById('squadsPanel').addEventListener('click', e => {
 
 
 // ============================
-//  简写冲突：候选检测 + 选择面板
-// ============================
-let pendingPlan = null;   // [{raw, name, candidates?, failed?}]
-
-function buildCandidates(raw) {
-    if (raw in ALIAS) return null;
-    if (['王', '使', '统'].includes(raw)) return null;   // 明确不是任何人的简称
-    const hits = MIRROR_POOL
-        .filter(m => m.name.endsWith(raw) || m.name.startsWith(raw))
-        .map(m => m.name);
-    return hits.length >= 2 ? hits : null;
-}
-function openAmb() {
-    document.getElementById('ambModal').classList.add('open');
-}
-function closeAmb() {
-    document.getElementById('ambModal').classList.remove('open');
-    pendingPlan = null;
-}
-function renderAmb() {
-    const body = document.getElementById('ambBody');
-    if (!pendingPlan) { closeAmb(); return; }
-    body.innerHTML = pendingPlan.filter(it => it.candidates).map((it, idx) => {
-        const ambIdx = pendingPlan.indexOf(it);
-        return `<div class="amb-row">
-            <div class="amb-raw">「${esc(it.raw)}」</div>
-            <div class="amb-cands">${it.candidates.map(c =>
-                `<span class="amb-cand${it.name === c ? ' picked' : ''}" data-amb="${ambIdx}" data-name="${esc(c)}">${esc(c)}</span>`).join('')}</div>
-        </div>`;
-    }).join('');
-}
-document.getElementById('ambBody').addEventListener('click', e => {
-    const cand = e.target.closest ? e.target.closest('.amb-cand') : null;
-    if (!cand || !pendingPlan) return;
-    const it = pendingPlan[parseInt(cand.dataset.amb)];
-    it.name = it.name === cand.dataset.name ? null : cand.dataset.name;
-    renderAmb();
-});
-function applyPlan() {
-    if (!pendingPlan) return;
-    const picked = [];
-    const failed = [];
-    for (const item of pendingPlan) {
-        if (item.name) { if (picked.length < 5) picked.push(item.name); }
-        else if (item.candidates && !item.failed) { /* 未选择 → 跳过 */ }
-        else if (item.failed) failed.push(item.raw);
-    }
-    closeAmb();
-    if (!picked.length) { alert('未识别到任何密探' + (failed.length ? '：' + failed.join('、') : '')); return; }
-    state.team = picked.map(name => {
-        const mm = MIRROR_POOL.find(x => x.name === name);
-        return {
-            name: mm.name, avatar: mm.avatar,
-            sub: `${mm.rarity} · ${mm.job} · ${mm.attribute}`,
-            hp: '', atk: '', level: 100, xiuwei: 17, hua: '3-0',
-            mingpan: [], zhuxing: ['天府60', '武曲60', '破军60'], fuxing: []
-        };
-    });
-    renderPreview();
-    closeSquadInput();
-    alert('已生成阵容：' + picked.join('、') + (failed.length ? '（未识别：' + failed.join('、') + '）' : ''));
-}
-
-// ============================
 //  选人面板
 // ============================
-// 已选密探（有序，角标 1-5）；pickHoles 记录取消选择腾出的空位，新选择补入同位置
-let pickSel = [];
+// 已选密探（有序，角标 1-5）；pickHoles 记录取消选择腾出的空位，新选择补入同位置let pickSel = [];
 let pickHoles = [];
 const selectOverlay = document.getElementById('selectOverlay');
 const selectGrid = document.getElementById('selectGrid');
@@ -3081,23 +3280,116 @@ function cardChipBlocks(h) {
     return [['命盘', mp], ['主星', zx], ['辅星', fx]];
 }
 
+// ============================
+//  署名弹窗（与操作记录器一致；常用署名共用同一 localStorage key）
+// ============================
+const AUTHOR_KEY = 'dxdy_author_names_v1';
+function authorLoad() {
+    try {
+        const v = localStorage.getItem(AUTHOR_KEY);
+        const arr = v ? JSON.parse(v) : [];
+        return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+}
+function authorSave(arr) {
+    try { localStorage.setItem(AUTHOR_KEY, JSON.stringify(arr)); } catch (e) {}
+}
+function authorRenderList() {
+    const arr = authorLoad();
+    const box = document.getElementById('authorSavedList');
+    box.innerHTML = '';
+    if (!arr.length) { box.style.display = 'none'; return; }
+    box.style.display = '';
+    arr.forEach(name => {
+        const chip = document.createElement('span');
+        chip.className = 'author-chip';
+        const t = document.createElement('span');
+        t.textContent = name;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'author-chip-del';
+        del.textContent = '×';
+        del.addEventListener('click', e => {
+            e.stopPropagation();
+            if (!confirm('确定删除署名「' + name + '」吗？')) return;
+            authorSave(authorLoad().filter(n => n !== name));
+            authorRenderList();
+        });
+        chip.addEventListener('click', () => {
+            const input = document.getElementById('authorInput');
+            input.value = name;
+            input.focus();
+        });
+        chip.appendChild(t);
+        chip.appendChild(del);
+        box.appendChild(chip);
+    });
+}
+/* 弹窗确认模式：确认返回署名（可为空），取消返回 null */
+function authorShowModal() {
+    const overlay = document.getElementById('authorModal');
+    const input = document.getElementById('authorInput');
+    overlay.classList.add('active');
+    input.value = '';
+    input.focus();
+    authorRenderList();
+    return new Promise(resolve => {
+        const onConfirm = () => { overlay.classList.remove('active'); resolve(input.value.trim() || ''); };
+        const onCancel = () => { overlay.classList.remove('active'); resolve(null); };
+        document.getElementById('authorConfirmBtn').onclick = onConfirm;
+        document.getElementById('authorCancelBtn').onclick = onCancel;
+        input.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); onConfirm(); } };
+        overlay.onclick = e => { if (e.target === overlay) onCancel(); };
+    });
+}
+document.getElementById('authorSaveBtn').addEventListener('click', () => {
+    const name = document.getElementById('authorInput').value.trim();
+    if (!name) { alert('先输入署名再记住'); return; }
+    const arr = authorLoad().filter(n => n !== name);
+    arr.unshift(name);
+    authorSave(arr.length > 20 ? arr.slice(0, 20) : arr);
+    authorRenderList();
+});
+
 async function exportImage() {
     const btn = document.getElementById('exportBtn');
-    if (!state.team || !state.team.length) { alert('还没有阵容，先配队或编辑阵容吧'); return; }
-    btn.textContent = '生成中...';
-    closeSquadInput();
+    if (!state.team || !state.team.length) { alert('还没有阵容，先选人吧'); return; }
     if (typeof html2canvas === 'undefined') {
         alert('导出功能需要联网加载图片库，请检查网络后重试');
-        btn.textContent = '生成图片';
         return;
     }
-    // 未填写的 生命/攻击 显示为「请输入」，导出时临时置空，导出后还原
-    const phEls = document.querySelectorAll('#frame .ph-txt');
-    phEls.forEach(el => { el.dataset.orig = el.textContent; el.textContent = ''; });
-    const restorePh = () => phEls.forEach(el => {
-        if (el.dataset.orig !== undefined) { el.textContent = el.dataset.orig; delete el.dataset.orig; }
-    });
-    html2canvas(document.getElementById('frame'), {
+    // 1. 署名弹窗确认（取消则不生成）
+    const author = await authorShowModal();
+    if (author === null) return;
+    state.author = author;
+    // 2. 临时注入 署名 pill + 日期行（导出后还原）
+    const frame = document.getElementById('frame');
+    const subAuthor = document.getElementById('subAuthor');
+    const savedHtml = subAuthor.innerHTML;
+    const dateEl = document.createElement('div');
+    dateEl.className = 'gen-date';
+    dateEl.textContent = new Date().toLocaleDateString();
+    subAuthor.innerHTML = author ? `<b class="gen-author">【制表：${esc(author)}】</b>` : '';
+    const footEl = frame.querySelector('.foot');
+    footEl.insertAdjacentElement('beforebegin', dateEl);
+    // 3. 空位虚线框导出时隐藏，列宽按实际人数收紧（导出后还原）
+    const emptyCols = frame.querySelectorAll('.col-wrap.col-empty');
+    const frameCols = frame.querySelector('.frame-cols');
+    const origColsStyle = frameCols ? frameCols.style.gridTemplateColumns : '';
+    emptyCols.forEach(el => { el.style.display = 'none'; });
+    if (frameCols) frameCols.style.gridTemplateColumns = 'repeat(' + state.team.length + ', 1fr)';
+    // 4. 未填写的 生命/攻击 显示「请输入」，导出时临时置空
+    const phEls = frame.querySelectorAll('.ph-txt');
+    phEls.forEach(el => { if (el !== subAuthor) { el.dataset.orig = el.textContent; el.textContent = ''; } });
+    btn.textContent = '生成中...';
+    const restore = () => {
+        subAuthor.innerHTML = savedHtml;
+        dateEl.remove();
+        emptyCols.forEach(el => { el.style.display = ''; });
+        if (frameCols) frameCols.style.gridTemplateColumns = origColsStyle;
+        phEls.forEach(el => { if (el.dataset.orig !== undefined) { el.textContent = el.dataset.orig; delete el.dataset.orig; } });
+    };
+    html2canvas(frame, {
         backgroundColor: '#F2E8DF',
         scale: 2,
         useCORS: true
@@ -3110,7 +3402,7 @@ async function exportImage() {
     }).catch(() => {
         alert('导出失败：头像可能受跨域限制，稍后重试');
         btn.textContent = '生成图片';
-    }).finally(restorePh);
+    }).finally(restore);
 }
 
 // ============================
@@ -3131,6 +3423,7 @@ function syncTeam() {
 // ============================
 renderPreview();
 bindModalInputs();
+console.info('本工具由 BWIKI 出品（' + DXDIY_TOOL.name + ' v' + DXDIY_TOOL.ver + '，wiki.biligame.com/yuan），仅供学习交流');
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
