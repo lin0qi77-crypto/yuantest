@@ -509,6 +509,7 @@ body {
     padding: 10px 14px;
     border-bottom: 1px solid var(--wiki-border);
     background: var(--wiki-card3);
+    flex-shrink: 0;
 }
 .drawer-head h2 { font-size: 15px; color: var(--wiki-primary); letter-spacing: 1px; flex-shrink: 0; }
 .drawer-close {
@@ -524,8 +525,10 @@ body {
 .drawer-close:active { background: var(--wiki-card3); }
 .drawer-body {
     padding: 14px 16px;
-    max-height: 60vh;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .drawer-foot {
     display: flex;
@@ -533,6 +536,7 @@ body {
     padding: 10px 16px;
     border-top: 1px solid var(--wiki-border);
     background: var(--wiki-card2);
+    flex-shrink: 0;
 }
 .modal-ok {
     background: #EFE0CC;
@@ -858,6 +862,11 @@ body {
 }
 .reorder-actions button:active { transform: translateY(2px); box-shadow: 0 0 0 var(--wiki-border-strong); }
 .reorder-actions button:disabled { opacity: .35; cursor: default; box-shadow: none; }
+.reorder-actions .reorder-del {
+    background: var(--wiki-highlight-light);
+    color: var(--wiki-highlight);
+    border-color: var(--wiki-border);
+}
 
 /* 星石快捷组合 */
 .hm-stone {
@@ -905,6 +914,15 @@ body {
 .bottom-main {
     display: flex;
     justify-content: center;
+}
+/* 页面底部版本号（不进入导出图） */
+.app-ver {
+    text-align: center;
+    font-size: 11px;
+    color: var(--wiki-primary-soft);
+    opacity: .55;
+    margin-top: 18px;
+    user-select: none;
 }
 .tb-btn.on {
     background: var(--wiki-primary);
@@ -1128,56 +1146,59 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 6px;
-    padding: 10px 14px 2px;
+    padding: 8px 14px 2px;
 }
 .pick-sel-item {
     position: relative;
-    aspect-ratio: 1 / 1;
-    border: 2px dashed var(--wiki-border-strong);
-    border-radius: 10px;
-    background: var(--wiki-card2);
-    touch-action: none;
+    height: 36px;
+    border: 1.5px dashed var(--wiki-border-strong);
+    border-radius: 8px;
+    background: transparent;
     user-select: none;
 }
 .pick-sel-item.filled {
     border-style: solid;
     border-color: var(--wiki-gold);
     background: var(--wiki-card);
-    cursor: grab;
 }
-.pick-sel-item.filled.dragging { opacity: .5; cursor: grabbing; }
-.pick-sel-item.filled.drop-left { box-shadow: inset 3px 0 0 var(--wiki-gold); }
-.pick-sel-item img {
-    width: 100%;
-    height: 100%;
-    border-radius: 7px;
-    object-fit: cover;
-    display: block;
+.pick-sel-name {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--wiki-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .pick-sel-no {
     position: absolute;
-    left: 3px;
-    bottom: 3px;
+    left: 2px;
+    bottom: 2px;
     background: rgba(74, 60, 53, .78);
     color: #FFF8F0;
-    font-size: 10px;
-    line-height: 1.6;
-    padding: 0 6px;
-    border-radius: 8px;
+    font-size: 9px;
+    line-height: 1.5;
+    padding: 0 5px;
+    border-radius: 7px;
     font-weight: 700;
 }
 .pick-sel-del {
     position: absolute;
-    top: -7px;
-    right: -7px;
-    width: 20px;
-    height: 20px;
+    top: -8px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: var(--wiki-highlight);
     color: #FFF8F0;
     border: none;
-    font-size: 11px;
-    line-height: 20px;
+    font-size: 10px;
+    line-height: 18px;
     text-align: center;
     cursor: pointer;
     box-shadow: 0 1px 4px rgba(80, 50, 30, .3);
@@ -1526,19 +1547,18 @@ body {
     .empty-slot b { display: block; font-size: 14px; color: var(--wiki-border-strong); letter-spacing: 1px; }
     .p-cell { min-width: 0; }
 
-    /* 方形头像 + 姓名/等级修为/星级在头像下方（直接点击可改，立绘区可拖动换位） */
+    /* 编辑器布局：方形小头像 1:1 + 等级/修为/星级 一行一个大按钮（方便点） */
     .b-cell {
         display: flex;
         flex-direction: column;
         border-radius: 10px;
         overflow: hidden;
         cursor: pointer;
-        touch-action: pan-y;
+        background: radial-gradient(circle at 35% 30%, #F7EBD8, #E8D5BE);
     }
     .b-cell .b-avatar {
         width: 100%;
         aspect-ratio: 1 / 1;
-        background: radial-gradient(circle at 35% 30%, #F7EBD8, #E8D5BE);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1548,11 +1568,12 @@ body {
     .b-cell .ph { font-size: 22px; font-weight: 700; color: var(--wiki-highlight); }
     .b-cell:hover { outline: 2px solid var(--wiki-highlight); }
 
-    /* 头像下方信息条（姓名 / 等级+修为 / 星级）；字号不动，加大点击热区 */
+    /* 信息区：姓名 + 三行大按钮 */
     .b-info {
-        padding: 4px 2px 2px;
+        padding: 5px 3px 5px;
         text-align: center;
-        line-height: 1.3;
+        line-height: 1.2;
+        background: var(--wiki-card2);
     }
     .b-name {
         font-size: 12px;
@@ -1562,20 +1583,132 @@ body {
         overflow: hidden;
         color: var(--wiki-primary);
     }
-    .b-lv { font-size: 10px; font-weight: 700; color: var(--wiki-primary); padding: 3px 0 4px; }
-    .b-lv b { padding: 2px 5px; border-radius: 6px; }
-    .b-lv b:hover { background: rgba(200, 162, 75, .18); }
+    .b-edit-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 4px;
+    }
+    .b-lv-pair {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .b-lv-row {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--wiki-primary);
+        background: var(--wiki-card3);
+        border: 1px solid var(--wiki-border);
+        border-radius: 8px;
+        padding: 5px 0;
+        box-shadow: 0 2px 0 var(--wiki-border-strong);
+        cursor: pointer;
+        touch-action: manipulation;
+        user-select: none;
+    }
+    .b-lv-row:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--wiki-border-strong); }
+    .b-lv-row b { padding: 2px 8px; border-radius: 6px; }
+    .b-lv-row b:hover { background: rgba(200, 162, 75, .25); }
     .b-stars {
         font-size: 10px;
         letter-spacing: 1px;
         color: #B98A2E;
         user-select: none;
-        padding: 2px 0 3px;
         white-space: nowrap;
+        background: var(--wiki-card3);
+        border: 1px solid var(--wiki-border);
+        border-radius: 8px;
+        padding: 4px 0;
+        box-shadow: 0 2px 0 var(--wiki-border-strong);
+        cursor: pointer;
+        touch-action: manipulation;
     }
+    .b-stars:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--wiki-border-strong); }
     .b-stars .st-star { cursor: pointer; padding: 3px 1px; display: inline-block; }
-    .b-stars .st-star.off { color: #D8C9A8; }
+    .b-stars .st-star.off { color: rgba(255, 248, 240, .35); }
     .b-stars .st-star.awake { cursor: default; }
+    .b-stars .st-icon {
+        width: 12px;
+        height: 12px;
+        vertical-align: -2px;
+        margin: 0 1px;
+        display: inline-block;
+    }
+
+    /* 导出布局（export-mode 时切换）：竖版 1:1.67 小头像，姓名/等级修为/星级浮于图上带遮罩 */
+    .export-mode .b-cell {
+        position: relative;
+        aspect-ratio: 1 / 1.67;
+        border-radius: 10px;
+    }
+    .export-mode .b-avatar {
+        position: absolute;
+        inset: 0;
+        width: auto;
+        height: auto;
+        aspect-ratio: auto;
+    }
+    .export-mode .b-info {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 16px 2px 4px;
+        background: linear-gradient(180deg, rgba(40, 28, 22, 0) 0%, rgba(40, 28, 22, .55) 45%, rgba(40, 28, 22, .85) 100%);
+        color: #FFF8F0;
+    }
+    .export-mode .b-name {
+        color: #FFF8F0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    }
+    .export-mode .b-edit-rows {
+        margin-top: 1px;
+    }
+    .export-mode .b-lv-pair {
+        flex-direction: row;
+        justify-content: center;
+        gap: 4px;
+    }
+    .export-mode .b-lv-row {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        font-size: 10px;
+        color: #FFF8F0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    }
+    .export-mode .b-lv-pair .b-lv-row + .b-lv-row::before { content: '+'; margin-right: 4px; }
+    .export-mode .b-stars {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 2px 0 0;
+        font-size: 10px;
+        color: #F5D78E;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    }
+    /* 导出：小头像 png 自带 padding，图案上移 8px（外框高度不变）；
+       头像改用背景图渲染（html2canvas 对 object-fit 支持不佳会拉伸，background cover 可靠） */
+    .export-mode .b-avatar img { display: none; }
+    .export-mode .b-avatar {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center -8px;
+    }
+    /* 觉醒：直接显示红字，不显示星星 */
+    .st-awake-txt {
+        color: #D33A3A;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .export-mode .st-awake-txt {
+        color: #FF6B6B;
+        font-size: 10px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    }
 
     /* 分区小标题 —命盘— / —主星— / —辅星— */
     .col-cap {
@@ -1620,8 +1753,7 @@ body {
         border-radius: 3px;
         line-height: 1.5;
     }
-    .mp.must, .mp.ban { margin-top: 6px; }
-    .mp.must { border-color: #7FA65A; background: #F0F7E8; color: #4F7A2E; font-weight: 600; }
+    .mp.must, .mp.ban { }    .mp.must { border-color: #7FA65A; background: #F0F7E8; color: #4F7A2E; font-weight: 600; }
     .mp.must .tag { background: #7FA65A; color: #FFF8F0; }
     .mp.ban { border-color: #D98A8A; background: #FBF0F0; color: #B05A5A; }
     .mp.ban .tag { background: #D98A8A; color: #FFF8F0; }
@@ -1908,21 +2040,27 @@ body {
 .author-btn-confirm:hover { background: #5d4d45; box-shadow: 0 5px 0 #332a24; }
 .author-btn-confirm:active { transform: translateY(4px) scale(0.96); box-shadow: 0 0 0 #332a24; }
 
-/* 导出临时元素：署名 pill + 日期行 */
+/* 导出预览窗格 */
+.preview-box img {
+    max-width: 100%;
+    max-height: 58vh;
+    border-radius: 8px;
+    border: 1px solid var(--wiki-border);
+    background: var(--wiki-card2);
+    display: block;
+    margin: 0 auto;
+}
+
+/* 导出临时元素：攻略作者（金色） */
 .gen-author {
     display: inline-block;
-    background: #fdf0ef;
-    color: var(--wiki-highlight);
+    background: #FBF3E0;
+    color: #8A6A20;
+    border: 1px solid #E5CF9A;
     border-radius: 18px;
-    padding: 2px 14px;
+    padding: 1px 12px;
     font-size: 13px;
     font-weight: 700;
-}
-.gen-date {
-    text-align: center;
-    font-size: 11px;
-    color: var(--wiki-primary-soft);
-    margin-top: 2px;
 }
 
 /* ---------- 预览区补充元素 ---------- */
@@ -1952,6 +2090,7 @@ body {
     .frame { width: 100%; }
     .modal-overlay { padding: 10px; }
     .modal { max-height: 92vh; }
+    .edit-drawer { max-height: 92vh; width: 96vw; }
     .tb-btn { padding: 10px 18px; font-size: 13px; }
 }
 
@@ -1959,7 +2098,7 @@ body {
 </head>
 <body data-tool="dxdy-lineup-editor" data-ver="0.29">
 <div class="app">
-    <div class="frame-tip">XHS 封面预览 · 1:1（1080 × 1080px）· 点标题切换 代号鸢/如鸢 · 点立绘/名字换人 · 点星级/等级/修为/生命/攻击直接修改 · 点命盘/星石区编辑 · 按住立绘拖动换位</div>
+    <div class="frame-tip">XHS 封面预览 · 1:1（1080 × 1080px）· 点标题切换 代号鸢/如鸢 · 点立绘/名字换人 · 点星级/等级/修为/血/攻直接修改 · 点命盘/星石区编辑</div>
     <div class="frame" id="frame"></div>
     <div class="bottom-bar">
         <div class="bottom-funcs">
@@ -1973,6 +2112,7 @@ body {
         </div>
     </div>
     <div class="squads-panel" id="squadsPanel"></div>
+    <div class="app-ver">出战阵容编辑器 v0.30 · 源自代号鸢BWIKI</div>
 </div>
 
 <!-- 密探编辑抽屉（画框下方展开） -->
@@ -2045,6 +2185,19 @@ body {
     </div>
 </div>
 
+<!-- 导出预览窗格（确认无误再保存，与操作记录器一致） -->
+<div class="author-modal-overlay" id="previewModal">
+    <div class="author-modal-box preview-box">
+        <div class="author-modal-title">图片预览</div>
+        <div class="author-modal-sub">确认无误后点「保存图片」</div>
+        <img id="previewImg" alt="预览">
+        <div class="author-modal-actions">
+            <button type="button" class="author-btn-cancel" id="previewCancelBtn">取消</button>
+            <button type="button" class="author-btn-confirm" id="previewSaveBtn">保存图片</button>
+        </div>
+    </div>
+</div>
+
 <!-- 选人面板 -->
 <div class="select-overlay" id="selectOverlay">
     <div class="select-panel">
@@ -2070,7 +2223,7 @@ body {
 // ============================
 //  工具指纹：BWIKI 出品声明（防搬运溯源用，勿删除）
 // ============================
-const DXDIY_TOOL = { name: '代号鸢·出战阵容编辑器', origin: 'wiki.biligame.com/yuan', ver: '0.29' };
+const DXDIY_TOOL = { name: '代号鸢·出战阵容编辑器', origin: 'wiki.biligame.com/yuan', ver: '0.30' };
 
 // ============================
 //  密探池（121 人，源自 BWiki Box 数据）
@@ -2288,7 +2441,7 @@ const AVATAR_BIG = {
 let state = {
     author: '',
     gameName: '代号鸢',
-    stage: '8月洞窟 救救舅舅',
+    stage: '关卡名称',
     sell: '【不赌博】',
     round: 4,
     teamName: '',
@@ -2301,18 +2454,6 @@ let state = {
 function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-/* 化极体系：X星Y阶（简写 X-Y），源自游戏原数据 */
-const HUA_OPTIONS = [];
-(function () {
-    for (let star = 1; star <= 4; star++) {
-        for (let step = 0; step <= 5; step++) {
-            HUA_OPTIONS.push({ v: star + '-' + step, t: star + '星' + step + '阶' });
-        }
-    }
-    HUA_OPTIONS.push({ v: '5-0', t: '5星' });
-    HUA_OPTIONS.push({ v: '觉醒', t: '觉醒' });
-})();
-
 function stars(n) {
     const s = String(n == null ? '' : n);
     let count = 0;
@@ -2399,22 +2540,29 @@ function stoneListHtml(list) {
     return html;
 }
 /* 化极星级：5 颗可点星（点击设星级，阶数在抽屉改），觉醒加 ◈ */
+/* 化极星级：游戏亮星图标（导出图同样显示亮星）；觉醒直接显示红字「觉醒」 */
+const STAR_ICON = 'https://patchwiki.biligame.com/images/yuan/4/48/tm26f2wc8jyq1m40mds804up1f61rw6.png';
 function starRowHtml(h, i) {
+    if (String(h.hua) === '觉醒') return '<span class="st-awake-txt">觉醒</span>';
     const n = huaStarCount(h.hua);
     let out = '';
-    for (let v = 1; v <= 5; v++) out += `<span class="st-star${v <= n ? '' : ' off'}" data-star="${i}" data-v="${v}">★</span>`;
-    if (String(h.hua) === '觉醒') out += '<span class="st-star awake">◈</span>';
+    for (let v = 0; v < n; v++) out += `<img class="st-icon" src="${STAR_ICON}" alt="★">`;
     return out;
 }
 function bannerCell(h, i) {
     const av = h.avatar || '';
     const img = av ? `<img src="${av}" alt="" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : `<span class="ph">${esc(h.name[0])}</span>`;
     return `<div class="p-cell b-cell" data-pick="${i}" title="点击换人">
-        <div class="b-avatar">${img}</div>
+        <div class="b-avatar" data-av="${esc(h.avatar || '')}">${img}</div>
         <div class="b-info">
             <div class="b-name">${esc(h.name)}</div>
-            <div class="b-lv"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b>+<b class="ie" data-edit="xiuwei" data-slot="${i}">${esc(h.xiuwei)}</b></div>
-            <div class="b-stars">${starRowHtml(h, i)}</div>
+            <div class="b-edit-rows">
+                <div class="b-lv-pair">
+                    <div class="b-lv-row"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b></div>
+                    <div class="b-lv-row"><b class="ie" data-edit="xiuwei" data-slot="${i}">${esc(h.xiuwei)}</b></div>
+                </div>
+                <div class="b-stars" data-edit="hua" data-slot="${i}" title="点击选择星级">${starRowHtml(h, i)}</div>
+            </div>
         </div>
     </div>`;
 }
@@ -2435,7 +2583,7 @@ function renderPreview() {
             ${bannerCell(h, i)}
             <div class="p-cell mp-col" data-mp="${i}"><div class="col-cap">命盘</div>${mpListHtml(h.mingpan)}</div>
             <div class="p-cell st-col" data-stone="${i}"><div class="col-cap">主星</div>${stoneListHtml(h.zhuxing)}<div class="col-cap">辅星</div>${stoneListHtml(h.fuxing)}</div>
-            <div class="p-cell stat-col"><div class="stat-line">生命 <b class="ie num-hp" data-edit="hp" data-slot="${i}">${statVal(h.hp)}</b></div><div class="stat-line">攻击 <b class="ie num-atk" data-edit="atk" data-slot="${i}">${statVal(h.atk)}</b></div></div>
+            <div class="p-cell stat-col"><div class="stat-line">血 <b class="ie num-hp" data-edit="hp" data-slot="${i}">${statVal(h.hp)}</b></div><div class="stat-line">攻 <b class="ie num-atk" data-edit="atk" data-slot="${i}">${statVal(h.atk)}</b></div></div>
         </div>`).join('')}${empties.join('')}
     </div>` : `
     <div class="empty-team">
@@ -2450,7 +2598,7 @@ function renderPreview() {
             <span class="title-sep">·</span>
             <span class="title-input ie" data-edit="stage">${esc(state.stage)}</span>
         </div>
-        <span class="sub">攻略作者：<span class="ph-txt" id="subAuthor">生成图片时填写</span></span>
+        <span class="sub" id="subLine" style="display:none"></span>
     </div>
     ${teamHtml}
     <div class="foot">密探图片 & 数值源自「代号鸢BWIKI」 图鉴 / 数值 / 文案 / 剧情 · wiki.biligame.com/yuan</div>`;
@@ -2483,6 +2631,7 @@ function reorderRender() {
             <span class="reorder-actions">
                 <button class="reorder-up" data-idx="${i}" ${i === 0 ? 'disabled' : ''}>↑</button>
                 <button class="reorder-down" data-idx="${i}" ${i === state.team.length - 1 ? 'disabled' : ''}>↓</button>
+                <button class="reorder-del" data-idx="${i}" title="移除">✕</button>
             </span>
         </div>`).join('');
 }
@@ -2495,8 +2644,18 @@ function reorderMove(from, to) {
     reorderRender();
     renderPreview();
 }
-/* ↑↓ 按钮 */
+/* ↑↓ 换位 + ✕ 移除 */
 document.getElementById('reorderList').addEventListener('click', e => {
+    const del = e.target.closest ? e.target.closest('.reorder-del') : null;
+    if (del) {
+        const i = parseInt(del.dataset.idx);
+        if (i >= 0 && i < state.team.length) {
+            state.team.splice(i, 1);
+            reorderRender();
+            renderPreview();
+        }
+        return;
+    }
     const up = e.target.closest ? e.target.closest('.reorder-up') : null;
     const down = e.target.closest ? e.target.closest('.reorder-down') : null;
     const from = up ? parseInt(up.dataset.idx) : down ? parseInt(down.dataset.idx) : -1;
@@ -2946,16 +3105,6 @@ function bindModalInputs() {
     // 画框点击：数值就地编辑（data-edit 由 ie 委托处理）；星星→化极星级；立绘/名字→选人；命盘/星石区→抽屉
     document.getElementById('frame').addEventListener('click', e => {
         if (e.target.closest('[data-edit], .ie-input, .ie-select')) return;   // 就地编辑交给 ie 委托（含编辑器内点击）
-        const star = e.target.closest ? e.target.closest('[data-star]') : null;
-        if (star) {
-            const h = state.team[parseInt(star.dataset.star)];
-            const v = parseInt(star.dataset.v);
-            const cur = String(h.hua || '');
-            const step = cur === '觉醒' ? 0 : (parseInt(cur.split('-')[1]) || 0);
-            h.hua = v >= 5 ? '5-0' : v + '-' + step;
-            renderPreview();
-            return;
-        }
         const pick = e.target.closest ? e.target.closest('[data-pick]') : null;
         if (pick) { openSelect(parseInt(pick.dataset.pick)); return; }       // 立绘/名字 → 换人
         const mp = e.target.closest ? e.target.closest('[data-mp]') : null;
@@ -3040,7 +3189,7 @@ function batchFill() {
         return {
             name: m.name, avatar: m.avatar,
             sub: `${m.rarity} · ${m.job} · ${m.attribute}`,
-            hp: '', atk: '', level: 100, xiuwei: 17, hua: '3-0',
+            hp: '', atk: '', level: 100, xiuwei: 17, hua: '2-0',
             mingpan: [], zhuxing: defaultZhuxing(m.job), fuxing: []
         };
     });
@@ -3058,9 +3207,11 @@ function batchFill() {
 function ieBuildEditor(field, slot, currentText) {
     const ed = document.createElement('span');
     if (field === 'hua') {
+        // 化极：1星~5星 / 觉醒（阶数固定 0，默认 2星）
         const cur = String(state.team[slot].hua);
-        let opts = HUA_OPTIONS.map(o => `<option value="${o.v}"${cur === o.v ? ' selected' : ''}>${o.t}</option>`).join('');
-        if (!HUA_OPTIONS.some(o => o.v === cur)) opts += `<option value="${esc(cur)}" selected>${esc(cur)}</option>`;
+        const HUA_SIMPLE = [['1-0', '1星'], ['2-0', '2星'], ['3-0', '3星'], ['4-0', '4星'], ['5-0', '5星'], ['觉醒', '觉醒']];
+        let opts = HUA_SIMPLE.map(o => `<option value="${o[0]}"${cur === o[0] ? ' selected' : ''}>${o[1]}</option>`).join('');
+        if (!HUA_SIMPLE.some(o => o[0] === cur)) opts += `<option value="${esc(cur)}" selected>${esc(cur)}</option>`;
         ed.innerHTML = `<select class="ie-select">${opts}</select>`;
     } else if (field === 'xiuwei') {
         const cur = Number(state.team[slot].xiuwei) || 0;
@@ -3076,7 +3227,8 @@ function ieBuildEditor(field, slot, currentText) {
             if (v == null || v === '') currentText = '';
         }
         const isNum = ['level', 'hp', 'atk'].includes(field);
-        ed.innerHTML = `<input class="ie-input" value="${esc(currentText)}"${isNum ? ' inputmode="numeric"' : ''}>`;
+        const max5 = field === 'hp' || field === 'atk';
+        ed.innerHTML = `<input class="ie-input" value="${esc(currentText)}"${isNum ? ' inputmode="numeric"' : ''}${max5 ? ' maxlength="5"' : ''}>`;
     }
     return ed;
 }
@@ -3092,8 +3244,8 @@ function ieApply(field, slot, value) {
         if (field === 'hua') h.hua = value;
         else if (field === 'xiuwei') h.xiuwei = parseInt(value) || 0;
         else if (field === 'level') h.level = Math.max(1, Math.min(100, parseInt(value) || 1));
-        else if (field === 'hp') h.hp = value === '' ? '' : (parseInt(value) || 0);
-        else if (field === 'atk') h.atk = value === '' ? '' : (parseInt(value) || 0);
+        else if (field === 'hp') h.hp = value === '' ? '' : Math.min(99999, parseInt(value) || 0);
+        else if (field === 'atk') h.atk = value === '' ? '' : Math.min(99999, parseInt(value) || 0);
     }
 }
 
@@ -3310,7 +3462,7 @@ function renderPickCount() {
     const el = document.getElementById('selectCount');
     if (el) el.textContent = `已选 ${pickSel.length}/5`;
 }
-/* 已选密探：5 虚框一行（头像 + 序号 + ✕），未选为虚线空位 */
+/* 已选密探：5 虚框一行（名字 + 序号 + ✕），未选为虚线空位 */
 function renderPickSelected() {
     const box = document.getElementById('pickSelected');
     let html = '';
@@ -3319,7 +3471,7 @@ function renderPickSelected() {
         const m = n ? MIRROR_POOL.find(x => x.name === n) : null;
         if (m) {
             html += `<div class="pick-sel-item filled" data-idx="${i}">
-                <img src="${m.avatar || ''}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+                <span class="pick-sel-name" title="${esc(m.name)}">${esc(m.name)}</span>
                 <span class="pick-sel-no">${i + 1}</span>
                 <button class="pick-sel-del" data-idx="${i}">✕</button>
             </div>`;
@@ -3329,7 +3481,7 @@ function renderPickSelected() {
     }
     box.innerHTML = html;
 }
-/* ✕ 删除 + 拖动换序 */
+/* ✕ 删除已选 */
 (function () {
     const box = document.getElementById('pickSelected');
     box.addEventListener('click', e => {
@@ -3345,58 +3497,6 @@ function renderPickSelected() {
         renderSelectGrid();
         renderPickCount();
     });
-    let drag = null;
-    box.addEventListener('pointerdown', e => {
-        if (e.target.closest('.pick-sel-del')) return;
-        const item = e.target.closest ? e.target.closest('.pick-sel-item.filled') : null;
-        if (!item) return;
-        drag = { item: item, startX: e.clientX, idx: parseInt(item.dataset.idx), moved: false, insertPos: parseInt(item.dataset.idx) };
-        item.setPointerCapture && item.setPointerCapture(e.pointerId);
-    });
-    box.addEventListener('pointermove', e => {
-        if (!drag) return;
-        const dx = e.clientX - drag.startX;
-        if (!drag.moved) {
-            if (Math.abs(dx) < 6) return;
-            drag.moved = true;
-            drag.item.classList.add('dragging');
-        }
-        drag.item.style.transform = 'translateX(' + dx + 'px)';
-        const items = [].slice.call(box.querySelectorAll('.pick-sel-item.filled'));
-        let insertPos = drag.idx;
-        items.forEach((it, i) => {
-            if (it === drag.item) return;
-            const r = it.getBoundingClientRect();
-            if (e.clientX > r.left + r.width / 2) insertPos = i + (i >= drag.idx ? 1 : 0);
-        });
-        items.forEach(it => it.classList.remove('drop-left'));
-        if (insertPos !== drag.idx) {
-            const markIdx = insertPos > drag.idx ? insertPos - 1 : insertPos;
-            items[markIdx].classList.add('drop-left');
-        }
-        drag.insertPos = insertPos;
-    });
-    const endDrag = () => {
-        if (!drag) return;
-        const d = drag;
-        drag = null;
-        d.item.classList.remove('dragging');
-        d.item.style.transform = '';
-        box.querySelectorAll('.drop-left').forEach(it => it.classList.remove('drop-left'));
-        if (!d.moved || d.insertPos === undefined) return;
-        const from = d.idx;
-        const to = Math.min(d.insertPos, pickSel.length - 1);
-        if (to !== from) {
-            const [n] = pickSel.splice(from, 1);
-            pickSel.splice(to, 0, n);
-            pickHoles = [];   // 手动排序后清空补位记录
-            renderPickSelected();
-            renderSelectGrid();
-            renderPickCount();
-        }
-    };
-    box.addEventListener('pointerup', endDrag);
-    box.addEventListener('pointercancel', endDrag);
 })();
 /* 确定：把点选的队伍一次性填入并关闭 */
 function applyPick() {
@@ -3406,7 +3506,7 @@ function applyPick() {
         return {
             name: m.name, avatar: m.avatar,
             sub: `${m.rarity} · ${m.job} · ${m.attribute}`,
-            hp: '', atk: '', level: 100, xiuwei: 17, hua: '3-0',
+            hp: '', atk: '', level: 100, xiuwei: 17, hua: '2-0',
             mingpan: [], zhuxing: defaultZhuxing(m.job), fuxing: []
         };
     });
@@ -3575,48 +3675,92 @@ async function exportImage() {
     const author = await authorShowModal();
     if (author === null) return;
     state.author = author;
-    // 2. 临时注入 署名 pill + 日期行（导出后还原）
+    // 2. 临时注入 攻略作者 + 日期（同一行，导出后还原）
     const frame = document.getElementById('frame');
-    const subAuthor = document.getElementById('subAuthor');
-    const savedHtml = subAuthor.innerHTML;
-    const dateEl = document.createElement('div');
-    dateEl.className = 'gen-date';
-    dateEl.textContent = new Date().toLocaleDateString();
-    subAuthor.innerHTML = author ? `<b class="gen-author">【制表：${esc(author)}】</b>` : '';
-    const footEl = frame.querySelector('.foot');
-    footEl.insertAdjacentElement('beforebegin', dateEl);
-    // 3. 空位虚线框导出时隐藏，列宽按实际人数收紧（导出后还原）
+    const subLine = document.getElementById('subLine');
+    const savedSub = subLine.innerHTML;
+    const savedSubShow = subLine.style.display;
+    const dateTxt = new Date().toLocaleDateString();
+    subLine.style.display = '';
+    subLine.innerHTML = author ? `攻略作者：<b class="gen-author">${esc(author)}</b> · ${dateTxt}` : dateTxt;
+    // 3. 空位虚线框导出时隐藏（列宽保持 5 等分不变）
     const emptyCols = frame.querySelectorAll('.col-wrap.col-empty');
-    const frameCols = frame.querySelector('.frame-cols');
-    const origColsStyle = frameCols ? frameCols.style.gridTemplateColumns : '';
     emptyCols.forEach(el => { el.style.display = 'none'; });
-    if (frameCols) frameCols.style.gridTemplateColumns = 'repeat(' + state.team.length + ', 1fr)';
+    // 4. 切换为导出布局（1:1.67 竖版 + 遮罩）
+    frame.classList.add('export-mode');
     // 4. 未填写的 生命/攻击 显示「请输入」，导出时临时置空
     const phEls = frame.querySelectorAll('.ph-txt');
-    phEls.forEach(el => { if (el !== subAuthor) { el.dataset.orig = el.textContent; el.textContent = ''; } });
+    phEls.forEach(el => { el.dataset.orig = el.textContent; el.textContent = ''; });
+    // 5. 导出前把头像切为背景图方案（html2canvas 对 object-fit 支持不佳会拉伸；background cover 可靠）
+    const avEls = frame.querySelectorAll('.b-avatar');
+    avEls.forEach(el => {
+        el.dataset.origBg = el.style.backgroundImage;
+        const av = el.dataset.av || '';
+        el.style.backgroundImage = av ? `url('${av}')` : '';
+    });
     btn.textContent = '生成中...';
     const restore = () => {
-        subAuthor.innerHTML = savedHtml;
-        dateEl.remove();
+        subLine.innerHTML = savedSub;
+        subLine.style.display = savedSubShow;
         emptyCols.forEach(el => { el.style.display = ''; });
-        if (frameCols) frameCols.style.gridTemplateColumns = origColsStyle;
         phEls.forEach(el => { if (el.dataset.orig !== undefined) { el.textContent = el.dataset.orig; delete el.dataset.orig; } });
+        frame.classList.remove('export-mode');
+        avEls.forEach(el => {
+            el.style.backgroundImage = el.dataset.origBg || '';
+            delete el.dataset.origBg;
+        });
     };
-    html2canvas(frame, {
-        backgroundColor: '#F2E8DF',
-        scale: 2,
-        useCORS: true
-    }).then(canvas => {
-        const a = document.createElement('a');
-        a.download = (state.stage || '出战阵容').replace(/[\\/:*?"<>|]/g, '_') + '.png';
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+    // 6. 预加载头像（带 CORS），提高 iOS 导出成功率
+    await Promise.all(state.team.map(h => loadAvatar(h.avatar || '')));
+    // 7. 截取：失败自动降档重试（iOS 大画布兼容）
+    let canvas = null;
+    let lastErr = null;
+    for (const s of [2, 1.5, 1]) {
+        try {
+            canvas = await html2canvas(frame, {
+                backgroundColor: '#F2E8DF',
+                scale: s,
+                useCORS: true
+            });
+            break;
+        } catch (err) { lastErr = err; }
+    }
+    if (!canvas) {
+        restore();
+        alert('导出失败：头像可能受跨域限制，稍后重试' + (lastErr ? '（' + lastErr.message + '）' : ''));
         btn.textContent = '生成图片';
-    }).catch(() => {
-        alert('导出失败：头像可能受跨域限制，稍后重试');
-        btn.textContent = '生成图片';
-    }).finally(restore);
+        return;
+    }
+    const dataUrl = canvas.toDataURL('image/png');
+    restore();
+    btn.textContent = '生成图片';
+    // 预览确认后再保存（与操作记录器一致）
+    showExportPreview(dataUrl, (state.stage || '出战阵容').replace(/[\\/:*?"<>|]/g, '_') + '.png');
 }
+
+/* 导出预览窗格：确认无误再保存 */
+let pendingExport = null;
+function showExportPreview(dataUrl, filename) {
+    document.getElementById('previewImg').src = dataUrl;
+    pendingExport = { dataUrl: dataUrl, filename: filename };
+    document.getElementById('previewModal').classList.add('active');
+}
+function closeExportPreview() {
+    pendingExport = null;
+    document.getElementById('previewModal').classList.remove('active');
+}
+document.getElementById('previewSaveBtn').addEventListener('click', () => {
+    if (!pendingExport) return;
+    const a = document.createElement('a');
+    a.download = pendingExport.filename;
+    a.href = pendingExport.dataUrl;
+    a.click();
+    closeExportPreview();
+});
+document.getElementById('previewCancelBtn').addEventListener('click', closeExportPreview);
+document.getElementById('previewModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeExportPreview();
+});
 
 // ============================
 //  与操作记录器联动（密探名字）
