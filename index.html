@@ -469,6 +469,12 @@ body {
     touch-action: manipulation;
 }
 .tb-btn:active { transform: translateY(2px) scale(.98); box-shadow: 0 1px 0 var(--wiki-border-strong); }
+.tb-btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
 
 .frame { margin: 0 auto; }
 .frame .hero { cursor: pointer; }
@@ -1646,6 +1652,8 @@ body {
     .b-lv-row:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--wiki-border-strong); }
     .b-lv-row b { padding: 2px 8px; border-radius: 6px; }
     .b-lv-row b:hover { background: rgba(200, 162, 75, .25); }
+    /* 等级与修为之间的 + 号：仅导出图显示（平时隐藏） */
+    .b-plus { display: none; }
     .b-stars {
         font-size: 10px;
         letter-spacing: 1px;
@@ -1665,81 +1673,75 @@ body {
     .b-stars .st-star.off { color: rgba(255, 248, 240, .35); }
     .b-stars .st-star.awake { cursor: default; }
     .b-stars .st-icon {
-        width: 12px;
-        height: 12px;
+        width: 14px;
+        height: 14px;
         vertical-align: -2px;
         margin: 0 1px;
         display: inline-block;
     }
 
-    /* 导出布局（export-mode 时切换）：竖版 1:1.67 小头像，姓名/等级修为/星级浮于图上带遮罩 */
+    /* 导出布局（export-mode 时切换）：竖版头像 + 信息条在图片下方；
+       信息条三行竖排居中：名字 / 等级+修为(紧凑) / 化极星级 */
     .export-mode .b-cell {
         position: relative;
-        aspect-ratio: 1 / 1.67;
         border-radius: 10px;
     }
     .export-mode .b-avatar {
-        position: absolute;
-        inset: 0;
-        width: auto;
-        height: auto;
-        aspect-ratio: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1.67;
+        position: static;
     }
+    .export-mode .b-avatar img { display: none; }
+    /* 信息条：名字 / 100+17 / 化极星级 三行竖排居中 */
     .export-mode .b-info {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 16px 2px 4px;
-        background: linear-gradient(180deg, rgba(40, 28, 22, 0) 0%, rgba(40, 28, 22, .55) 45%, rgba(40, 28, 22, .85) 100%);
-        color: #FFF8F0;
-    }
-    .export-mode .b-name {
-        color: #FFF8F0;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
-    }
-    .export-mode .b-edit-rows {
-        margin-top: 1px;
-    }
-    .export-mode .b-lv-pair {
-        flex-direction: row;
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        gap: 4px;
+        gap: 2px;
+        background: var(--wiki-card);
+        border-radius: 0 0 10px 10px;
+        padding: 4px 3px;
+        color: var(--wiki-primary);
     }
+    .export-mode .b-name { color: var(--wiki-primary); font-size: 12px; }
+    .export-mode .b-edit-rows { flex-direction: column; align-items: center; gap: 2px; margin: 0; }
+    /* 等级+修为：同行紧凑显示为 100+17（无间距，+ 号由 .b-plus 提供） */
+    .export-mode .b-lv-pair { flex-direction: row; justify-content: center; align-items: baseline; gap: 0; }
     .export-mode .b-lv-row {
         background: transparent;
         border: none;
         box-shadow: none;
         padding: 0;
-        font-size: 10px;
-        color: #FFF8F0;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+        font-size: 12px;
+        color: var(--wiki-primary);
     }
-    .export-mode .b-lv-pair .b-lv-row + .b-lv-row::before { content: '+'; margin-right: 4px; }
+    .export-mode .b-lv-row b { padding: 0; }
+    .export-mode .b-plus { display: inline; font-size: 12px; font-weight: 700; color: var(--wiki-primary); }
+    /* 化极星级：信息条第三行居中，觉醒红字白描边 */
     .export-mode .b-stars {
+        position: static;
         background: transparent;
         border: none;
         box-shadow: none;
-        padding: 2px 0 0;
+        padding: 0;
         font-size: 10px;
-        color: #F5D78E;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+        color: #B98A2E;
+        pointer-events: none;
     }
-    /* 导出：小头像 png 自带 padding，图案上移 8px（外框高度不变）；
-       头像改用背景图渲染（html2canvas 对 object-fit 支持不佳会拉伸；完整 background 简写由 JS 注入，
-       避免 html2canvas 解析 CSS 简写与内联样式混用时出现渲染瑕疵） */
-    .export-mode .b-avatar img { display: none; }
+    .export-mode .st-awake-txt {
+        color: #D33A3A;
+        font-size: 11px;
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 2px #fff;
+    }
+    /* 导出：小头像 png 自带 padding，图案上移 8px（外框高度不变）；背景图由 JS 注入完整 background 简写 */
     /* 觉醒：直接显示红字，不显示星星 */
     .st-awake-txt {
         color: #D33A3A;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 1px;
-    }
-    .export-mode .st-awake-txt {
-        color: #FF6B6B;
-        font-size: 10px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
     }
 
     /* 分区小标题 —命盘— / —主星— / —辅星— */
@@ -2136,7 +2138,7 @@ body {
         <div class="bottom-funcs">
             <button class="tb-btn" onclick="openSquads()">常用配队</button>
             <button class="tb-btn danger" onclick="clearTeam()">清空所有</button>
-            <button class="tb-btn" onclick="syncTeam()">导入录制器</button>
+            <button class="tb-btn" onclick="syncTeam()" disabled title="录制器联动内测中，暂未开放">开始记录操作</button>
             <button class="tb-btn" id="reorderBtn" onclick="toggleReorder()">调整站位</button>
         </div>
         <div class="bottom-main">
@@ -2606,26 +2608,16 @@ function starRowHtml(h, i) {
     for (let v = 0; v < n; v++) out += `<img class="st-icon" src="${STAR_ICON}" alt="★">`;
     return out;
 }
-/* MediaWiki 缩略图：减小图片体积与解码内存（iOS 导出友好） */
-function thumbUrl(src, w) {
-    if (!src) return '';
-    // MediaWiki: images/yuan/xx/yy/name.png → images/thumb/yuan/xx/yy/name.png/wpx-name.png
-    const m = String(src).match(/^(.*\/images\/)([^/]+\/[^/]+\/[^/]+\/[^/]+)$/);
-    if (!m) return src;
-    const path = m[2];
-    const name = path.split('/').pop();
-    return m[1] + 'thumb/' + path + '/' + w + 'px-' + name;
-}
 function bannerCell(h, i) {
-    const av = thumbUrl(h.avatar, 200);
+    const av = h.avatar || '';
     const img = av ? `<img src="${av}" alt="" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">` : `<span class="ph">${esc(h.name[0])}</span>`;
     return `<div class="p-cell b-cell" data-pick="${i}" title="点击换人">
-        <div class="b-avatar" data-av="${esc(av || '')}">${img}</div>
+        <div class="b-avatar" data-av="${esc(av)}">${img}</div>
         <div class="b-info">
             <div class="b-name">${esc(h.name)}</div>
             <div class="b-edit-rows">
                 <div class="b-lv-pair">
-                    <div class="b-lv-row" data-edit="level" data-slot="${i}"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b></div>
+                    <div class="b-lv-row" data-edit="level" data-slot="${i}"><b class="ie" data-edit="level" data-slot="${i}">${esc(h.level)}</b></div><span class="b-plus">+</span>
                     <div class="b-lv-row" data-edit="xiuwei" data-slot="${i}"><b class="ie" data-edit="xiuwei" data-slot="${i}">${esc(h.xiuwei)}</b></div>
                 </div>
                 <div class="b-stars" data-edit="hua" data-slot="${i}" title="点击选择星级">${starRowHtml(h, i)}</div>
@@ -2668,7 +2660,7 @@ function renderPreview() {
         <span class="sub" id="subLine" style="display:none"></span>
     </div>
     ${teamHtml}
-    <div class="foot">密探图片 & 数值源自「代号鸢BWIKI」 图鉴 / 数值 / 文案 / 剧情 · wiki.biligame.com/yuan</div>`;
+    <div class="foot"></div>`;
 }
 /* 点击标题切换 代号鸢 / 如鸢（与操作记录器一致） */
 function toggleGameName() {
@@ -2693,7 +2685,7 @@ function reorderRender() {
     list.innerHTML = state.team.map((h, i) => `
         <div class="reorder-item" data-idx="${i}">
             <span class="reorder-no">${i + 1}</span>
-            <img class="reorder-avatar" src="${thumbUrl(h.avatar, 120)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+            <img class="reorder-avatar" src="${h.avatar || ''}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
             <span class="reorder-name">${esc(h.name)}</span>
             <span class="reorder-actions">
                 <button class="reorder-up" data-idx="${i}" ${i === 0 ? 'disabled' : ''}>↑</button>
@@ -3584,7 +3576,7 @@ function renderSelectGrid() {
         const picked = pi >= 0;
         const div = document.createElement('div');
         div.className = 'pick-item' + (picked ? ' picked' : '');
-        div.innerHTML = `<img class="pick-avatar" src="${thumbUrl(m.avatar, 160)}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` +
+        div.innerHTML = `<img class="pick-avatar" src="${m.avatar || ''}" alt="" loading="lazy" decoding="async" onerror="this.style.display='none'">` +
             (picked ? `<b class="pick-no">${pi + 1}</b>` : '') +
             `<span class="pick-name">${esc(m.name)}</span>`;
         div.onclick = () => togglePick(m);
@@ -3857,7 +3849,8 @@ async function exportImage() {
     frame.style.left = '0';
     frame.style.top = '0';
     frame.style.margin = '0';
-    frame.style.width = Math.min(480, document.documentElement.clientWidth) + 'px';
+    // 540px 设计宽 + scale 2 = 1080px 输出（fixed 定位不受视口限制，手机也不会出框）
+    frame.style.width = '540px';
     frame.style.maxWidth = 'none';
     btn.textContent = '生成中...';
     const restore = () => {
@@ -3878,11 +3871,11 @@ async function exportImage() {
         frame.style.maxWidth = fStyle.maxW;
     };
     // 6. 预加载头像（带 CORS），提高 iOS 导出成功率
-    await Promise.all(state.team.map(h => loadAvatar(thumbUrl(h.avatar, 200))));
+    await Promise.all(state.team.map(h => loadAvatar(h.avatar || '')));
     // 7. 截取：每档带超时保护（iOS 上 html2canvas 可能挂起不返回，超时视为失败降档）；
     //    iOS 直接用低 scale，避免大画布内存卡死
-    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent || '');
-    const scaleSeq = isIOS ? [1, 1.5] : [2, 1.5, 1];
+    // 所有设备统一从 scale 2 开始（保证导出图清晰度）；超时/失败逐档降级保底，iOS 也能出图
+    const scaleSeq = [2, 1.5, 1];
     let canvas = null;
     let lastErr = null;
     let failMsg = null;
@@ -3895,7 +3888,8 @@ async function exportImage() {
                     html2canvas(frame, {
                         backgroundColor: '#F2E8DF',
                         scale: s,
-                        useCORS: true
+                        useCORS: true,
+                        imageTimeout: 8000   // 图片加载超时即失败走降级，避免 iOS 挂起
                     }),
                     timeout
                 ]);
